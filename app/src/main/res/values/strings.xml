@@ -8,4 +8,5 @@
     <string name="quit_text_button">Quit</string>
     <string name="start_game_button_text">Start Game</string>
     <string name="random_gm_text_button">Randomize Game Master</string>
+    <string name="edit_text_button">Edit</string>
 </resources>

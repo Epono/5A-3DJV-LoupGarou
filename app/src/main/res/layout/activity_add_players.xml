@@ -33,6 +33,16 @@
         android:text="@string/start_game_button_text"
         android:enabled="false"/>
 
+    <CheckBox
+        android:id="@+id/edit_player_list_button"
+        android:text="@string/edit_text_button"
+        android:layout_below="@+id/list_of_player_label"
+        android:layout_alignBaseline="@id/button_start_game"
+        android:layout_toRightOf="@id/button_start_game"
+        android:layout_marginLeft="50sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
     <!--BUTTON ADD PLAYER-->
     <Button
