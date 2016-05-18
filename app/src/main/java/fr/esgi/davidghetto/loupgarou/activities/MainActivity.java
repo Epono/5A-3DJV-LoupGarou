@@ -1,12 +1,12 @@
 package fr.esgi.davidghetto.loupgarou.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import fr.esgi.davidghetto.loupgarou.database.UserDB;
+import fr.esgi.davidghetto.loupgarou.logic.User;
 import fr.esgi.davidghetto.loupgarou.R;
-import fr.esgi.davidghetto.loupgarou.activities.database.UserDB;
-import fr.esgi.davidghetto.loupgarou.activities.logic.User;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //testDB();
     }
 
     public void testDB() {

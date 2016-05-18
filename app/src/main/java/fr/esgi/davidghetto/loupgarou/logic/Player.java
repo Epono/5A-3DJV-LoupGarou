@@ -1,4 +1,4 @@
-package fr.esgi.davidghetto.loupgarou.activities.logic;
+package fr.esgi.davidghetto.loupgarou.logic;
 
 public class Player {
     private User user;

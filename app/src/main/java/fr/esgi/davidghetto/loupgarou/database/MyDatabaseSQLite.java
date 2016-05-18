@@ -1,4 +1,4 @@
-package fr.esgi.davidghetto.loupgarou.activities.database;
+package fr.esgi.davidghetto.loupgarou.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
