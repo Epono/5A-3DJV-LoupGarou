@@ -1,21 +1,38 @@
 package fr.esgi.davidghetto.loupgarou.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import fr.esgi.davidghetto.loupgarou.R;
 import fr.esgi.davidghetto.loupgarou.activities.database.UserDB;
 import fr.esgi.davidghetto.loupgarou.activities.logic.User;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
+    private Button playButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //testDB();
+        playButton = (Button) findViewById(R.id.play_button);
+        if(playButton != null)
+            playButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == playButton){
+            Intent playIntent = new Intent(this, AddPlayerActivity.class);
+            startActivity(playIntent);
+
+            finish();
+        }
     }
 
     public void testDB() {
