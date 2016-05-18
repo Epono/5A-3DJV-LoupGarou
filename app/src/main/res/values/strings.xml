@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Werewolf</string>
-    <string name="app_title">Werewolf</string>
-    <string name="button_add_player_text">Add playerGame</string>
-    <string name="label_liste_des_joueurs">List of playerGames</string>
+    <string name="app_title">Werewolves</string>
+    <string name="button_add_player_text">Add player</string>
+    <string name="label_player_list">List of players</string>
     <string name="play_text_button">Play</string>
     <string name="player_name_hint">Player\'s name</string>
     <string name="quit_text_button">Quit</string>

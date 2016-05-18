@@ -10,7 +10,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="@string/label_liste_des_joueurs"
+        android:text="@string/label_player_list"
         android:textSize="45dp" />
 
     <!--INPUT TEXTBOX PLAYER NAME-->

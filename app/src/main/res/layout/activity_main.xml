@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:background="@android:color/holo_red_dark">
 
-
     <TextView
         android:id="@+id/title_text"
         android:gravity="center"
@@ -17,15 +16,12 @@
         android:layout_height="wrap_content"
         android:text="@string/app_title" />
 
-
     <ImageView
         android:background="@drawable/loup_garou"
         android:layout_centerHorizontal="true"
         android:layout_above="@id/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-
 
     <Button
         android:id="@+id/play_button"
@@ -34,6 +30,5 @@
         android:layout_below="@id/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
 
 </RelativeLayout>
