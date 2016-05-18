@@ -1,24 +1,24 @@
-package fr.esgi.davidghetto.loupgarou.activities.logic;
+package fr.esgi.davidghetto.loupgarou.logic;
 
 import java.util.List;
 
 public class Game {
-    private Player gameMaster;
-    private List<Player> players;
+    private PlayerGame gameMaster;
+    private List<PlayerGame> playerGames;
     private int turn;
     private int numberOfHumansAlive;
     private int numberOfWerewolvesAlive;
 
-    // Le maitre de jeu ne fait pas partie de la liste "players"
-    public Game(User gameMaster, List<Player> players) {
-        this.gameMaster = new Player(gameMaster, Role.GAME_MASTER);
-        this.players = players;
+    // Le maitre de jeu ne fait pas partie de la liste "playerGames"
+    public Game(User gameMaster, List<PlayerGame> playerGames) {
+        this.gameMaster = new PlayerGame(gameMaster, Role.GAME_MASTER);
+        this.playerGames = playerGames;
         this.turn = 0;
         this.numberOfHumansAlive = 0;
         this.numberOfWerewolvesAlive = 0;
 
-        for (Player player : players) {
-            if (player.getRole() == Role.WEREWOLF) {
+        for (PlayerGame playerGame : playerGames) {
+            if (playerGame.getRole() == Role.WEREWOLF) {
                 this.numberOfWerewolvesAlive++;
             } else {
                 this.numberOfHumansAlive++;
@@ -31,25 +31,25 @@ public class Game {
         while (numberOfHumansAlive > 0 && numberOfWerewolvesAlive > 0) {
 
             // Chaque joueur vivant peut rejouer et voter
-            for (Player player : players) {
-                if (player.isAlive()) {
-                    player.setCanPlayThisTurn(true);
-                    player.setCanVoteThisTurn(true);
+            for (PlayerGame playerGame : playerGames) {
+                if (playerGame.isAlive()) {
+                    playerGame.setCanPlayThisTurn(true);
+                    playerGame.setCanVoteThisTurn(true);
                 }
             }
 
             // TODO: Action des loups garous
-            for (Player player : players) {
-                if (player.getRole() == Role.WEREWOLF) {
+            for (PlayerGame playerGame : playerGames) {
+                if (playerGame.getRole() == Role.WEREWOLF) {
                     // TODO: demander qui ils veulent tuer
-                    player.setCanPlayThisTurn(false);
+                    playerGame.setCanPlayThisTurn(false);
                 }
             }
 
             // TODO: Evenement de nuit (prendre un joueur au hasard qui peut jouer de nuit ?)
-            for (Player player : players) {
-                if (player.canPlayAtNight()) {
-                    switch (player.getRole()) {
+            for (PlayerGame playerGame : playerGames) {
+                if (playerGame.canPlayAtNight()) {
+                    switch (playerGame.getRole()) {
                         case HUNTER:
                             break;
                         case MEDIUM:
@@ -58,7 +58,7 @@ public class Game {
                             break;
                     }
                 }
-                player.setCanPlayThisTurn(false);
+                playerGame.setCanPlayThisTurn(false);
             }
 
             // Fin de tour / Jour

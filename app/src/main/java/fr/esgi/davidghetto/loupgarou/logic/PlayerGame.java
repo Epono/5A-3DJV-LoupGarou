@@ -1,6 +1,6 @@
-package fr.esgi.davidghetto.loupgarou.activities.logic;
+package fr.esgi.davidghetto.loupgarou.logic;
 
-public class Player {
+public class PlayerGame {
     private User user;
     private Role role;
     private boolean isAlive;
@@ -8,7 +8,7 @@ public class Player {
     private boolean canVoteThisTurn;
     private boolean canPlayAtNight;
 
-    public Player(User user, Role role) {
+    public PlayerGame(User user, Role role) {
         this.user = user;
         this.role = role;
         this.isAlive = true;
@@ -72,7 +72,7 @@ public class Player {
 
     @Override
     public String toString() {
-        return "Player{" +
+        return "PlayerGame{" +
                 "user=" + user +
                 ", role=" + role +
                 ", isAlive=" + isAlive +

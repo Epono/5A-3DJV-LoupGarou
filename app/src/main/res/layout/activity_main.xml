@@ -6,12 +6,6 @@
     android:orientation="vertical"
     android:background="@android:color/holo_red_dark">
 
-    <ImageView
-        android:background="@drawable/loup_garou"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@id/title_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/title_text"
@@ -23,6 +17,16 @@
         android:layout_height="wrap_content"
         android:text="@string/app_title" />
 
+
+    <ImageView
+        android:background="@drawable/loup_garou"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
     <Button
         android:id="@+id/play_button"
         android:text="@string/play_text_button"
@@ -31,11 +35,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/quit_button"
-        android:text="@string/quit_text_button"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/play_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
 </RelativeLayout>

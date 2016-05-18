@@ -1,11 +1,11 @@
-package fr.esgi.davidghetto.loupgarou.activities.database;
+package fr.esgi.davidghetto.loupgarou.database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import fr.esgi.davidghetto.loupgarou.activities.logic.User;
+import fr.esgi.davidghetto.loupgarou.logic.User;
 
 public class UserDB {
 
