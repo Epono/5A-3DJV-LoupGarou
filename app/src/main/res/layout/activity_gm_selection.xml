@@ -3,7 +3,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/label_selection_mj"
+        android:id="@+id/label_selection_gm"
         android:text="Game Master Selection"
         android:textSize="45dp"
         android:layout_centerHorizontal="true"
@@ -13,16 +13,20 @@
         />
 
     <Button
-        android:id="@+id/randomize_mj_button"
-        android:text="@string/random_mj_text_button"
+        android:id="@+id/randomize_gm_button"
+        android:text="@string/random_gm_text_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/label_selection_mj"/>
+        android:layout_below="@id/label_selection_gm"/>
 
     <Button
+        android:id="@+id/vote_gm_button"
+        android:text="Vote for game master"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/randomize_gm_button"/>
 
 
 </RelativeLayout>
