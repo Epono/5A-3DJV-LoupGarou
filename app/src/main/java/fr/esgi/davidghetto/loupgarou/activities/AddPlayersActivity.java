@@ -29,6 +29,11 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_players);
 
+        playerListView = (ListViewCompat) findViewById(R.id.player_list_view);
+        playerEditText = (EditText) findViewById(R.id.player_add_text);
+        playerAddButton = (Button) findViewById(R.id.button_add_player);
+        editModeCheckbox = (CheckBox) findViewById(R.id.edit_player_list_button);
+
         if (playerAddButton != null) {
             playerAddButton.setOnClickListener(this);
         }
