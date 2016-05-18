@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"    android:layout_height="match_parent">
+<TextView
+    android:text="@string/label_liste_des_joueurs"
+    android:textSize="45px"
+    android:layout_gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+<EditText
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"/>
+
+
+<Button
+    android:text="@string/button_add_player_text"
+    android:layout_gravity="center"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentBottom="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+</RelativeLayout>
