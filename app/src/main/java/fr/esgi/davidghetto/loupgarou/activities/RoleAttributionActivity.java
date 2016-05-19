@@ -1,5 +1,6 @@
 package fr.esgi.davidghetto.loupgarou.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -40,14 +41,19 @@ public class RoleAttributionActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    if(RoleAttributionActivity.this.iterator.hasNext()) {
+                    if (RoleAttributionActivity.this.iterator.hasNext()) {
                         Player player = iterator.next();
 
                         playersNameText.setText(player.getName());
-                        playersRoleNameText.setText(player.getRole().getName());
+                        playersRoleNameText.setText(getResources().getString(player.getRole().getName()));
+                        playersRoleImage.setImageDrawable(player.getRole().getDrawableRes());
+
 
                     } else {
+                        Intent firstTurnActivity = new Intent(RoleAttributionActivity.this, FirstTurnActivity.class);
+                        startActivity(firstTurnActivity);
 
+                        finish();
                     }
                 }
             });
