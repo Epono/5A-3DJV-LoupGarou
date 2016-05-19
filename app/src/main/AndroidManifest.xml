@@ -16,13 +16,8 @@
             </intent-filter>
         </activity>
 
-<<<<<<< HEAD
-        <activity android:name=".activities.RoleSelectionActivity" android:screenOrientation="landscape"></activity>
-        <activity android:name=".activities.AddPlayersActivity" android:windowSoftInputMode="adjustResize"/>
-=======
-        <activity android:name=".activities.AddPlayersActivity"/>
-        <activity android:name=".activities.RoleSelectionActivity" android:screenOrientation="landscape"/>
->>>>>>> b83a4bf98103a6a5df88d40f78fb914cb3e72784
+        <activity android:name=".activities.AddPlayersActivity" android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".activities.RoleSelectionActivity"/>
     </application>
 
 </manifest>
