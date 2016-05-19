@@ -85,7 +85,8 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
                     players.add(playersAdapter.getItem(i));
                 }
                 toRolePickActivityIntent.putParcelableArrayListExtra("players", players);
-                startActivityForResult(toRolePickActivityIntent, ROLE_REQUEST_CODE);
+                startActivity(toRolePickActivityIntent);
+                finish();
             }
         }
     }

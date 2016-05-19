@@ -16,4 +16,8 @@
     <string name="role_werewolf">Werewolf</string>
     <string name="role_seer">Seer</string>
     <string name="role_villager">Villager</string>
+    <string name="role_cupidon">Cupidon</string>
+    <string name="role_hunter">Hunter</string>
+    <string name="role_witch">Witch</string>
+    <string name="role_little_girl">Little Girl</string>
 </resources>

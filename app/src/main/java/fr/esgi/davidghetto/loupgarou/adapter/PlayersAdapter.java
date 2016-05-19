@@ -32,9 +32,6 @@ public class PlayersAdapter extends ArrayAdapter<Player> {
         TextView playerName = (TextView) convertView.findViewById(R.id.player_name_text_view);
         playerName.setText(player.getName());
 
-       // ImageView roleImage = (ImageView) convertView.findViewById(R.id.role_image_view);
-       // roleImage.setImageResource(player.getRole().getDrawableRes());
-
         Button buttonDelete = (Button) convertView.findViewById(R.id.delete_player_button);
         buttonDelete.setVisibility(inEditMode ? View.VISIBLE : View.GONE);
         buttonDelete.setOnClickListener(new View.OnClickListener() {
