@@ -28,8 +28,11 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
     private Button playerAddButton;
     private CheckBox editModeCheckbox;
     private Button startGameButton;
+<<<<<<< HEAD
 
     public PlayersAdapter playersAdapter;
+=======
+>>>>>>> b83a4bf98103a6a5df88d40f78fb914cb3e72784
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
         playerListView = (ListViewCompat) findViewById(R.id.player_list_view);
         playerEditText = (EditText) findViewById(R.id.player_add_text);
         playerAddButton = (Button) findViewById(R.id.button_add_player);
+        startGameButton = (Button) findViewById(R.id.button_start_game);
         editModeCheckbox = (CheckBox) findViewById(R.id.edit_player_list_button);
         startGameButton = (Button) findViewById(R.id.button_start_game);
 
@@ -84,6 +88,22 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
                 startActivity(toRolePickActivityIntent);
                 finish();
             }
+        }
+
+       /* if(playersAdapter.getCount() >= 5)
+        {*/
+            startGameButton.setEnabled(true);
+        /*}
+        else
+        {
+            startGameButton.setEnabled(false);
+        }*/
+
+        if(v == startGameButton)
+        {
+            Intent playIntent = new Intent(this, RoleSelectionActivity.class);
+            startActivity(playIntent);
+            finish();
         }
     }
 
