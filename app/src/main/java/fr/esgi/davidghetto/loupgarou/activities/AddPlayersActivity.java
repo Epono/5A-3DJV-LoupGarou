@@ -22,17 +22,16 @@ import fr.esgi.davidghetto.loupgarou.models.Player;
 public class AddPlayersActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     public static final int NB_MIN_PLAYER = 7;
+    private static final int ROLE_REQUEST_CODE = 1;
 
     private ListViewCompat playerListView;
     private EditText playerEditText;
     private Button playerAddButton;
     private CheckBox editModeCheckbox;
     private Button startGameButton;
-<<<<<<< HEAD
+    private PlayersAdapter playersAdapter;
 
-    public PlayersAdapter playersAdapter;
-=======
->>>>>>> b83a4bf98103a6a5df88d40f78fb914cb3e72784
+    private ArrayList<Player> players;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +44,8 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
         startGameButton = (Button) findViewById(R.id.button_start_game);
         editModeCheckbox = (CheckBox) findViewById(R.id.edit_player_list_button);
         startGameButton = (Button) findViewById(R.id.button_start_game);
+
+        players = new ArrayList<>();
 
         if (playerAddButton != null) {
             playerAddButton.setOnClickListener(this);
@@ -80,13 +81,11 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
         } else if(v == startGameButton){
             if(playersAdapter.getCount() >= NB_MIN_PLAYER){
                 Intent toRolePickActivityIntent = new Intent(this, RoleSelectionActivity.class);
-                ArrayList<Player> players = new ArrayList<Player>();
                 for(int i = 0; i < playersAdapter.getCount(); i++){
                     players.add(playersAdapter.getItem(i));
                 }
                 toRolePickActivityIntent.putParcelableArrayListExtra("players", players);
-                startActivity(toRolePickActivityIntent);
-                finish();
+                startActivityForResult(toRolePickActivityIntent, ROLE_REQUEST_CODE);
             }
         }
 
@@ -110,5 +109,19 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         playersAdapter.setEditMode(isChecked);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case ROLE_REQUEST_CODE:
+                if (resultCode == RESULT_OK){
+                    players = data.getParcelableArrayListExtra("players");
+                } else {
+                    Toast.makeText(this, "Gallery Activity sucks, gave me no image !!", Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

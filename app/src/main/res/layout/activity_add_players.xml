@@ -3,16 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/game_master_text_view"
-        android:text="@string/game_master_short"
-        android:textSize="25dp"
-        android:layout_margin="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"/>
-
     <!-- BUTTON START GAME -->
     <Button
         android:id="@+id/button_start_game"
