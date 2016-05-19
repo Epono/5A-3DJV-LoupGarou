@@ -16,8 +16,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.AddPlayersActivity"/>
-        <activity android:name=".activities.RoleSelectionActivity" android:screenOrientation="landscape"/>
+        <activity android:name=".activities.AddPlayersActivity" android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".activities.RoleSelectionActivity"/>
     </application>
 
 </manifest>

@@ -1,93 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <HorizontalScrollView
+        android:id="@+id/role_cards_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+        <LinearLayout
+            android:id="@+id/layout_scroll"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-<HorizontalScrollView
-    android:layout_width="match_parent"
-    android:layout_height="320px">
-    <LinearLayout
-        android:id="@+id/layout_scroll"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/image_werewolf_button"
+                android:background="@drawable/werewolf"
+                android:layout_centerHorizontal="false"
+                android:layout_width="300px"
+                android:layout_height="300px"
+                android:clickable="true" />
 
-        <ImageView
-            android:id="@+id/image_werewolf_button"
-            android:background="@drawable/werewolf"
-            android:layout_centerHorizontal="false"
-            android:layout_width="300px"
-            android:layout_height="300px"
-            android:clickable="true"
-            />
+            <ImageView
+                android:id="@+id/image_villager_button"
+                android:background="@drawable/paysan"
+                android:layout_centerHorizontal="false"
+                android:layout_width="300px"
+                android:layout_height="300px"
+                android:layout_toRightOf="@id/image_werewolf_button"
+                android:clickable="true" />
 
-        <ImageView
-            android:id="@+id/image_villager_button"
-            android:background="@drawable/paysan"
-            android:layout_centerHorizontal="false"
-            android:layout_width="300px"
-            android:layout_height="300px"
-            android:layout_toRightOf="@id/image_werewolf_button"
-            android:clickable="true"/>
+            <ImageView
+                android:id="@+id/image_cupidon_button"
+                android:background="@drawable/cupidon"
+                android:layout_width="300px"
+                android:layout_height="300px"
+                android:layout_toRightOf="@id/image_villager_button"
+                android:clickable="true"/>
 
-        <ImageView
-            android:id="@+id/image_cupidon_button"
-            android:background="@drawable/cupidon"
-            android:layout_width="300px"
-            android:layout_height="300px"
-            android:layout_toRightOf="@id/image_villager_button"
-            android:clickable="true"/>
+            <ImageView
+                android:id="@+id/image_voyante_button"
+                android:background="@drawable/voyante"
+                android:layout_width="300px"
+                android:layout_height="300px"
+                android:layout_toRightOf="@id/image_cupidon_button"
+                android:clickable="true"/>
 
+            <ImageView
+                android:id="@+id/image_hunter_button"
+                android:background="@drawable/hunter"
+                android:layout_width="300px"
+                android:layout_height="300px"
+                android:layout_toRightOf="@id/image_voyante_button"
+                android:clickable="true"/>
 
-        <ImageView
-            android:id="@+id/image_voyante_button"
-            android:background="@drawable/voyante"
-            android:layout_width="300px"
-            android:layout_height="300px"
-            android:layout_toRightOf="@id/image_cupidon_button"
-            android:clickable="true"/>
+            <ImageView
+                android:id="@+id/image_little_girl_button"
+                android:background="@drawable/little_girl"
+                android:layout_width="300px"
+                android:layout_height="300px"
+                android:layout_toRightOf="@id/image_hunter_button"
+                android:clickable="true"/>
 
+            <ImageView
+                android:id="@+id/image_witch_button"
+                android:background="@drawable/witch"
+                android:layout_width="300px"
+                android:layout_height="300px"
+                android:layout_toRightOf="@id/image_little_girl_button"
+                android:clickable="true"/>
 
-        <ImageView
-            android:id="@+id/image_hunter_button"
-            android:background="@drawable/hunter"
-            android:layout_width="300px"
-            android:layout_height="300px"
-            android:layout_toRightOf="@id/image_voyante_button"
-            android:clickable="true"/>
-
-        <ImageView
-            android:id="@+id/image_little_girl_button"
-            android:background="@drawable/little_girl"
-            android:layout_width="300px"
-            android:layout_height="300px"
-            android:layout_toRightOf="@id/image_hunter_button"
-            android:clickable="true"/>
-
-        <ImageView
-            android:id="@+id/image_witch_button"
-            android:background="@drawable/witch"
-            android:layout_width="300px"
-            android:layout_height="300px"
-            android:layout_toRightOf="@id/image_little_girl_button"
-            android:clickable="true"/>
-
-        <ImageView
-            android:id="@+id/image_thief_button"
-            android:background="@drawable/thief"
-            android:layout_width="300px"
-            android:layout_height="300px"
-            android:layout_toRightOf="@id/image_witch_button"
-            android:clickable="true"/>
-
-    </LinearLayout>
-</HorizontalScrollView>
+            <ImageView
+                android:id="@+id/image_thief_button"
+                android:background="@drawable/thief"
+                android:layout_width="300px"
+                android:layout_height="300px"
+                android:layout_toRightOf="@id/image_witch_button"
+                android:clickable="true"/>
+        </LinearLayout>
+    </HorizontalScrollView>
     <TextView
-        android:text="DESCRIPTION OF THE ROLES"
+        android:text="TITRE CARTE"
         android:textSize="30dp"
         android:id="@+id/title_text"
-        android:layout_gravity="center"
-        android:layout_below="@id/image_thief_button"
+        android:layout_below="@+id/role_cards_scroll_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -95,16 +90,15 @@
         android:text="Card text"
         android:textSize="30dp"
         android:id="@+id/card_description_text"
-        android:layout_gravity="center"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/launch_game_button"
         android:text="@string/start_the_game_text_button"
-        android:layout_gravity="center"
-        android:layout_below="@id/card_description_text"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-</LinearLayout>
+</RelativeLayout>

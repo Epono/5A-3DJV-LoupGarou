@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import fr.esgi.davidghetto.loupgarou.R;
+import fr.esgi.davidghetto.loupgarou.activities.AddPlayersActivity;
 import fr.esgi.davidghetto.loupgarou.models.Player;
 
 
@@ -40,6 +41,9 @@ public class PlayersAdapter extends ArrayAdapter<Player> {
             @Override
             public void onClick(View v) {
                 remove(player);
+                if(getCount() < AddPlayersActivity.NB_MIN_PLAYER){
+
+                }
             }
         });
 

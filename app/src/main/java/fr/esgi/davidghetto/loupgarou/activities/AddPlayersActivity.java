@@ -13,18 +13,25 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import fr.esgi.davidghetto.loupgarou.R;
 import fr.esgi.davidghetto.loupgarou.adapter.PlayersAdapter;
 import fr.esgi.davidghetto.loupgarou.models.Player;
 
 public class AddPlayersActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
+    public static final int NB_MIN_PLAYER = 7;
+    private static final int ROLE_REQUEST_CODE = 1;
+
     private ListViewCompat playerListView;
     private EditText playerEditText;
     private Button playerAddButton;
-    private PlayersAdapter playersAdapter;
     private CheckBox editModeCheckbox;
     private Button startGameButton;
+    private PlayersAdapter playersAdapter;
+
+    private ArrayList<Player> players;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +43,9 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
         playerAddButton = (Button) findViewById(R.id.button_add_player);
         startGameButton = (Button) findViewById(R.id.button_start_game);
         editModeCheckbox = (CheckBox) findViewById(R.id.edit_player_list_button);
+        startGameButton = (Button) findViewById(R.id.button_start_game);
+
+        players = new ArrayList<>();
 
         if (playerAddButton != null) {
             playerAddButton.setOnClickListener(this);
@@ -62,14 +72,21 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        String playerName = playerEditText.getText().toString();
-        if (!playerName.isEmpty()) {
-            playersAdapter.add(new Player(playerName));
-            playerEditText.getText().clear();
-        }
-
-        for (int i = 0; i < playersAdapter.getCount(); i++) {
-            playersAdapter.getItem(i);
+        if(v == playerAddButton) {
+            String playerName = playerEditText.getText().toString();
+            if (!playerName.isEmpty()) {
+                playersAdapter.add(new Player(playerName));
+                playerEditText.getText().clear();
+            }
+        } else if(v == startGameButton){
+            if(playersAdapter.getCount() >= NB_MIN_PLAYER){
+                Intent toRolePickActivityIntent = new Intent(this, RoleSelectionActivity.class);
+                for(int i = 0; i < playersAdapter.getCount(); i++){
+                    players.add(playersAdapter.getItem(i));
+                }
+                toRolePickActivityIntent.putParcelableArrayListExtra("players", players);
+                startActivityForResult(toRolePickActivityIntent, ROLE_REQUEST_CODE);
+            }
         }
 
        /* if(playersAdapter.getCount() >= 5)
@@ -92,5 +109,19 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         playersAdapter.setEditMode(isChecked);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case ROLE_REQUEST_CODE:
+                if (resultCode == RESULT_OK){
+                    players = data.getParcelableArrayListExtra("players");
+                } else {
+                    Toast.makeText(this, "Gallery Activity sucks, gave me no image !!", Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

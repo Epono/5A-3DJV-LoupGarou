@@ -3,15 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/list_of_player_label"
+    <!-- BUTTON START GAME -->
+    <Button
+        android:id="@+id/button_start_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="@string/label_player_list"
-        android:textSize="45dp" />
+        android:text="@string/start_game_button_text" />
+
+    <CheckBox
+        android:id="@+id/edit_player_list_button"
+        android:text="@string/edit_text_button"
+        android:layout_alignBaseline="@id/button_start_game"
+        android:layout_toRightOf="@id/button_start_game"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <!--INPUT TEXTBOX PLAYER NAME-->
     <EditText
@@ -19,29 +26,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="60dp"
+        android:layout_alignParentLeft="true"
         android:width="200dp"
         android:hint="@string/player_name_hint" />
 
-    <!-- BUTTON START GAME -->
-    <Button
-        android:id="@+id/button_start_game"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/list_of_player_label"
-        android:layout_centerHorizontal="true"
-        android:text="@string/start_game_button_text"
-        android:enabled="false"/>
-
-    <CheckBox
-        android:id="@+id/edit_player_list_button"
-        android:text="@string/edit_text_button"
-        android:layout_below="@+id/list_of_player_label"
-        android:layout_alignBaseline="@id/button_start_game"
-        android:layout_toRightOf="@id/button_start_game"
-        android:layout_marginLeft="50sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <!--LIST PLAYER-->
+    <android.support.v7.widget.ListViewCompat
+        android:id="@+id/player_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/player_add_text"
+        android:layout_below="@id/button_start_game"
+        android:layout_marginBottom="5dp" />
 
 
     <!--BUTTON ADD PLAYER-->
@@ -54,14 +50,5 @@
         android:layout_gravity="center"
         android:layout_marginRight="10dp"
         android:text="@string/button_add_player_text" />
-
-    <!--LIST PLAYER-->
-    <android.support.v7.widget.ListViewCompat
-        android:id="@+id/player_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/player_add_text"
-        android:layout_below="@id/button_start_game"
-        android:layout_marginBottom="5dp" />
 
 </RelativeLayout>
