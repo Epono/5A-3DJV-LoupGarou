@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import fr.esgi.davidghetto.loupgarou.R;
 import fr.esgi.davidghetto.loupgarou.models.Player;
@@ -47,11 +48,30 @@ public class RoleAttributionActivity extends AppCompatActivity {
         players = getIntent().getExtras().getParcelableArrayList("players");
         iterator = players.iterator();
 
-        for(Player player : players) {
-            //TODO: choisir le role
-            // Si y'a amoureux, les désigner aléatoirement
-           // player.setRole(Role.);
-            //
+        // TODO
+        boolean lovers = true;
+        roles = new ArrayList<Role>();
+        roles.add(Role.CUPIDON);
+        roles.add(Role.LITTLE_GIRL);
+        roles.add(Role.WITCH);
+
+        Random r = new Random();
+
+        // Si y'a amoureux, les désigner aléatoirement
+        if (lovers) {
+            players.get(r.nextInt(players.size())).setLover(true);
+        }
+
+        // Choisir un nombre de loups en fonction du nombre de joueurs (environ 1/3)
+        int numberOfWerewolves = players.size() / 3;
+        for (int i = 0; i < numberOfWerewolves; ++i) {
+            players.get(r.nextInt(players.size())).setRole(Role.WEREWOLF);
+        }
+
+        // Pour chaque role spécial restant, affecter un joueur aléatoirement
+        for (Role role : roles) {
+            if (role == Role.CUPIDON || role == Role.HUNTER || role == Role.LITTLE_GIRL || role == Role.SEER || role == Role.WITCH)
+                players.get(r.nextInt(players.size())).setRole(role);
         }
 
         df.setMaximumFractionDigits(1);

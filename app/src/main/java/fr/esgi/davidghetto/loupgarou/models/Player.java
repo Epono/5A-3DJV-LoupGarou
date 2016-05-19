@@ -7,17 +7,20 @@ public class Player implements Parcelable {
     private String name;
     private Role role;
     private boolean isAlive;
+    private boolean isLover;
 
     public Player(String name) {
         this.name = name;
         role = Role.VILLAGER;
         isAlive = true;
+        isLover = false;
     }
 
     protected Player(Parcel in) {
         name = in.readString();
         role = (Role) in.readValue(Role.class.getClassLoader());
         isAlive = in.readByte() != 0x00;
+        isLover = in.readByte() != 0x00;
     }
 
     public String getName() {
@@ -36,6 +39,14 @@ public class Player implements Parcelable {
 
     public void setAlive(boolean alive) {
         isAlive = alive;
+    }
+
+    public boolean isLover() {
+        return isLover;
+    }
+
+    public void setLover(boolean lover) {
+        isLover = lover;
     }
 
     public static final Creator<Player> CREATOR = new Creator<Player>() {
@@ -60,5 +71,6 @@ public class Player implements Parcelable {
         dest.writeString(name);
         dest.writeValue(role);
         dest.writeByte((byte) (isAlive ? 0x01 : 0x00));
+        dest.writeByte((byte) (isLover ? 0x01 : 0x00));
     }
 }
