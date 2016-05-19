@@ -1,5 +1,6 @@
 package fr.esgi.davidghetto.loupgarou.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
     private Button playerAddButton;
     private PlayersAdapter playersAdapter;
     private CheckBox editModeCheckbox;
+    private Button startGameButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
         playerListView = (ListViewCompat) findViewById(R.id.player_list_view);
         playerEditText = (EditText) findViewById(R.id.player_add_text);
         playerAddButton = (Button) findViewById(R.id.button_add_player);
+        startGameButton = (Button) findViewById(R.id.button_start_game);
         editModeCheckbox = (CheckBox) findViewById(R.id.edit_player_list_button);
 
         if (playerAddButton != null) {
@@ -40,6 +43,10 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
 
         if (editModeCheckbox != null) {
             editModeCheckbox.setOnCheckedChangeListener(this);
+        }
+
+        if(startGameButton != null){
+            startGameButton.setOnClickListener(this);
         }
 
         playersAdapter = new PlayersAdapter(this);
@@ -63,6 +70,22 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
 
         for (int i = 0; i < playersAdapter.getCount(); i++) {
             playersAdapter.getItem(i);
+        }
+
+       /* if(playersAdapter.getCount() >= 5)
+        {*/
+            startGameButton.setEnabled(true);
+        /*}
+        else
+        {
+            startGameButton.setEnabled(false);
+        }*/
+
+        if(v == startGameButton)
+        {
+            Intent playIntent = new Intent(this, RoleSelectionActivity.class);
+            startActivity(playIntent);
+            finish();
         }
     }
 
