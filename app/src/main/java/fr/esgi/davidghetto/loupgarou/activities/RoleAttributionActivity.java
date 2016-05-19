@@ -47,6 +47,13 @@ public class RoleAttributionActivity extends AppCompatActivity {
         players = getIntent().getExtras().getParcelableArrayList("players");
         iterator = players.iterator();
 
+        for(Player player : players) {
+            //TODO: choisir le role
+            // Si y'a amoureux, les désigner aléatoirement
+           // player.setRole(Role.);
+            //
+        }
+
         df.setMaximumFractionDigits(1);
 
         if (nextButton != null) {
@@ -88,11 +95,10 @@ public class RoleAttributionActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                //TODO: choisir le role
                 timerText.setVisibility(View.INVISIBLE);
                 playersRoleImage.setVisibility(View.VISIBLE);
                 nextButton.setEnabled(true);
-                playersRoleNameText.setText(getResources().getString(player.getRole().getName()));
+                playersRoleNameText.setText(getResources().getString(player.getRole().getNameRes()));
                 playersRoleImage.setImageDrawable(getResources().getDrawable(player.getRole().getDrawableRes()));
             }
         }.start();

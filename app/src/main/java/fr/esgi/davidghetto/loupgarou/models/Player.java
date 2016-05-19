@@ -30,6 +30,14 @@ public class Player implements Parcelable {
 
     public boolean isAlive() { return isAlive; }
 
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
+
     public static final Creator<Player> CREATOR = new Creator<Player>() {
         @Override
         public Player createFromParcel(Parcel in) {

@@ -14,21 +14,42 @@ public enum Role implements Parcelable {
     WITCH(R.drawable.witch, R.string.role_witch),
     LITTLE_GIRL(R.drawable.little_girl, R.string.role_little_girl);
 
-    private final int drawableRes;
-    private final int name;
+    private int drawableRes;
+    private int nameRes;
 
-    Role(int drawableRes, int name) {
+    Role(int drawableRes, int nameRes) {
         this.drawableRes = drawableRes;
-        this.name = name;
+        this.nameRes = nameRes;
     }
 
     public int getDrawableRes() {
         return drawableRes;
     }
 
-    public int getName() {
-        return name;
+    public int getNameRes() {
+        return nameRes;
     }
+
+    public void setDrawableRes(int drawableRes) {
+        this.drawableRes = drawableRes;
+    }
+
+    public void setNameRes(int nameRes) {
+        this.nameRes = nameRes;
+    }
+
+    public static final Parcelable.Creator<Role> CREATOR = new Parcelable.Creator<Role>() {
+        public Role createFromParcel(Parcel in) {
+            Role role = Role.values()[in.readInt()];
+            role.setDrawableRes(in.readInt());
+            role.setNameRes(in.readInt());
+            return role;
+        }
+
+        public Role[] newArray(int size) {
+            return new Role[size];
+        }
+    };
 
     @Override
     public int describeContents() {
@@ -36,7 +57,9 @@ public enum Role implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeInt(ordinal());
+        out.writeInt(drawableRes);
+        out.writeInt(nameRes);
     }
 }
