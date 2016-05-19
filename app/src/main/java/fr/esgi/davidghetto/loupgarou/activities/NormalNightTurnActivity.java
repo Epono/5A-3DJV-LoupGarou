@@ -1,5 +1,6 @@
 package fr.esgi.davidghetto.loupgarou.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -54,30 +55,34 @@ public class NormalNightTurnActivity extends AppCompatActivity implements View.O
 
     @Override
     public void onClick(View v) {
+        cpt++;
+        if (v == next_dialog && cpt == 1) {
+            //VOYANTE
+            // if (activeRoles.contains(Role.SEER)) {
+            text_to_display = "La voyante se réveille et désigne un joueur dont elle va pouvoir voir la carte";
+            actual_text_to_display.setText(text_to_display);
 
-            if(v== next_dialog) {
-                //VOYANTE
-               // if (activeRoles.contains(Role.SEER)) {
-                    text_to_display = "La voyante se réveille et désigne un joueur dont elle va pouvoir voir la carte";
-                    actual_text_to_display.setText(text_to_display);
+            // }
+        }
 
-               // }
-            }
-
-
+        if (v == next_dialog && cpt == 2) {
             //LOUP GAROU
             text_to_display = "Les loup garous se réveillent et désigner une cible a tuer";
             actual_text_to_display.setText(text_to_display);
+        }
 
-
-
-           /* if (activeRoles.contains(Role.WITCH)) {
+        if (v == next_dialog && cpt == 3){
+           // if (activeRoles.contains(Role.WITCH)) {
                 text_to_display = "La sorcière se réveille, elle peut sauver le vilageois désigner ou tuer une personne de son choix";
                 actual_text_to_display.setText(text_to_display);
-            }*/
+            //}
+    }
 
-
-
+        if(v == next_dialog && cpt == 4)
+        {
+            Intent DayTurnIntent = new Intent(this, NormalDayTurnActivity.class);
+            startActivity(DayTurnIntent);
+        }
 
             //finish();
         }

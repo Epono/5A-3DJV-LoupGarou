@@ -16,7 +16,7 @@ public class NormalDayTurnActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_night_normal_turn);
+        setContentView(R.layout.activity_day_normal_turn);
     }
 
     @Override
