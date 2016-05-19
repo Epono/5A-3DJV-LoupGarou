@@ -21,17 +21,22 @@ import fr.esgi.davidghetto.loupgarou.models.Role;
 
 public class RoleAttributionActivity extends AppCompatActivity {
 
+    enum State {
+        CARD_DISPLAYED, NAME_DISPLAYED
+    }
+
     private TextView playersNameText;
     private TextView playersRoleNameText;
     private ImageView playersRoleImage;
     private Button nextButton;
+    private TextView timerText;
+
+    private DecimalFormat df = new DecimalFormat();
+    private State currentState = State.CARD_DISPLAYED;
 
     public Iterator<Player> iterator;
     public ArrayList<Player> players;
     public ArrayList<Role> roles;
-    private TextView timerText;
-
-    DecimalFormat df = new DecimalFormat();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +52,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
         roles = getIntent().getExtras().getParcelableArrayList("roles");
         players = getIntent().getExtras().getParcelableArrayList("players");
         iterator = players.iterator();
+        currentPlayer = iterator.next();
 
         // TODO
         boolean lovers = true;
@@ -96,31 +102,44 @@ public class RoleAttributionActivity extends AppCompatActivity {
         displayNext();
     }
 
+    Player currentPlayer;
+
     public void displayNext() {
-        final Player player = iterator.next();
+        switch (currentState) {
+            case NAME_DISPLAYED:
+                // Timer puis afficher carte
+                timerText.setVisibility(View.VISIBLE);
+                playersRoleImage.setVisibility(View.INVISIBLE);
+                nextButton.setEnabled(false);
 
-        playersNameText.setText(player.getName());
-        playersRoleNameText.setText("");
-        playersRoleImage.setImageDrawable(null);
+                new CountDownTimer(2 * 1000, 100) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        timerText.setText(df.format((float) millisUntilFinished / 1000) + " s");
+                    }
 
-        timerText.setVisibility(View.VISIBLE);
-        playersRoleImage.setVisibility(View.INVISIBLE);
-        nextButton.setEnabled(false);
+                    @Override
+                    public void onFinish() {
+                        timerText.setVisibility(View.INVISIBLE);
+                        playersRoleImage.setVisibility(View.VISIBLE);
+                        nextButton.setEnabled(true);
+                        playersRoleNameText.setText(getResources().getString(currentPlayer.getRole().getNameRes()));
+                        playersRoleImage.setImageDrawable(getResources().getDrawable(currentPlayer.getRole().getDrawableRes()));
+                        currentState = State.CARD_DISPLAYED;
+                    }
+                }.start();
+                break;
+            case CARD_DISPLAYED:
+                // Cacher et afficher juste nouveau nom
+                currentPlayer = iterator.next();
 
-        new CountDownTimer(2 * 1000, 100) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                timerText.setText(df.format((float) millisUntilFinished / 1000) + " s");
-            }
+                playersNameText.setText(currentPlayer.getName());
+                playersRoleNameText.setText("");
+                playersRoleImage.setImageDrawable(null);
+                playersRoleImage.setVisibility(View.INVISIBLE);
 
-            @Override
-            public void onFinish() {
-                timerText.setVisibility(View.INVISIBLE);
-                playersRoleImage.setVisibility(View.VISIBLE);
-                nextButton.setEnabled(true);
-                playersRoleNameText.setText(getResources().getString(player.getRole().getNameRes()));
-                playersRoleImage.setImageDrawable(getResources().getDrawable(player.getRole().getDrawableRes()));
-            }
-        }.start();
+                currentState = State.NAME_DISPLAYED;
+                break;
+        }
     }
 }
