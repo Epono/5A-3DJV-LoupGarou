@@ -37,8 +37,8 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         if(v == startGameButton){
             Intent toRoleAttributionIntent = new Intent(this, RoleAttributionActivity.class);
-            toRoleAttributionIntent.putParcelableArrayListExtra("players", players);
-            toRoleAttributionIntent.putParcelableArrayListExtra("roles", roles);
+           toRoleAttributionIntent.putParcelableArrayListExtra("players", players);
+           toRoleAttributionIntent.putParcelableArrayListExtra("roles", roles);
             startActivity(toRoleAttributionIntent);
             finish();
         }
