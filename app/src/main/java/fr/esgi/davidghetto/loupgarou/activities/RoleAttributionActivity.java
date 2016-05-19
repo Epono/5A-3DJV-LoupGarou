@@ -38,6 +38,8 @@ public class RoleAttributionActivity extends AppCompatActivity {
     public ArrayList<Player> players;
     public ArrayList<Role> roles;
 
+    Player currentPlayer;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +54,6 @@ public class RoleAttributionActivity extends AppCompatActivity {
         roles = getIntent().getExtras().getParcelableArrayList("roles");
         players = getIntent().getExtras().getParcelableArrayList("players");
         iterator = players.iterator();
-        currentPlayer = iterator.next();
 
         // TODO
         boolean lovers = true;
@@ -65,7 +66,13 @@ public class RoleAttributionActivity extends AppCompatActivity {
 
         // Si y'a amoureux, les désigner aléatoirement
         if (lovers) {
-            players.get(r.nextInt(players.size())).setLover(true);
+            int lover1 = r.nextInt(players.size());
+            int lover2 = r.nextInt(players.size());
+            while (lover2 == lover1) {
+                lover2 = r.nextInt(players.size());
+            }
+            players.get(lover1).setLover(true);
+            players.get(lover2).setLover(true);
         }
 
         // Choisir un nombre de loups en fonction du nombre de joueurs (environ 1/3)
@@ -74,10 +81,15 @@ public class RoleAttributionActivity extends AppCompatActivity {
             players.get(r.nextInt(players.size())).setRole(Role.WEREWOLF);
         }
 
-        // Pour chaque role spécial restant, affecter un joueur aléatoirement
+        // Pour chaque role spécial restant, affecter à un villageois aléatoirement
         for (Role role : roles) {
-            if (role == Role.CUPIDON || role == Role.HUNTER || role == Role.LITTLE_GIRL || role == Role.SEER || role == Role.WITCH)
-                players.get(r.nextInt(players.size())).setRole(role);
+            if (role == Role.CUPIDON || role == Role.HUNTER || role == Role.LITTLE_GIRL || role == Role.SEER || role == Role.WITCH) {
+                Player p = players.get(r.nextInt(players.size()));
+                while (p.getRole() != Role.VILLAGER) {
+                    p = players.get(r.nextInt(players.size()));
+                }
+                p.setRole(role);
+            }
         }
 
         df.setMaximumFractionDigits(1);
@@ -87,7 +99,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    if (RoleAttributionActivity.this.iterator.hasNext()) {
+                    if (RoleAttributionActivity.this.iterator.hasNext() || currentState == State.NAME_DISPLAYED) {
                         displayNext();
                     } else {
                         Intent firstTurnActivity = new Intent(RoleAttributionActivity.this, FirstTurnActivity.class);
@@ -101,8 +113,6 @@ public class RoleAttributionActivity extends AppCompatActivity {
 
         displayNext();
     }
-
-    Player currentPlayer;
 
     public void displayNext() {
         switch (currentState) {
