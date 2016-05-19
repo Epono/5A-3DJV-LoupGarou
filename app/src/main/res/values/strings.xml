@@ -10,4 +10,10 @@
     <string name="random_gm_text_button">Randomize Game Master</string>
     <string name="edit_text_button">Edit</string>
     <string name="start_the_game_text_button">Start the game</string>
+    <string name="player_s_name">Player\'s name</string>
+    <string name="role_s_name">Role\'s name</string>
+    <string name="next">Next</string>
+    <string name="role_werewolf">Werewolf</string>
+    <string name="role_seer">Seer</string>
+    <string name="role_villager">Villager</string>
 </resources>

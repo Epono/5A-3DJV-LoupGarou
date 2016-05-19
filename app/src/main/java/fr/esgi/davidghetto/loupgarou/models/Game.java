@@ -1,8 +1,9 @@
 package fr.esgi.davidghetto.loupgarou.models;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Game {
+public class Game implements Serializable {
     private List<Player> players;
     private int turn;
     private int numberOfHumansAlive;

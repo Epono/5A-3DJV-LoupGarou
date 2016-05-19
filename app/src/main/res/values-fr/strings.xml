@@ -10,4 +10,7 @@
     <string name="start_game_button_text">Lancer la partie</string>
     <string name="random_gm_text_button">Maitre du jeu aléatoire</string>
     <string name="edit_text_button">Editer</string>
+    <string name="role_werewolf">Loup garou</string>
+    <string name="role_seer">Voyante</string>
+    <string name="role_villager">Villageois</string>
 </resources>
