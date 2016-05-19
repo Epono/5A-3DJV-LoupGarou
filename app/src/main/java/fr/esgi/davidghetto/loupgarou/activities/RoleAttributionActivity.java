@@ -16,6 +16,7 @@ import java.util.Iterator;
 
 import fr.esgi.davidghetto.loupgarou.R;
 import fr.esgi.davidghetto.loupgarou.models.Player;
+import fr.esgi.davidghetto.loupgarou.models.Role;
 
 public class RoleAttributionActivity extends AppCompatActivity {
 
@@ -26,6 +27,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
 
     public Iterator<Player> iterator;
     public ArrayList<Player> players;
+    public ArrayList<Role> roles;
     private TextView timerText;
 
     DecimalFormat df = new DecimalFormat();
@@ -41,6 +43,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
         nextButton = (Button) findViewById(R.id.role_attribution_next);
         timerText = (TextView) findViewById(R.id.role_attribution_timer);
 
+        roles = getIntent().getExtras().getParcelableArrayList("roles");
         players = getIntent().getExtras().getParcelableArrayList("players");
         iterator = players.iterator();
 
@@ -85,6 +88,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                //TODO: choisir le role
                 timerText.setVisibility(View.INVISIBLE);
                 playersRoleImage.setVisibility(View.VISIBLE);
                 nextButton.setEnabled(true);

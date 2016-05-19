@@ -12,11 +12,13 @@ import java.util.List;
 
 import fr.esgi.davidghetto.loupgarou.R;
 import fr.esgi.davidghetto.loupgarou.models.Player;
+import fr.esgi.davidghetto.loupgarou.models.Role;
 
 public class RoleSelectionActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button startGameButton;
     private ArrayList<Player> players;
+    private ArrayList<Role> roles;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
             startGameButton.setOnClickListener(this);
 
         players = getIntent().getExtras().getParcelableArrayList("players");
+        roles = new ArrayList<Role>();
     }
 
     @Override
@@ -35,6 +38,7 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
         if(v == startGameButton){
             Intent toRoleAttributionIntent = new Intent(this, RoleAttributionActivity.class);
             toRoleAttributionIntent.putParcelableArrayListExtra("players", players);
+            toRoleAttributionIntent.putParcelableArrayListExtra("roles", roles);
             startActivity(toRoleAttributionIntent);
             finish();
         }
