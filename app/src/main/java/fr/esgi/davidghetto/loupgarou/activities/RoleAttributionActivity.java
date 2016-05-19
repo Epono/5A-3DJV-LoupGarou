@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -27,6 +28,8 @@ public class RoleAttributionActivity extends AppCompatActivity {
     public ArrayList<Player> players;
     private TextView timerText;
 
+    DecimalFormat df = new DecimalFormat();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
         players = getIntent().getExtras().getParcelableArrayList("players");
         iterator = players.iterator();
 
+        df.setMaximumFractionDigits(1);
 
         if (nextButton != null) {
             nextButton.setOnClickListener(new View.OnClickListener() {
@@ -48,30 +52,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if (RoleAttributionActivity.this.iterator.hasNext()) {
-
-                        final Player player = iterator.next();
-
-                        playersNameText.setText(player.getName());
-                        playersRoleNameText.setText("");
-                        playersRoleImage.setImageDrawable(null);
-
-                        timerText.setVisibility(View.VISIBLE);
-                        playersRoleImage.setVisibility(View.INVISIBLE);
-
-                        new CountDownTimer(5 * 60000, 100) {
-                            @Override
-                            public void onTick(long millisUntilFinished) {
-                                timerText.setText(millisUntilFinished / 1000 + " s");
-                            }
-
-                            @Override
-                            public void onFinish() {
-                                timerText.setVisibility(View.INVISIBLE);
-                                playersRoleImage.setVisibility(View.VISIBLE);
-                                playersRoleNameText.setText(getResources().getString(player.getRole().getName()));
-                                playersRoleImage.setImageDrawable(getResources().getDrawable(player.getRole().getDrawableRes()));
-                            }
-                        };
+                        displayNext();
                     } else {
                         Intent firstTurnActivity = new Intent(RoleAttributionActivity.this, FirstTurnActivity.class);
                         startActivity(firstTurnActivity);
@@ -81,5 +62,35 @@ public class RoleAttributionActivity extends AppCompatActivity {
                 }
             });
         }
+
+        displayNext();
+    }
+
+    public void displayNext() {
+        final Player player = iterator.next();
+
+        playersNameText.setText(player.getName());
+        playersRoleNameText.setText("");
+        playersRoleImage.setImageDrawable(null);
+
+        timerText.setVisibility(View.VISIBLE);
+        playersRoleImage.setVisibility(View.INVISIBLE);
+        nextButton.setEnabled(false);
+
+        new CountDownTimer(2 * 1000, 100) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timerText.setText(df.format((float) millisUntilFinished / 1000) + " s");
+            }
+
+            @Override
+            public void onFinish() {
+                timerText.setVisibility(View.INVISIBLE);
+                playersRoleImage.setVisibility(View.VISIBLE);
+                nextButton.setEnabled(true);
+                playersRoleNameText.setText(getResources().getString(player.getRole().getName()));
+                playersRoleImage.setImageDrawable(getResources().getDrawable(player.getRole().getDrawableRes()));
+            }
+        }.start();
     }
 }

@@ -40,6 +40,8 @@
         android:layout_below="@id/role_attribution_player_s_role_text"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
+        android:gravity="center"
+        android:textSize="50dp"
         android:visibility="invisible" />
 
     <Button
