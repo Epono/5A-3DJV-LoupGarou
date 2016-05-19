@@ -1,5 +1,6 @@
 package fr.esgi.davidghetto.loupgarou.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,17 +13,23 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import fr.esgi.davidghetto.loupgarou.R;
 import fr.esgi.davidghetto.loupgarou.adapter.PlayersAdapter;
 import fr.esgi.davidghetto.loupgarou.models.Player;
 
 public class AddPlayersActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
+    public static final int NB_MIN_PLAYER = 7;
+
     private ListViewCompat playerListView;
     private EditText playerEditText;
     private Button playerAddButton;
-    private PlayersAdapter playersAdapter;
     private CheckBox editModeCheckbox;
+    private Button startGameButton;
+
+    public PlayersAdapter playersAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +40,7 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
         playerEditText = (EditText) findViewById(R.id.player_add_text);
         playerAddButton = (Button) findViewById(R.id.button_add_player);
         editModeCheckbox = (CheckBox) findViewById(R.id.edit_player_list_button);
+        startGameButton = (Button) findViewById(R.id.button_start_game);
 
         if (playerAddButton != null) {
             playerAddButton.setOnClickListener(this);
@@ -40,6 +48,10 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
 
         if (editModeCheckbox != null) {
             editModeCheckbox.setOnCheckedChangeListener(this);
+        }
+
+        if(startGameButton != null){
+            startGameButton.setOnClickListener(this);
         }
 
         playersAdapter = new PlayersAdapter(this);
@@ -55,14 +67,23 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        String playerName = playerEditText.getText().toString();
-        if (!playerName.isEmpty()) {
-            playersAdapter.add(new Player(playerName));
-            playerEditText.getText().clear();
-        }
-
-        for (int i = 0; i < playersAdapter.getCount(); i++) {
-            playersAdapter.getItem(i);
+        if(v == playerAddButton) {
+            String playerName = playerEditText.getText().toString();
+            if (!playerName.isEmpty()) {
+                playersAdapter.add(new Player(playerName));
+                playerEditText.getText().clear();
+            }
+        } else if(v == startGameButton){
+            if(playersAdapter.getCount() >= NB_MIN_PLAYER){
+                Intent toRolePickActivityIntent = new Intent(this, RoleSelectionActivity.class);
+                ArrayList<Player> players = new ArrayList<Player>();
+                for(int i = 0; i < playersAdapter.getCount(); i++){
+                    players.add(playersAdapter.getItem(i));
+                }
+                toRolePickActivityIntent.putParcelableArrayListExtra("players", players);
+                startActivity(toRolePickActivityIntent);
+                finish();
+            }
         }
     }
 

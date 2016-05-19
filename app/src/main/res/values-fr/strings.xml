@@ -10,4 +10,5 @@
     <string name="start_game_button_text">Lancer la partie</string>
     <string name="random_gm_text_button">Maitre du jeu aléatoire</string>
     <string name="edit_text_button">Editer</string>
+    <string name="game_master_short">MJ</string>
 </resources>

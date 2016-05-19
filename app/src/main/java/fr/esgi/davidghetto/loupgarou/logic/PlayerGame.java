@@ -4,9 +4,9 @@ public class PlayerGame {
     private User user;
     private Role role;
     private boolean isAlive;
-    private boolean canPlayThisTurn;
     private boolean canVoteThisTurn;
     private boolean canPlayAtNight;
+    private boolean canPlayThisTurn;
 
     public PlayerGame(User user, Role role) {
         this.user = user;
