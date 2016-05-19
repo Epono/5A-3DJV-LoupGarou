@@ -8,6 +8,7 @@ public class Game implements Serializable {
     private int turn;
     private int numberOfHumansAlive;
     private int numberOfWerewolvesAlive;
+    private List<Role> activeRolesInGame;
 
     public Game(List<Player> players) {
         this.players = players;
@@ -46,6 +47,20 @@ public class Game implements Serializable {
 
     public void setNumberOfWerewolvesAlive(int numberOfWerewolvesAlive) {
         this.numberOfWerewolvesAlive = numberOfWerewolvesAlive;
+    }
+
+    public void setActiveRoles(List<Role> Roles)
+    {
+        for(int i=0; i<Roles.size();++i)
+        {
+            activeRolesInGame.add(Roles.get(i));
+        }
+
+    }
+
+    public List<Role> getActiveRoles()
+    {
+        return activeRolesInGame;
     }
 
     @Override

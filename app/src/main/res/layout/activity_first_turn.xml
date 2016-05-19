@@ -37,6 +37,7 @@
         android:text="Les amoureux se réveille et se regardent"/>
 
     <Button
+        android:id="@+id/next_to_first_turn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="NEXT"
