@@ -1,5 +1,6 @@
 package fr.esgi.davidghetto.loupgarou.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -20,8 +21,9 @@ public class RoleAttributionActivity extends AppCompatActivity {
     private TextView playersRoleNameText;
     private ImageView playersRoleImage;
     private Button nextButton;
-    public Iterator<Player> iterator;
 
+    public Iterator<Player> iterator;
+    public List<Player> players;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,21 +35,29 @@ public class RoleAttributionActivity extends AppCompatActivity {
         playersRoleImage = (ImageView) findViewById(R.id.role_attribution_player_s_role_image);
         nextButton = (Button) findViewById(R.id.role_attribution_next);
 
-        List<Player> players /*= getIntent().getExtras()*/;
+        players = getIntent().getExtras().getParcelable("players");
+        iterator = players.iterator();
 
         if (nextButton != null) {
             nextButton.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    if(RoleAttributionActivity.this.iterator.hasNext()) {
+                    if (RoleAttributionActivity.this.iterator.hasNext()) {
+
+                        // Thread.sleep(1000, 0);
+
                         Player player = iterator.next();
 
                         playersNameText.setText(player.getName());
-                        playersRoleNameText.setText(player.getRole().getName());
+                        playersRoleNameText.setText(getResources().getString(player.getRole().getName()));
+                        playersRoleImage.setImageDrawable(getResources().getDrawable(player.getRole().getDrawableRes()));
 
                     } else {
+                        Intent firstTurnActivity = new Intent(RoleAttributionActivity.this, FirstTurnActivity.class);
+                        startActivity(firstTurnActivity);
 
+                        finish();
                     }
                 }
             });

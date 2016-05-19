@@ -16,8 +16,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.AddPlayersActivity" android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".activities.RoleSelectionActivity"/>
+        <activity
+            android:name=".activities.AddPlayersActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activities.RoleSelectionActivity" />
+        <activity android:name=".activities.RoleAttributionActivity" />
+        <activity android:name=".activities.FirstTurnActivity" />
     </application>
 
 </manifest>
