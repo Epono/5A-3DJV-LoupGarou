@@ -25,7 +25,6 @@ public class RoleAttributionActivity extends AppCompatActivity {
     public Iterator<Player> iterator;
     public List<Player> players;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +36,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
         nextButton = (Button) findViewById(R.id.role_attribution_next);
 
         players = getIntent().getExtras().getParcelable("players");
+        iterator = players.iterator();
 
         if (nextButton != null) {
             nextButton.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +44,9 @@ public class RoleAttributionActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if (RoleAttributionActivity.this.iterator.hasNext()) {
+
+                        // Thread.sleep(1000, 0);
+
                         Player player = iterator.next();
 
                         playersNameText.setText(player.getName());
