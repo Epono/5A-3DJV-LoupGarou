@@ -21,7 +21,9 @@ public class RoleAttributionActivity extends AppCompatActivity {
     private TextView playersRoleNameText;
     private ImageView playersRoleImage;
     private Button nextButton;
+
     public Iterator<Player> iterator;
+    public List<Player> players;
 
 
     @Override
@@ -34,7 +36,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
         playersRoleImage = (ImageView) findViewById(R.id.role_attribution_player_s_role_image);
         nextButton = (Button) findViewById(R.id.role_attribution_next);
 
-        List<Player> players /*= getIntent().getExtras()*/;
+        players = getIntent().getExtras().getParcelable("players");
 
         if (nextButton != null) {
             nextButton.setOnClickListener(new View.OnClickListener() {
@@ -46,8 +48,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
 
                         playersNameText.setText(player.getName());
                         playersRoleNameText.setText(getResources().getString(player.getRole().getName()));
-                        playersRoleImage.setImageDrawable(player.getRole().getDrawableRes());
-
+                        playersRoleImage.setImageDrawable(getResources().getDrawable(player.getRole().getDrawableRes()));
 
                     } else {
                         Intent firstTurnActivity = new Intent(RoleAttributionActivity.this, FirstTurnActivity.class);
