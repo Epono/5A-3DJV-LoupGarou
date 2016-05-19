@@ -88,22 +88,6 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
                 startActivityForResult(toRolePickActivityIntent, ROLE_REQUEST_CODE);
             }
         }
-
-       /* if(playersAdapter.getCount() >= 5)
-        {*/
-            startGameButton.setEnabled(true);
-        /*}
-        else
-        {
-            startGameButton.setEnabled(false);
-        }*/
-
-        if(v == startGameButton)
-        {
-            Intent playIntent = new Intent(this, RoleSelectionActivity.class);
-            startActivity(playIntent);
-            finish();
-        }
     }
 
     @Override
