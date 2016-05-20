@@ -1,12 +1,14 @@
 package fr.esgi.davidghetto.loupgarou.activities;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Iterator;
@@ -26,7 +28,8 @@ public class NormalNightTurnActivity extends AppCompatActivity implements View.O
     public List<Role> activeRoles;
     public String text_to_display;
     public Button next_dialog;
-
+    public ImageView background_image_day;
+    public ImageView background_image_night;
     public TextView actual_text_to_display;
     public int cpt;
     @Override
@@ -35,22 +38,26 @@ public class NormalNightTurnActivity extends AppCompatActivity implements View.O
         setContentView(R.layout.activity_night_normal_turn);
 
         actual_text_to_display = (TextView) findViewById(R.id.actual_text_to_display);
+        background_image_day = (ImageView) findViewById(R.id.background_image_day_turn);
+        background_image_night = (ImageView) findViewById(R.id.background_image_night_turn);
+
         next_dialog = (Button) findViewById(R.id.button_next_action);
         if(next_dialog != null)
         {
             next_dialog.setOnClickListener(this);
         }
 
-        Log.v("ICI","MESSAGE");
 
 
 
-
-        actual_text_to_display.setText("La nuit tombe sur le village les villageois s'endorment...");
         /*  Game stateOfTheGame = getIntent().getExtras().getParcelable("game");
         players = getIntent().getExtras().getParcelable("players");
         iterator = players.iterator();
         activeRoles = stateOfTheGame.getActiveRoles();*/
+
+
+        actual_text_to_display.setText("La nuit tombe sur le village les villageois s'endorment...");
+
     }
 
     @Override
@@ -80,8 +87,10 @@ public class NormalNightTurnActivity extends AppCompatActivity implements View.O
 
         if(v == next_dialog && cpt == 4)
         {
-            Intent DayTurnIntent = new Intent(this, NormalDayTurnActivity.class);
-            startActivity(DayTurnIntent);
+            background_image_night.setVisibility(View.INVISIBLE);
+            background_image_day.setVisibility(View.VISIBLE);
+            //Intent DayTurnIntent = new Intent(this, NormalDayTurnActivity.class);
+            //startActivity(DayTurnIntent);
         }
 
             //finish();
