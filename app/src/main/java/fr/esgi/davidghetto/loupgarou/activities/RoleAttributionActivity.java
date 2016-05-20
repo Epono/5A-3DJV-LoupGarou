@@ -59,7 +59,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
         boolean lovers = true;
         roles = new ArrayList<Role>();
         roles.add(Role.CUPIDON);
-        roles.add(Role.LITTLE_GIRL);
+        roles.add(Role.SEER);
         roles.add(Role.WITCH);
 
         Random r = new Random();

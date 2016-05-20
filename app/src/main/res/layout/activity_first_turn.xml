@@ -7,20 +7,24 @@
         android:background="@drawable/cupidon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:visibility="invisible"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30dp"
         android:textAlignment="center"
-        android:text="Cupidon se réveille et désigne deux amoureux"/>
+        android:text="Cupidon se réveille et désigne deux amoureux"
+        android:visibility="invisible"/>
+
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="NEXT"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:visibility="invisible"/>
 
 
     <Button
@@ -30,11 +34,12 @@
         android:layout_gravity="center"/>
 
     <TextView
+        android:id="@+id/first_turn_text"
+        android:text="@id/first_turn_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30dp"
-        android:textAlignment="center"
-        android:text="Les amoureux se réveille et se regardent"/>
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/next_to_first_turn"
