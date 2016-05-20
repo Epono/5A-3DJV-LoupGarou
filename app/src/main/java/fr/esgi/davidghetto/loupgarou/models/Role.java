@@ -62,4 +62,4 @@ public enum Role implements Parcelable {
         out.writeInt(drawableRes);
         out.writeInt(nameRes);
     }
-}
+    }

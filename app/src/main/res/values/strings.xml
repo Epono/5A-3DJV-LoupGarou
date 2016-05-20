@@ -20,4 +20,6 @@
     <string name="role_hunter">Hunter</string>
     <string name="role_witch">Witch</string>
     <string name="role_little_girl">Little Girl</string>
+    <string name="vote_confirm_button_text">Confirm</string>
+    <string name="role_captain">Captain</string>
 </resources>
