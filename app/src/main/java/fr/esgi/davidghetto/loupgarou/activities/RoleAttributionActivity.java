@@ -22,7 +22,7 @@ import fr.esgi.davidghetto.loupgarou.models.Role;
 public class RoleAttributionActivity extends AppCompatActivity {
 
     enum State {
-        CARD_DISPLAYED, NAME_DISPLAYED, CAPTAIN_DISPLAYED
+        CARD_DISPLAYED, NAME_DISPLAYED, CAPTAIN_DISPLAYED, CUPIDON, CUPIDON2
     }
 
     private TextView playersNameText;
@@ -55,25 +55,24 @@ public class RoleAttributionActivity extends AppCompatActivity {
         players = getIntent().getExtras().getParcelableArrayList("players");
         iterator = players.iterator();
 
-        // TODO
-        boolean lovers = true;
-        roles = new ArrayList<Role>();
-        roles.add(Role.CUPIDON);
-        roles.add(Role.SEER);
-        roles.add(Role.WITCH);
+//        boolean lovers = true;
+//        roles = new ArrayList<Role>();
+//        roles.add(Role.CUPIDON);
+//        roles.add(Role.SEER);
+//        roles.add(Role.WITCH);
 
         Random r = new Random();
 
         // Si y'a amoureux, les désigner aléatoirement
-        if (lovers) {
-            int lover1 = r.nextInt(players.size());
-            int lover2 = r.nextInt(players.size());
-            while (lover2 == lover1) {
-                lover2 = r.nextInt(players.size());
-            }
-            players.get(lover1).setLover(true);
-            players.get(lover2).setLover(true);
-        }
+//        if (lovers) {
+//            int lover1 = r.nextInt(players.size());
+//            int lover2 = r.nextInt(players.size());
+//            while (lover2 == lover1) {
+//                lover2 = r.nextInt(players.size());
+//            }
+//            players.get(lover1).setLover(true);
+//            players.get(lover2).setLover(true);
+//        }
 
         // Choisir un nombre de loups en fonction du nombre de joueurs (environ 1/3)
         int numberOfWerewolves = players.size() / 3;
@@ -105,6 +104,10 @@ public class RoleAttributionActivity extends AppCompatActivity {
                         Intent captainIntent = new Intent(RoleAttributionActivity.this, VoteActivity.class);
                         captainIntent.putParcelableArrayListExtra("players", players);
                         startActivityForResult(captainIntent, VoteActivity.REQUEST_CODE_VOTE);
+//                    } else if (!RoleAttributionActivity.this.iterator.hasNext() && (currentState == State.CAPTAIN_DISPLAYED || currentState == State.CUPIDON)) {
+//                        Intent lover1Intent = new Intent(RoleAttributionActivity.this, PickActivity.class);
+//                        lover1Intent.putParcelableArrayListExtra("players", players);
+//                        startActivityForResult(lover1Intent, PickActivity.REQUEST_CODE_PICK);
                     } else {
                         Intent firstTurnActivity = new Intent(RoleAttributionActivity.this, FirstTurnActivity.class);
                         firstTurnActivity.putParcelableArrayListExtra("players", players);
@@ -170,6 +173,24 @@ public class RoleAttributionActivity extends AppCompatActivity {
                     playersRoleNameText.setText("Captain !");
                     playersRoleImage.setImageDrawable(getResources().getDrawable(R.drawable.captain));
                     currentState = State.CAPTAIN_DISPLAYED;
+                } else {
+                    System.out.println("ERREUR, pas de capitaine ! AAAAAAAAAAAAAAAA");
+                }
+                break;
+            case PickActivity.REQUEST_CODE_PICK:
+                if (resultCode == RESULT_OK) {
+                    // afficher le lover
+                    Player p = data.getExtras().getParcelable("pick");
+                    p.setLover(true);
+                    playersNameText.setText(p.getName());
+                    playersRoleNameText.setText("Lololover !");
+                    //TODO image
+                    playersRoleImage.setImageDrawable(getResources().getDrawable(R.drawable.lovers));
+                    if (currentState == State.CAPTAIN_DISPLAYED) {
+                        currentState = State.CUPIDON;
+                    } else {
+                        currentState = State.CUPIDON2;
+                    }
                 } else {
                     System.out.println("ERREUR, pas de capitaine ! AAAAAAAAAAAAAAAA");
                 }

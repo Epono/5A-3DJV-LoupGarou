@@ -13,14 +13,13 @@ import fr.esgi.davidghetto.loupgarou.R;
 import fr.esgi.davidghetto.loupgarou.models.Player;
 import fr.esgi.davidghetto.loupgarou.models.Role;
 
-public class FirstTurnActivity extends AppCompatActivity implements View.OnClickListener{
+public class FirstTurnActivity extends AppCompatActivity implements View.OnClickListener {
 
     public int cpt;
     private Button NextTurn;
     public ArrayList<Player> players;
     public ArrayList<Role> activeRoles;
     public TextView first_turn_text;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,27 +32,53 @@ public class FirstTurnActivity extends AppCompatActivity implements View.OnClick
         first_turn_text.setText("Cupidon se réveille et désigne deux amoureux");
 
         NextTurn = (Button) findViewById(R.id.next_to_first_turn);
-        if(NextTurn != null)
+        if (NextTurn != null)
             NextTurn.setOnClickListener(this);
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         cpt++;
-        if(v == NextTurn && cpt==1)
-        {
-            first_turn_text.setText("Les amoureux se réveille et se regardent");
-        }
-        else if(v == NextTurn && cpt==2)
-        {
-                Intent playIntent = new Intent(this, NormalNightTurnActivity.class);
-                playIntent.putParcelableArrayListExtra("players", players);
-                playIntent.putParcelableArrayListExtra("roles", activeRoles);
-                startActivity(playIntent);
+        if (v == NextTurn && cpt == 1) {
+            Intent lover1Intent = new Intent(this, PickActivity.class);
+            lover1Intent.putParcelableArrayListExtra("players", players);
+            startActivityForResult(lover1Intent, PickActivity.REQUEST_CODE_PICK);
+        } else if (v == NextTurn && cpt == 2) {
+            Intent lover1Intent = new Intent(this, PickActivity.class);
+            lover1Intent.putParcelableArrayListExtra("players", players);
+            startActivityForResult(lover1Intent, PickActivity.REQUEST_CODE_PICK);
+        } else if (v == NextTurn && cpt == 3) {
+            first_turn_text.setText("Les amoureux se réveillent et se regardent");
+        } else if (v == NextTurn && cpt == 4) {
+            Intent playIntent = new Intent(this, NormalNightTurnActivity.class);
+            playIntent.putParcelableArrayListExtra("players", players);
+            playIntent.putParcelableArrayListExtra("roles", activeRoles);
+            startActivity(playIntent);
 
-                finish();
+            finish();
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case PickActivity.REQUEST_CODE_PICK:
+                if (resultCode == RESULT_OK) {
+                    // afficher le lover
+                    Player p = data.getExtras().getParcelable("pick");
+                    p.setLover(true);
+                    if (cpt == 1) {
+                        first_turn_text.setText("Premier amoureux : " + p.getName());
+                    } else {
+                        first_turn_text.setText("Deuxième amoureux : " + p.getName());
+                    }
+                } else {
+                    System.out.println("ERREUR, pas de lover ! AAAAAAAAAAAAAAAA");
+                }
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+                break;
+        }
+    }
 }
