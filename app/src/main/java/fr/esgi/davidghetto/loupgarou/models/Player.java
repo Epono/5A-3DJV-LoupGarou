@@ -10,9 +10,11 @@ public class Player implements Parcelable {
     private boolean isLover;
     private int voteScore;
     private boolean isCaptain;
+    //private int id;
 
     public Player(String name) {
         this.name = name;
+        //id = 0;
         role = Role.VILLAGER;
         isAlive = true;
         isLover = false;
