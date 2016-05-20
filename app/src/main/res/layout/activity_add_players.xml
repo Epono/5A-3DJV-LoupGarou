@@ -5,11 +5,19 @@
 
     <!-- BUTTON START GAME -->
     <Button
+        android:id="@+id/button_choose_role"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_role_button_text" />
+
+    <!-- BUTTON START GAME -->
+    <Button
         android:id="@+id/button_start_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="@string/start_game_button_text" />
+        android:layout_toRightOf="@id/button_choose_role"
+        android:text="@string/start_game_button_text"
+        android:enabled="false"/>
 
     <CheckBox
         android:id="@+id/edit_player_list_button"

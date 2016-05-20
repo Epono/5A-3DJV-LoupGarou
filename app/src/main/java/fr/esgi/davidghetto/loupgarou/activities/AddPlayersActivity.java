@@ -18,20 +18,28 @@ import java.util.ArrayList;
 import fr.esgi.davidghetto.loupgarou.R;
 import fr.esgi.davidghetto.loupgarou.adapter.PlayersAdapter;
 import fr.esgi.davidghetto.loupgarou.models.Player;
+import fr.esgi.davidghetto.loupgarou.models.Role;
 
 public class AddPlayersActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     public static final int NB_MIN_PLAYER = 7;
     private static final int ROLE_REQUEST_CODE = 1;
 
+    public static final String ROLE_LIST_KEY = "roles";
+    public static final String PLAYER_LIST_KEY = "players";
+
     private ListViewCompat playerListView;
     private EditText playerEditText;
-    private Button playerAddButton;
     private CheckBox editModeCheckbox;
+    private Button playerAddButton;
     private Button startGameButton;
+    private Button chooseRoleButton;
     private PlayersAdapter playersAdapter;
 
     private ArrayList<Player> players;
+    private ArrayList<Role> roles;
+
+    private boolean rolesChosen = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,20 +52,18 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
         startGameButton = (Button) findViewById(R.id.button_start_game);
         editModeCheckbox = (CheckBox) findViewById(R.id.edit_player_list_button);
         startGameButton = (Button) findViewById(R.id.button_start_game);
+        chooseRoleButton = (Button) findViewById(R.id.button_choose_role);
 
         players = new ArrayList<>();
 
-        if (playerAddButton != null) {
+        if (playerAddButton != null)
             playerAddButton.setOnClickListener(this);
-        }
-
-        if (editModeCheckbox != null) {
+        if (editModeCheckbox != null)
             editModeCheckbox.setOnCheckedChangeListener(this);
-        }
-
-        if(startGameButton != null){
+        if(startGameButton != null)
             startGameButton.setOnClickListener(this);
-        }
+        if(chooseRoleButton != null)
+            chooseRoleButton.setOnClickListener(this);
 
         playersAdapter = new PlayersAdapter(this);
         playerListView.setAdapter(playersAdapter);
@@ -78,16 +84,24 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
                 playersAdapter.add(new Player(playerName));
                 playerEditText.getText().clear();
             }
+            if(playersAdapter.getCount() >= NB_MIN_PLAYER)
+                startGameButton.setEnabled(true);
+        } else if(v == chooseRoleButton){
+            Intent toRolePickActivityIntent = new Intent(this, RoleSelectionActivity.class);
+            startActivityForResult(toRolePickActivityIntent, ROLE_REQUEST_CODE);
         } else if(v == startGameButton){
-            if(playersAdapter.getCount() >= NB_MIN_PLAYER){
-                Intent toRolePickActivityIntent = new Intent(this, RoleSelectionActivity.class);
-                for(int i = 0; i < playersAdapter.getCount(); i++){
+            if(rolesChosen) {
+                Intent toRoleAttributionActivity = new Intent(this, RoleAttributionActivity.class);
+                for (int i = 0; i < playersAdapter.getCount(); i++) {
                     players.add(playersAdapter.getItem(i));
                 }
-                toRolePickActivityIntent.putParcelableArrayListExtra("players", players);
-                startActivity(toRolePickActivityIntent);
+                toRoleAttributionActivity.putParcelableArrayListExtra(PLAYER_LIST_KEY, players);
+                toRoleAttributionActivity.putParcelableArrayListExtra(ROLE_LIST_KEY, roles);
+                startActivity(toRoleAttributionActivity);
                 finish();
             }
+            else
+                Toast.makeText(this, "Choose Roles before starting the game", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -101,9 +115,11 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
         switch (requestCode){
             case ROLE_REQUEST_CODE:
                 if (resultCode == RESULT_OK){
-                    players = data.getParcelableArrayListExtra("players");
+                    roles = data.getParcelableArrayListExtra(ROLE_LIST_KEY);
+                    if(roles != null)
+                        rolesChosen = roles.size() > 0;
                 } else {
-                    Toast.makeText(this, "Gallery Activity sucks, gave me no image !!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Walah t'as fait quoi là ?", Toast.LENGTH_LONG).show();
                 }
                 break;
         }

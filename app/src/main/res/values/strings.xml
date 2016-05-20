@@ -9,7 +9,7 @@
     <string name="start_game_button_text">Start Game</string>
     <string name="random_gm_text_button">Randomize Game Master</string>
     <string name="edit_text_button">Edit</string>
-    <string name="start_the_game_text_button">Start the game</string>
+    <string name="confirm_roles_text_button">Confirm</string>
     <string name="player_s_name">Player\'s name</string>
     <string name="role_s_name">Role\'s name</string>
     <string name="next">Next</string>
@@ -20,4 +20,9 @@
     <string name="role_hunter">Hunter</string>
     <string name="role_witch">Witch</string>
     <string name="role_little_girl">Little Girl</string>
+    <string name="choose_role_button_text">Choose Roles</string>
+    <string name="use_role_card_text_button">Use</string>
+    <string name="cupion_card_description">Permet de designer deux joueurs dits \'amoureux\' qui seront lies a la vie comme a la mort</string>
+    <string name="card_description_text_hint">Description</string>
+    <string name="title_card_text_hint">Card Title</string>
 </resources>
