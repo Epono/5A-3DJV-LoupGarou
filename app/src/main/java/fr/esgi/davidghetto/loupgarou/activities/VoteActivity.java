@@ -1,5 +1,6 @@
 package fr.esgi.davidghetto.loupgarou.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,7 @@ public class VoteActivity extends AppCompatActivity {
 
 //        roles = getIntent().getExtras().getParcelableArrayList("roles");
         // players = getIntent().getExtras().getParcelableArrayList("players");
+
 
         // TODO
         roles = new ArrayList<Role>();
@@ -74,7 +76,7 @@ public class VoteActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Récupérer le player qui a le plus de votes
                 int maxScore = -1;
-                Player chosenPlayer;
+                Player chosenPlayer = null;
                 for (Player p : players) {
                     if (p.getVoteScore() > maxScore) {
                         maxScore = p.getVoteScore();
@@ -82,7 +84,12 @@ public class VoteActivity extends AppCompatActivity {
                     }
                 }
 
-                // TODO: intent toussa
+                System.out.println(chosenPlayer);
+
+                Intent result = new Intent();
+                result.putExtra("vote", chosenPlayer);
+                setResult(RESULT_OK, result);
+                finish();
             }
         });
     }

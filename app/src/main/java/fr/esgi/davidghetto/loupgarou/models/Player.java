@@ -99,4 +99,16 @@ public class Player implements Parcelable {
         dest.writeInt(voteScore);
         dest.writeByte((byte) (isCaptain ? 0x01 : 0x00));
     }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", role=" + role +
+                ", isAlive=" + isAlive +
+                ", isLover=" + isLover +
+                ", voteScore=" + voteScore +
+                ", isCaptain=" + isCaptain +
+                '}';
+    }
 }
