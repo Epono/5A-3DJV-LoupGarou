@@ -1,11 +1,9 @@
 package fr.esgi.davidghetto.loupgarou.activities;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,12 +11,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import fr.esgi.davidghetto.loupgarou.R;
-import fr.esgi.davidghetto.loupgarou.models.Game;
 import fr.esgi.davidghetto.loupgarou.models.Player;
 import fr.esgi.davidghetto.loupgarou.models.Role;
+
 /**
  * Created by Lucas on 19/05/2016.
  */
@@ -30,6 +27,8 @@ public class NormalNightTurnActivity extends AppCompatActivity implements View.O
 
     public Iterator<Player> iterator;
     public ArrayList<Player> players;
+    public Player player_in_trouble;
+    public Player player_executed;
     public ArrayList<Role> activeRoles;
     public String text_to_display;
     public Button next_dialog;
@@ -37,7 +36,7 @@ public class NormalNightTurnActivity extends AppCompatActivity implements View.O
     public ImageView background_image_night;
     public TextView actual_text_to_display;
     public int cpt;
-
+    public ArrayList<Player> playersAlive;
 
 
     @Override
@@ -50,19 +49,17 @@ public class NormalNightTurnActivity extends AppCompatActivity implements View.O
         background_image_night = (ImageView) findViewById(R.id.background_image_night_turn);
 
         next_dialog = (Button) findViewById(R.id.button_next_action);
-        if(next_dialog != null)
-        {
+        if (next_dialog != null) {
             next_dialog.setOnClickListener(this);
         }
-
-
 
 
         //  Game stateOfTheGame = getIntent().getExtras().getParcelable("game");
         players = getIntent().getExtras().getParcelableArrayList("players");
         activeRoles = getIntent().getExtras().getParcelableArrayList("roles");
-       // iterator = players.iterator();
-       // activeRoles = stateOfTheGame.getActiveRoles();*/
+        playersAlive = new ArrayList<Player>(players);
+        // iterator = players.iterator();
+        // activeRoles = stateOfTheGame.getActiveRoles();*/
 
 
         actual_text_to_display.setText("La nuit tombe sur le village les villageois s'endorment...");
@@ -88,6 +85,15 @@ public class NormalNightTurnActivity extends AppCompatActivity implements View.O
             actual_text_to_display.setText(text_to_display);
 
             //TODO : ACTION ET STOCKAGE DU PLAYER A KILL
+
+
+
+            Intent wolfIntent = new Intent(this, PickActivity.class);
+            wolfIntent.putParcelableArrayListExtra("players", playersAlive);
+            startActivityForResult(wolfIntent, PickActivity.REQUEST_CODE_PICK);
+
+
+
         }
 
         if (v == next_dialog && cpt == 3) {
@@ -111,14 +117,23 @@ public class NormalNightTurnActivity extends AppCompatActivity implements View.O
                 actual_text_to_display.setText(text_to_display);
 
                 //TODO : REVELER LA CARTE DU JOUEUR MORT
+
+
                 //TODO : EN FONCTION DE LA CARTE ON FAIS UNE DERNIERE ACTION OU NON
 
             }
 
             if (v == next_dialog && cpt == 5) {
-                text_to_display = "Il est temps de déterminer qui va être envoyé au bucher";
+                text_to_display = "Il est temps de déterminer qui va être envoyé au bûcher";
                 actual_text_to_display.setText(text_to_display);
+
+                Intent voteIntent = new Intent(this, VoteActivity.class);
+                voteIntent.putParcelableArrayListExtra("players" ,playersAlive);
+                startActivityForResult(voteIntent,VoteActivity.REQUEST_CODE_VOTE);
+
             }
+
+
 
             if (partieFinie() == VictoryState.VILLAGERS_VICTORY) {
 
@@ -138,7 +153,6 @@ public class NormalNightTurnActivity extends AppCompatActivity implements View.O
     }
 
 
-
     public VictoryState partieFinie() {
         int villagersAlive = 0;
         int werewolvesAlive = 0;
@@ -148,12 +162,54 @@ public class NormalNightTurnActivity extends AppCompatActivity implements View.O
             werewolvesAlive += (p.getRole() == Role.WEREWOLF && p.isAlive() ? 1 : 0);
         }
 
-        if(villagersAlive == 0) {
+        if (villagersAlive == 0) {
             return VictoryState.VILLAGERS_VICTORY;
-        } else if(werewolvesAlive == 0) {
+        } else if (werewolvesAlive == 0) {
             return VictoryState.WEREWOLVES_VICTORY;
         } else {
             return VictoryState.NOT_FINISHED;
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case PickActivity.REQUEST_CODE_PICK:
+                if (resultCode == RESULT_OK) {
+                    // afficher le lover
+                    Player p = data.getExtras().getParcelable("pick");
+                    for (Player temp : players) {
+                        if (p.getName().equals(temp.getName())) {
+                            player_in_trouble = temp;
+                            temp.setAlive(false);
+                            playersAlive.remove(temp);
+                            text_to_display = "La cible a été désigné !";
+                            actual_text_to_display.setText(text_to_display);
+                        }
+                    }
+                } else {
+                    System.out.println("ERREUR, pas de lover ! AAAAAAAAAAAAAAAA");
+                }
+                break;
+            case VoteActivity.REQUEST_CODE_VOTE:
+                if (resultCode == RESULT_OK) {
+                    // afficher le lover
+                    Player p = data.getExtras().getParcelable("pick");
+                    for (Player temp : players) {
+                        if (p.getName().equals(temp.getName())) {
+                            player_executed = temp;
+                            temp.setAlive(false);
+                            playersAlive.remove(temp);
+                        }
+                    }
+                } else {
+                    System.out.println("ERREUR, pas de lover ! AAAAAAAAAAAAAAAA");
+                }
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+                break;
         }
     }
 }
