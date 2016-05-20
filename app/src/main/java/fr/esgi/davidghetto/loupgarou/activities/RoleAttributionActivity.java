@@ -22,7 +22,7 @@ import fr.esgi.davidghetto.loupgarou.models.Role;
 public class RoleAttributionActivity extends AppCompatActivity {
 
     enum State {
-        CARD_DISPLAYED, NAME_DISPLAYED, CAPTAIN_DISPLAYED, CUPIDON, CUPIDON2
+        CARD_DISPLAYED, NAME_DISPLAYED, CAPTAIN_DISPLAYED
     }
 
     private TextView playersNameText;
@@ -77,13 +77,13 @@ public class RoleAttributionActivity extends AppCompatActivity {
         // Choisir un nombre de loups en fonction du nombre de joueurs (environ 1/3)
 //        int numberOfWerewolves = players.size() / 3;
         int numberOfWerewolves = 2;
-        if(players.size() >= 6) {
+        if (players.size() >= 6) {
             numberOfWerewolves = 3;
         }
-        if(players.size() >= 9) {
+        if (players.size() >= 9) {
             numberOfWerewolves = 4;
         }
-        if(players.size() >= 12) {
+        if (players.size() >= 12) {
             numberOfWerewolves = 5;
         }
         for (int i = 0; i < numberOfWerewolves; ++i) {
@@ -178,29 +178,15 @@ public class RoleAttributionActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     // afficher le capitaine
                     Player p = data.getExtras().getParcelable("vote");
-                    p.setCaptain(true);
+                    for (Player temp : players) {
+                        if (p.getName().equals(temp.getName())) {
+                            temp.setCaptain(true);
+                        }
+                    }
                     playersNameText.setText(p.getName());
                     playersRoleNameText.setText("Captain !");
                     playersRoleImage.setImageDrawable(getResources().getDrawable(R.drawable.captain));
                     currentState = State.CAPTAIN_DISPLAYED;
-                } else {
-                    System.out.println("ERREUR, pas de capitaine ! AAAAAAAAAAAAAAAA");
-                }
-                break;
-            case PickActivity.REQUEST_CODE_PICK:
-                if (resultCode == RESULT_OK) {
-                    // afficher le lover
-                    Player p = data.getExtras().getParcelable("pick");
-                    p.setLover(true);
-                    playersNameText.setText(p.getName());
-                    playersRoleNameText.setText("Lololover !");
-                    //TODO image
-                    playersRoleImage.setImageDrawable(getResources().getDrawable(R.drawable.lovers));
-                    if (currentState == State.CAPTAIN_DISPLAYED) {
-                        currentState = State.CUPIDON;
-                    } else {
-                        currentState = State.CUPIDON2;
-                    }
                 } else {
                     System.out.println("ERREUR, pas de capitaine ! AAAAAAAAAAAAAAAA");
                 }

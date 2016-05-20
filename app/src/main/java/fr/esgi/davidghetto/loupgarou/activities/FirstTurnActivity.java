@@ -45,7 +45,12 @@ public class FirstTurnActivity extends AppCompatActivity implements View.OnClick
             startActivityForResult(lover1Intent, PickActivity.REQUEST_CODE_PICK);
         } else if (v == NextTurn && cpt == 2) {
             Intent lover1Intent = new Intent(this, PickActivity.class);
-            lover1Intent.putParcelableArrayListExtra("players", players);
+            ArrayList<Player> playersTemp = new ArrayList<Player>();
+            for (Player player : players) {
+                if (!player.isLover())
+                    playersTemp.add(player);
+            }
+            lover1Intent.putParcelableArrayListExtra("players", playersTemp);
             startActivityForResult(lover1Intent, PickActivity.REQUEST_CODE_PICK);
         } else if (v == NextTurn && cpt == 3) {
             first_turn_text.setText("Les amoureux se réveillent et se regardent");
@@ -66,7 +71,11 @@ public class FirstTurnActivity extends AppCompatActivity implements View.OnClick
                 if (resultCode == RESULT_OK) {
                     // afficher le lover
                     Player p = data.getExtras().getParcelable("pick");
-                    p.setLover(true);
+                    for (Player temp : players) {
+                        if (p.getName().equals(temp.getName())) {
+                            temp.setLover(true);
+                        }
+                    }
                     if (cpt == 1) {
                         first_turn_text.setText("Premier amoureux : " + p.getName());
                     } else {
