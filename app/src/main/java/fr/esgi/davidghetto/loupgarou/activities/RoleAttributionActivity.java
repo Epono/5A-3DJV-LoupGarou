@@ -75,7 +75,17 @@ public class RoleAttributionActivity extends AppCompatActivity {
 //        }
 
         // Choisir un nombre de loups en fonction du nombre de joueurs (environ 1/3)
-        int numberOfWerewolves = players.size() / 3;
+//        int numberOfWerewolves = players.size() / 3;
+        int numberOfWerewolves = 2;
+        if(players.size() >= 6) {
+            numberOfWerewolves = 3;
+        }
+        if(players.size() >= 9) {
+            numberOfWerewolves = 4;
+        }
+        if(players.size() >= 12) {
+            numberOfWerewolves = 5;
+        }
         for (int i = 0; i < numberOfWerewolves; ++i) {
             players.get(r.nextInt(players.size())).setRole(Role.WEREWOLF);
         }
