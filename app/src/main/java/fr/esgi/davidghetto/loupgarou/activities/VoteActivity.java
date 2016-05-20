@@ -43,7 +43,14 @@ public class VoteActivity extends AppCompatActivity {
 //        players.add(new Player("bibn,bnte"));
 
         playersVoteAdapter = new PlayersVoteAdapter(this);
-        playersVoteAdapter.setNumberOfVotesMax(players.size() + 1);
+        boolean captain = false;
+        for (Player p : players) {
+            if (p.isCaptain()) {
+                captain = true;
+                break;
+            }
+        }
+        playersVoteAdapter.setNumberOfVotesMax(players.size() + (captain ? 1 : 0));
         playersVoteAdapter.setVoteActivity(this);
         playerListView = (ListViewCompat) findViewById(R.id.vote_players_list_view);
         playerListView.setAdapter(playersVoteAdapter);
