@@ -107,8 +107,7 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
                 resetValues();
                 break;
             case R.id.cupidon_image_view:
-                idPickedRole = R.id.cupidon_image_view;
-                idConfirmedRole = R.id.cupidon_chosen_image_view;
+                initValues(R.id.cupidon_image_view, R.id.cupidon_chosen_image_view);
 
                 titleCardTextView.setText(R.string.role_cupidon);
                 descriptionCardTextView.setText(R.string.cupion_card_description);
@@ -124,8 +123,7 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
                 }
                 break;
             case R.id.voyante_image_view:
-                idPickedRole = R.id.voyante_image_view;
-                idConfirmedRole = R.id.voyante_chosen_image_view;
+                initValues(R.id.voyante_image_view, R.id.voyante_chosen_image_view);
 
                 titleCardTextView.setText(R.string.role_seer);
                 descriptionCardTextView.setText(R.string.voyante_card_description);
@@ -141,8 +139,7 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
                 }
                 break;
             case R.id.hunter_image_view:
-                idPickedRole = R.id.hunter_image_view;
-                idConfirmedRole = R.id.hunter_chosen_image_view;
+                initValues(R.id.hunter_image_view, R.id.hunter_chosen_image_view);
 
                 titleCardTextView.setText(R.string.role_hunter);
                 descriptionCardTextView.setText(R.string.hunter_card_description);
@@ -158,8 +155,7 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
                 }
                 break;
             case R.id.little_girl_image_view:
-                idPickedRole = R.id.little_girl_image_view;
-                idConfirmedRole = R.id.little_girl_chosen_image_view;
+                initValues(R.id.little_girl_image_view, R.id.little_girl_chosen_image_view);
 
                 titleCardTextView.setText(R.string.role_little_girl);
                 descriptionCardTextView.setText(R.string.little_girl_card_description);
@@ -175,8 +171,7 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
                 }
                 break;
             case R.id.witch_image_view:
-                idPickedRole = R.id.witch_image_view;
-                idConfirmedRole = R.id.witch_chosen_image_view;
+                initValues(R.id.witch_image_view, R.id.witch_chosen_image_view);
 
                 titleCardTextView.setText(R.string.role_witch);
                 descriptionCardTextView.setText(R.string.witch_card_description);
@@ -196,9 +191,16 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    private void initValues(int id, int idChosen) {
+        idPickedRole = id;
+        idConfirmedRole = idChosen;
+        useCardButton.setEnabled(true);
+    }
+
     private void resetValues() {
         idPickedRole = 0;
         idConfirmedRole = 0;
+        useCardButton.setEnabled(false);
         titleCardTextView.setText(null);
         descriptionCardTextView.setText(null);
     }

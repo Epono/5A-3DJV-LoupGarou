@@ -18,13 +18,14 @@
 
         <activity
             android:name=".activities.AddPlayersActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".activities.RoleSelectionActivity" />
         <activity android:name=".activities.RoleAttributionActivity" />
         <activity android:name=".activities.FirstTurnActivity" />
         <activity android:name=".activities.NormalNightTurnActivity"/>
         <activity android:name=".activities.VoteActivity"/>
         <activity android:name=".activities.PickActivity"/>
+        <activity android:name=".activities.DisplayCardActivity"/>
     </application>
 
 </manifest>

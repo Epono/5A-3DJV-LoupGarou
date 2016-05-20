@@ -75,6 +75,7 @@
     <Button
         android:id="@+id/use_role_card_button"
         android:text="@string/use_role_card_text_button"
+        android:enabled="false"
         android:layout_above="@+id/role_cards_chosen_scroll_view"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"

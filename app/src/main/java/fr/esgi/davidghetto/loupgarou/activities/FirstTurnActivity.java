@@ -41,18 +41,18 @@ public class FirstTurnActivity extends AppCompatActivity implements View.OnClick
         cpt++;
         if (v == NextTurn && cpt == 1) {
             Intent lover1Intent = new Intent(this, PickActivity.class);
-            lover1Intent.putParcelableArrayListExtra("players", players);
+            lover1Intent.putParcelableArrayListExtra(AddPlayersActivity.PLAYER_LIST_KEY, players);
             startActivityForResult(lover1Intent, PickActivity.REQUEST_CODE_PICK);
         } else if (v == NextTurn && cpt == 2) {
             Intent lover1Intent = new Intent(this, PickActivity.class);
-            lover1Intent.putParcelableArrayListExtra("players", players);
+            lover1Intent.putParcelableArrayListExtra(AddPlayersActivity.PLAYER_LIST_KEY, players);
             startActivityForResult(lover1Intent, PickActivity.REQUEST_CODE_PICK);
         } else if (v == NextTurn && cpt == 3) {
             first_turn_text.setText("Les amoureux se réveillent et se regardent");
         } else if (v == NextTurn && cpt == 4) {
             Intent playIntent = new Intent(this, NormalNightTurnActivity.class);
-            playIntent.putParcelableArrayListExtra("players", players);
-            playIntent.putParcelableArrayListExtra("roles", activeRoles);
+            playIntent.putParcelableArrayListExtra(AddPlayersActivity.PLAYER_LIST_KEY, players);
+            playIntent.putParcelableArrayListExtra(AddPlayersActivity.ROLE_LIST_KEY, activeRoles);
             startActivity(playIntent);
 
             finish();

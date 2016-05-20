@@ -20,6 +20,8 @@ public class PickActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE_PICK = 2;
 
+    public static final String PICK_ACTIVITY_KEY = "pick";
+
     private ListViewCompat playerListView;
     private Button confirmButton;
     private PlayersPickAdapter playersPickAdapter;
@@ -52,7 +54,7 @@ public class PickActivity extends AppCompatActivity {
                 // Toast.makeText(VoteActivity.this, "PlayerGame clicked : " + player.getName(), Toast.LENGTH_LONG).show();
                 System.out.println(player);
                 Intent result = new Intent();
-                result.putExtra("pick", player);
+                result.putExtra(PICK_ACTIVITY_KEY, player);
                 setResult(RESULT_OK, result);
                 finish();
             }

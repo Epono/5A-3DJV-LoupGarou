@@ -78,6 +78,9 @@ public class NormalNightTurnActivity extends AppCompatActivity implements View.O
                 if (p.getRole() == Role.SEER && p.isAlive()) {
                     text_to_display = "La voyante se réveille et désigne un joueur dont elle va pouvoir voir la carte";
                     actual_text_to_display.setText(text_to_display);
+                    Intent voyanteIntent = new Intent(this, PickActivity.class);
+                    voyanteIntent.putParcelableArrayListExtra(AddPlayersActivity.PLAYER_LIST_KEY, players);
+                    startActivityForResult(voyanteIntent, PickActivity.REQUEST_CODE_PICK);
                 }
             }
         }
@@ -156,4 +159,18 @@ public class NormalNightTurnActivity extends AppCompatActivity implements View.O
             return VictoryState.NOT_FINISHED;
         }
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case PickActivity.REQUEST_CODE_PICK:
+                if (resultCode == RESULT_OK){
+                    Intent toDisplayActivityIntent = new Intent(this, DisplayCardActivity.class);
+                    toDisplayActivityIntent.putExtra(DisplayCardActivity.DISPLAY_PLAYER_KEY, data.getParcelableExtra(PickActivity.PICK_ACTIVITY_KEY));
+                    startActivity(toDisplayActivityIntent);
+                }
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
 }
