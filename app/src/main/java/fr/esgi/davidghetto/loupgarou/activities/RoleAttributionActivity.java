@@ -103,6 +103,8 @@ public class RoleAttributionActivity extends AppCompatActivity {
                         displayNext();
                     } else {
                         Intent firstTurnActivity = new Intent(RoleAttributionActivity.this, FirstTurnActivity.class);
+                        firstTurnActivity.putParcelableArrayListExtra("players", players);
+                        firstTurnActivity.putParcelableArrayListExtra("roles", roles);
                         startActivity(firstTurnActivity);
 
                         finish();
