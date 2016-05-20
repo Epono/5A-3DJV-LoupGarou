@@ -25,7 +25,7 @@ import fr.esgi.davidghetto.loupgarou.models.Role;
 public class NormalNightTurnActivity extends AppCompatActivity implements View.OnClickListener {
 
     enum VictoryState {
-        NOT_FINISHED, VILLAGERS_VICTORY, WEREWOLVES_VICTORY
+        NOT_FINISHED, VILLAGERS_VICTORY, WEREWOLVES_VICTORY, LOVERS_VICTORY
     }
 
     public Iterator<Player> iterator;
@@ -86,39 +86,54 @@ public class NormalNightTurnActivity extends AppCompatActivity implements View.O
             //LOUP GAROU
             text_to_display = "Les loup garous se réveillent et désigner une cible a tuer";
             actual_text_to_display.setText(text_to_display);
+
+            //TODO : ACTION ET STOCKAGE DU PLAYER A KILL
         }
 
         if (v == next_dialog && cpt == 3) {
-            // if (activeRoles.contains(Role.WITCH)) {
-            text_to_display = "La sorcière se réveille, elle peut sauver le vilageois désigner ou tuer une personne de son choix";
-            actual_text_to_display.setText(text_to_display);
-            //}
-        }
+            for (Player p : players) {
+                if (p.getRole() == Role.WITCH && p.isAlive()) {
+                    text_to_display = "La sorcière se réveille, elle peut sauver le vilageois désigner ou tuer une personne de son choix";
+                    actual_text_to_display.setText(text_to_display);
 
-        if (v == next_dialog && cpt == 4) {
-            background_image_night.setVisibility(View.INVISIBLE);
-            background_image_day.setVisibility(View.VISIBLE);
+                    //TODO : TUER QQUN SI VOULU
 
-            text_to_display = "Le village se réveille";
+                    //TODO: SAUVER LE JOUEUR SI VOULU
+                }
+            }
 
+            if (v == next_dialog && cpt == 4) {
+                background_image_night.setVisibility(View.INVISIBLE);
+                background_image_day.setVisibility(View.VISIBLE);
 
-            actual_text_to_display.setText(text_to_display);
+                text_to_display = "Le village se réveille, ";
+                text_to_display += "X est mort !";
+                actual_text_to_display.setText(text_to_display);
 
-        }
+                //TODO : REVELER LA CARTE DU JOUEUR MORT
+                //TODO : EN FONCTION DE LA CARTE ON FAIS UNE DERNIERE ACTION OU NON
 
+            }
 
-        if (partieFinie() == VictoryState.VILLAGERS_VICTORY) {
+            if (v == next_dialog && cpt == 5) {
+                text_to_display = "Il est temps de déterminer qui va être envoyé au bucher";
+                actual_text_to_display.setText(text_to_display);
+            }
 
-            text_to_display = "LES VILLAGEOIS WIN";
-            actual_text_to_display.setText(text_to_display);
-            //Intent DayTurnIntent = new Intent(this, NormalDayTurnActivity.class);
-            //startActivity(DayTurnIntent);
-            //finish();
-        }
-        else if(partieFinie() == VictoryState.WEREWOLVES_VICTORY)
-        {
-            text_to_display = "LES LOUP GAROU WIN";
-            actual_text_to_display.setText(text_to_display);
+            if (partieFinie() == VictoryState.VILLAGERS_VICTORY) {
+
+                text_to_display = "LES VILLAGEOIS WIN";
+                actual_text_to_display.setText(text_to_display);
+                //Intent DayTurnIntent = new Intent(this, NormalDayTurnActivity.class);
+                //startActivity(DayTurnIntent);
+                //finish();
+            } else if (partieFinie() == VictoryState.WEREWOLVES_VICTORY) {
+                text_to_display = "LES LOUP GAROU WIN";
+                actual_text_to_display.setText(text_to_display);
+            } else if (partieFinie() == VictoryState.LOVERS_VICTORY) {
+                text_to_display = "LES AMOUREUX WIN";
+                actual_text_to_display.setText(text_to_display);
+            }
         }
     }
 
