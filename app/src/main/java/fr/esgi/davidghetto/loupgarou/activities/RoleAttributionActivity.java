@@ -22,7 +22,7 @@ import fr.esgi.davidghetto.loupgarou.models.Role;
 public class RoleAttributionActivity extends AppCompatActivity {
 
     enum State {
-        CARD_DISPLAYED, NAME_DISPLAYED
+        CARD_DISPLAYED, NAME_DISPLAYED, CAPTAIN_DISPLAYED
     }
 
     private TextView playersNameText;
@@ -101,12 +101,15 @@ public class RoleAttributionActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     if (RoleAttributionActivity.this.iterator.hasNext() || currentState == State.NAME_DISPLAYED) {
                         displayNext();
+                    } else if (!RoleAttributionActivity.this.iterator.hasNext() && currentState == State.CARD_DISPLAYED) {
+                        Intent captainIntent = new Intent(RoleAttributionActivity.this, VoteActivity.class);
+                        captainIntent.putParcelableArrayListExtra("players", players);
+                        startActivityForResult(captainIntent, VoteActivity.REQUEST_CODE_VOTE);
                     } else {
                         Intent firstTurnActivity = new Intent(RoleAttributionActivity.this, FirstTurnActivity.class);
                         firstTurnActivity.putParcelableArrayListExtra("players", players);
                         firstTurnActivity.putParcelableArrayListExtra("roles", roles);
                         startActivity(firstTurnActivity);
-
                         finish();
                     }
                 }
@@ -151,6 +154,28 @@ public class RoleAttributionActivity extends AppCompatActivity {
                 playersRoleImage.setVisibility(View.INVISIBLE);
 
                 currentState = State.NAME_DISPLAYED;
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case VoteActivity.REQUEST_CODE_VOTE:
+                if (resultCode == RESULT_OK) {
+                    // afficher le capitaine
+                    Player p = data.getExtras().getParcelable("vote");
+                    p.setCaptain(true);
+                    playersNameText.setText(p.getName());
+                    playersRoleNameText.setText("Captain !");
+                    playersRoleImage.setImageDrawable(getResources().getDrawable(R.drawable.captain));
+                    currentState = State.CAPTAIN_DISPLAYED;
+                } else {
+                    System.out.println("ERREUR, pas de capitaine ! AAAAAAAAAAAAAAAA");
+                }
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
                 break;
         }
     }
