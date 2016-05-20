@@ -18,6 +18,8 @@ import fr.esgi.davidghetto.loupgarou.models.Role;
 
 public class VoteActivity extends AppCompatActivity {
 
+    public static final int REQUEST_CODE_VOTE = 1;
+
     private ListViewCompat playerListView;
     private Button confirmButton;
     private PlayersVoteAdapter playersVoteAdapter;
@@ -30,29 +32,18 @@ public class VoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vote);
 
-//        roles = getIntent().getExtras().getParcelableArrayList("roles");
-        // players = getIntent().getExtras().getParcelableArrayList("players");
-
-
-        // TODO
-        roles = new ArrayList<Role>();
-        roles.add(Role.LITTLE_GIRL);
-        roles.add(Role.CUPIDON);
-        roles.add(Role.SEER);
-
-        players = new ArrayList<Player>();
-        players.add(new Player("bite"));
-        players.add(new Player("rteg"));
-        players.add(new Player("hgnfn"));
-        players.add(new Player("sdf"));
-        players.add(new Player("yuiuyo"));
-        players.add(new Player("iopiop"));
-        players.add(new Player("bibn,bnte"));
+        players = getIntent().getExtras().getParcelableArrayList("players");
+//        players = new ArrayList<Player>();
+//        players.add(new Player("bite"));
+//        players.add(new Player("rteg"));
+//        players.add(new Player("hgnfn"));
+//        players.add(new Player("sdf"));
+//        players.add(new Player("yuiuyo"));
+//        players.add(new Player("iopiop"));
+//        players.add(new Player("bibn,bnte"));
 
         playersVoteAdapter = new PlayersVoteAdapter(this);
-        // TODO capitaine
-        boolean captain = true;
-        playersVoteAdapter.setNumberOfVotesMax(players.size() + (captain ? 1 : 0));
+        playersVoteAdapter.setNumberOfVotesMax(players.size() + 1);
         playersVoteAdapter.setVoteActivity(this);
         playerListView = (ListViewCompat) findViewById(R.id.vote_players_list_view);
         playerListView.setAdapter(playersVoteAdapter);
