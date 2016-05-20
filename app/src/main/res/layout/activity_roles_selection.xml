@@ -51,18 +51,11 @@
                 android:layout_toRightOf="@id/little_girl_image_view"
                 android:clickable="true"/>
 
-            <ImageView
-                android:id="@+id/thief_image_view"
-                android:background="@drawable/thief"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_toRightOf="@id/witch_image_view"
-                android:clickable="true"/>
         </LinearLayout>
     </HorizontalScrollView>
     <TextView
         android:id="@+id/title_card_text"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:gravity="center"
         android:hint="@string/title_card_text_hint"
         android:layout_centerHorizontal="true"
@@ -72,7 +65,7 @@
 
     <TextView
         android:id="@+id/card_description_text"
-        android:textSize="25dp"
+        android:textSize="15dp"
         android:hint="@string/card_description_text_hint"
         android:layout_above="@+id/use_role_card_button"
         android:layout_below="@id/title_card_text"
@@ -140,15 +133,6 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_toRightOf="@id/little_girl_chosen_image_view"
-                android:clickable="true"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/thief_chosen_image_view"
-                android:background="@drawable/thief"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_toRightOf="@id/witch_chosen_image_view"
                 android:clickable="true"
                 android:visibility="gone" />
 
