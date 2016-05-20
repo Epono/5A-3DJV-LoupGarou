@@ -122,7 +122,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
                 playersRoleImage.setVisibility(View.INVISIBLE);
                 nextButton.setEnabled(false);
 
-                new CountDownTimer(2 * 1000, 100) {
+                new CountDownTimer(0 * 2 * 1000, 100) {
                     @Override
                     public void onTick(long millisUntilFinished) {
                         timerText.setText(df.format((float) millisUntilFinished / 1000) + " s");
