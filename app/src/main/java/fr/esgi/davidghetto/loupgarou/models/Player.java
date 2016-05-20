@@ -8,12 +8,16 @@ public class Player implements Parcelable {
     private Role role;
     private boolean isAlive;
     private boolean isLover;
+    private int voteScore;
+    private boolean isCaptain;
 
     public Player(String name) {
         this.name = name;
         role = Role.VILLAGER;
         isAlive = true;
         isLover = false;
+        voteScore = 0;
+        isCaptain = false;
     }
 
     protected Player(Parcel in) {
@@ -21,6 +25,8 @@ public class Player implements Parcelable {
         role = (Role) in.readValue(Role.class.getClassLoader());
         isAlive = in.readByte() != 0x00;
         isLover = in.readByte() != 0x00;
+        voteScore = in.readInt();
+        isCaptain = in.readByte() != 0x00;
     }
 
     public String getName() {
@@ -31,7 +37,9 @@ public class Player implements Parcelable {
         return role;
     }
 
-    public boolean isAlive() { return isAlive; }
+    public boolean isAlive() {
+        return isAlive;
+    }
 
     public void setRole(Role role) {
         this.role = role;
@@ -47,6 +55,22 @@ public class Player implements Parcelable {
 
     public void setLover(boolean lover) {
         isLover = lover;
+    }
+
+    public int getVoteScore() {
+        return voteScore;
+    }
+
+    public void setVoteScore(int voteScore) {
+        this.voteScore = voteScore;
+    }
+
+    public boolean isCaptain() {
+        return isCaptain;
+    }
+
+    public void setCaptain(boolean captain) {
+        isCaptain = captain;
     }
 
     public static final Creator<Player> CREATOR = new Creator<Player>() {
@@ -72,5 +96,19 @@ public class Player implements Parcelable {
         dest.writeValue(role);
         dest.writeByte((byte) (isAlive ? 0x01 : 0x00));
         dest.writeByte((byte) (isLover ? 0x01 : 0x00));
+        dest.writeInt(voteScore);
+        dest.writeByte((byte) (isCaptain ? 0x01 : 0x00));
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", role=" + role +
+                ", isAlive=" + isAlive +
+                ", isLover=" + isLover +
+                ", voteScore=" + voteScore +
+                ", isCaptain=" + isCaptain +
+                '}';
     }
 }

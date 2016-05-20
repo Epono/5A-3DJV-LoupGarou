@@ -9,21 +9,10 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/actual_day_text_to_display"
-        android:text="@id/actual_day_text_to_display"
+        android:text="Les villageois sont sauvé tous les loup garou on été tué !"
+        android:textSize="45dp"
         android:textAlignment="center"
-        android:textSize="30dp"
-        android:layout_marginTop="100dp"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-
-    <Button
-        android:id="@+id/button_day_next_action"
-        android:text="Next"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="200dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

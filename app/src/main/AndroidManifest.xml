@@ -22,8 +22,8 @@
         <activity android:name=".activities.RoleSelectionActivity" />
         <activity android:name=".activities.RoleAttributionActivity" />
         <activity android:name=".activities.FirstTurnActivity" />
-        <activity android:name=".activities.NormalDayTurnActivity"/>
         <activity android:name=".activities.NormalNightTurnActivity"/>
+        <activity android:name=".activities.VoteActivity"/>
     </application>
 
 </manifest>
