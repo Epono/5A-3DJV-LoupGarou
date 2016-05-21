@@ -10,13 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import fr.esgi.davidghetto.loupgarou.R;
-import fr.esgi.davidghetto.loupgarou.models.Player;
 import fr.esgi.davidghetto.loupgarou.models.Role;
+import fr.esgi.davidghetto.loupgarou.utils.ExtraKeys;
 
-public class RoleSelectionActivity extends AppCompatActivity implements View.OnClickListener{
+public class RoleSelectionActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button confirmRolesButton;
     private Button useCardButton;
@@ -38,6 +37,7 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
     private ImageView litteGirlChosenImageView;
     private ImageView witchImageView;
     private ImageView witchChosenImageView;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,30 +60,30 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
         witchImageView = (ImageView) findViewById(R.id.witch_image_view);
         witchChosenImageView = (ImageView) findViewById(R.id.witch_chosen_image_view);
 
-        if(confirmRolesButton != null)
+        if (confirmRolesButton != null)
             confirmRolesButton.setOnClickListener(this);
-        if(useCardButton != null)
+        if (useCardButton != null)
             useCardButton.setOnClickListener(this);
 
-        if(cupidonImageView != null)
+        if (cupidonImageView != null)
             cupidonImageView.setOnClickListener(this);
-        if(cupidonChosenImageView != null)
+        if (cupidonChosenImageView != null)
             cupidonChosenImageView.setOnClickListener(this);
-        if(voyanteImageView != null)
+        if (voyanteImageView != null)
             voyanteImageView.setOnClickListener(this);
-        if(voyanteChosenImageView != null)
+        if (voyanteChosenImageView != null)
             voyanteChosenImageView.setOnClickListener(this);
-        if(hunterImageView != null)
+        if (hunterImageView != null)
             hunterImageView.setOnClickListener(this);
-        if(hunterChosenImageView != null)
+        if (hunterChosenImageView != null)
             hunterChosenImageView.setOnClickListener(this);
-        if(litteGirlImageView != null)
+        if (litteGirlImageView != null)
             litteGirlImageView.setOnClickListener(this);
-        if(litteGirlChosenImageView != null)
+        if (litteGirlChosenImageView != null)
             litteGirlChosenImageView.setOnClickListener(this);
-        if(witchImageView != null)
+        if (witchImageView != null)
             witchImageView.setOnClickListener(this);
-        if(witchChosenImageView != null)
+        if (witchChosenImageView != null)
             witchChosenImageView.setOnClickListener(this);
 
         roles = new ArrayList<Role>();
@@ -91,11 +91,11 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.confirm_roles_button:
                 Intent confirmRolesIntent = new Intent();
 
-                confirmRolesIntent.putParcelableArrayListExtra(AddPlayersActivity.ROLE_LIST_KEY, roles);
+                confirmRolesIntent.putParcelableArrayListExtra(ExtraKeys.ROLES_LIST_KEY, roles);
                 setResult(RESULT_OK, confirmRolesIntent);
                 finish();
                 break;
@@ -109,14 +109,14 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
             case R.id.cupidon_image_view:
                 initValues(R.id.cupidon_image_view, R.id.cupidon_chosen_image_view);
 
-                titleCardTextView.setText(R.string.role_cupidon);
-                descriptionCardTextView.setText(R.string.cupion_card_description);
+                titleCardTextView.setText(R.string.role_cupid_label);
+                descriptionCardTextView.setText(R.string.role_cupid_card_description);
                 break;
             case R.id.cupidon_chosen_image_view:
                 findViewById(R.id.cupidon_image_view).setVisibility(View.VISIBLE);
                 findViewById(R.id.cupidon_chosen_image_view).setVisibility(View.GONE);
-                for(int i = 0; i < roles.size(); i++){
-                    if(roles.get(i) == Role.CUPIDON) {
+                for (int i = 0; i < roles.size(); i++) {
+                    if (roles.get(i) == Role.CUPIDON) {
                         roles.remove(i);
                         break;
                     }
@@ -125,14 +125,14 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
             case R.id.voyante_image_view:
                 initValues(R.id.voyante_image_view, R.id.voyante_chosen_image_view);
 
-                titleCardTextView.setText(R.string.role_seer);
-                descriptionCardTextView.setText(R.string.voyante_card_description);
+                titleCardTextView.setText(R.string.role_fortune_teller_label);
+                descriptionCardTextView.setText(R.string.role_fortune_teller_card_description);
                 break;
             case R.id.voyante_chosen_image_view:
                 findViewById(R.id.voyante_image_view).setVisibility(View.VISIBLE);
                 findViewById(R.id.voyante_chosen_image_view).setVisibility(View.GONE);
-                for(int i = 0; i < roles.size(); i++){
-                    if(roles.get(i) == Role.SEER) {
+                for (int i = 0; i < roles.size(); i++) {
+                    if (roles.get(i) == Role.FORTUNE_TELLER) {
                         roles.remove(i);
                         break;
                     }
@@ -141,14 +141,14 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
             case R.id.hunter_image_view:
                 initValues(R.id.hunter_image_view, R.id.hunter_chosen_image_view);
 
-                titleCardTextView.setText(R.string.role_hunter);
-                descriptionCardTextView.setText(R.string.hunter_card_description);
+                titleCardTextView.setText(R.string.role_hunter_label);
+                descriptionCardTextView.setText(R.string.role_hunter_card_description);
                 break;
             case R.id.hunter_chosen_image_view:
                 findViewById(R.id.hunter_image_view).setVisibility(View.VISIBLE);
                 findViewById(R.id.hunter_chosen_image_view).setVisibility(View.GONE);
-                for(int i = 0; i < roles.size(); i++){
-                    if(roles.get(i) == Role.HUNTER) {
+                for (int i = 0; i < roles.size(); i++) {
+                    if (roles.get(i) == Role.HUNTER) {
                         roles.remove(i);
                         break;
                     }
@@ -157,14 +157,14 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
             case R.id.little_girl_image_view:
                 initValues(R.id.little_girl_image_view, R.id.little_girl_chosen_image_view);
 
-                titleCardTextView.setText(R.string.role_little_girl);
-                descriptionCardTextView.setText(R.string.little_girl_card_description);
+                titleCardTextView.setText(R.string.role_little_girl_label);
+                descriptionCardTextView.setText(R.string.role_little_girl_card_description);
                 break;
             case R.id.little_girl_chosen_image_view:
                 findViewById(R.id.little_girl_image_view).setVisibility(View.VISIBLE);
                 findViewById(R.id.little_girl_chosen_image_view).setVisibility(View.GONE);
-                for(int i = 0; i < roles.size(); i++){
-                    if(roles.get(i) == Role.LITTLE_GIRL) {
+                for (int i = 0; i < roles.size(); i++) {
+                    if (roles.get(i) == Role.LITTLE_GIRL) {
                         roles.remove(i);
                         break;
                     }
@@ -173,14 +173,14 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
             case R.id.witch_image_view:
                 initValues(R.id.witch_image_view, R.id.witch_chosen_image_view);
 
-                titleCardTextView.setText(R.string.role_witch);
-                descriptionCardTextView.setText(R.string.witch_card_description);
+                titleCardTextView.setText(R.string.role_witch_label);
+                descriptionCardTextView.setText(R.string.role_witch_card_description);
                 break;
             case R.id.witch_chosen_image_view:
                 findViewById(R.id.witch_image_view).setVisibility(View.VISIBLE);
                 findViewById(R.id.witch_chosen_image_view).setVisibility(View.GONE);
-                for(int i = 0; i < roles.size(); i++){
-                    if(roles.get(i) == Role.WITCH) {
+                for (int i = 0; i < roles.size(); i++) {
+                    if (roles.get(i) == Role.WITCH) {
                         roles.remove(i);
                         break;
                     }
@@ -206,21 +206,21 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
     }
 
     private void addCardToList(int id) {
-        switch (id){
+        switch (id) {
             case R.id.cupidon_image_view:
                 roles.add(Role.CUPIDON);
                 break;
             case R.id.voyante_image_view:
-                roles.add(Role.SEER);
+                roles.add(Role.FORTUNE_TELLER);
                 break;
             case R.id.hunter_image_view:
-                roles.add(Role.SEER);
+                roles.add(Role.FORTUNE_TELLER);
                 break;
             case R.id.little_girl_image_view:
-                roles.add(Role.SEER);
+                roles.add(Role.FORTUNE_TELLER);
                 break;
             case R.id.witch_image_view:
-                roles.add(Role.SEER);
+                roles.add(Role.FORTUNE_TELLER);
                 break;
             default:
                 break;

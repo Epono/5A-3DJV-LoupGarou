@@ -16,8 +16,10 @@ import java.util.Iterator;
 import java.util.Random;
 
 import fr.esgi.davidghetto.loupgarou.R;
+import fr.esgi.davidghetto.loupgarou.activities.result.VoteActivity;
 import fr.esgi.davidghetto.loupgarou.models.Player;
 import fr.esgi.davidghetto.loupgarou.models.Role;
+import fr.esgi.davidghetto.loupgarou.utils.RequestCodes;
 
 public class RoleAttributionActivity extends AppCompatActivity {
 
@@ -58,7 +60,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
 //        boolean lovers = true;
 //        roles = new ArrayList<Role>();
 //        roles.add(Role.CUPIDON);
-//        roles.add(Role.SEER);
+//        roles.add(Role.FORTUNE_TELLER);
 //        roles.add(Role.WITCH);
 
         Random r = new Random();
@@ -92,7 +94,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
 
         // Pour chaque role spécial restant, affecter à un villageois aléatoirement
         for (Role role : roles) {
-            if (role == Role.CUPIDON || role == Role.HUNTER || role == Role.LITTLE_GIRL || role == Role.SEER || role == Role.WITCH) {
+            if (role == Role.CUPIDON || role == Role.HUNTER || role == Role.LITTLE_GIRL || role == Role.FORTUNE_TELLER || role == Role.WITCH) {
                 Player p = players.get(r.nextInt(players.size()));
                 while (p.getRole() != Role.VILLAGER) {
                     p = players.get(r.nextInt(players.size()));
@@ -113,7 +115,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
                     } else if (!RoleAttributionActivity.this.iterator.hasNext() && currentState == State.CARD_DISPLAYED) {
                         Intent captainIntent = new Intent(RoleAttributionActivity.this, VoteActivity.class);
                         captainIntent.putParcelableArrayListExtra("players", players);
-                        startActivityForResult(captainIntent, VoteActivity.REQUEST_CODE_VOTE);
+                        startActivityForResult(captainIntent, RequestCodes.REQUEST_CODE_VOTE);
 //                    } else if (!RoleAttributionActivity.this.iterator.hasNext() && (currentState == State.CAPTAIN_DISPLAYED || currentState == State.CUPIDON)) {
 //                        Intent lover1Intent = new Intent(RoleAttributionActivity.this, PickActivity.class);
 //                        lover1Intent.putParcelableArrayListExtra("players", players);
@@ -174,7 +176,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case VoteActivity.REQUEST_CODE_VOTE:
+            case RequestCodes.REQUEST_CODE_VOTE:
                 if (resultCode == RESULT_OK) {
                     // afficher le capitaine
                     Player p = data.getExtras().getParcelable("vote");

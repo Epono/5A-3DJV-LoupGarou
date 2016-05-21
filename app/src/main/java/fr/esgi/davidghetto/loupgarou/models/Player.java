@@ -14,12 +14,12 @@ public class Player implements Parcelable {
 
     public Player(String name) {
         this.name = name;
-        //id = 0;
         role = Role.VILLAGER;
         isAlive = true;
         isLover = false;
         voteScore = 0;
         isCaptain = false;
+        //id = 0;
     }
 
     protected Player(Parcel in) {

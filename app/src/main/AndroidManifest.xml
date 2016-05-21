@@ -22,9 +22,9 @@
         <activity android:name=".activities.RoleSelectionActivity" />
         <activity android:name=".activities.RoleAttributionActivity" />
         <activity android:name=".activities.FirstTurnActivity" />
-        <activity android:name=".activities.NormalNightTurnActivity"/>
-        <activity android:name=".activities.VoteActivity"/>
-        <activity android:name=".activities.PickActivity"/>
+        <activity android:name=".activities.NormalTurnActivity"/>
+        <activity android:name=".activities.result.VoteActivity"/>
+        <activity android:name=".activities.result.PickActivity"/>
         <activity android:name=".activities.DisplayCardActivity"/>
         <activity android:name=".activities.GameInfoActivity"/>
     </application>

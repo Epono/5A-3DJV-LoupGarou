@@ -1,9 +1,12 @@
 package fr.esgi.davidghetto.loupgarou.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.List;
 
-public class Game implements Serializable {
+public class Game implements Parcelable {
     private List<Player> players;
     private int turn;
     private int numberOfHumansAlive;
@@ -49,17 +52,14 @@ public class Game implements Serializable {
         this.numberOfWerewolvesAlive = numberOfWerewolvesAlive;
     }
 
-    public void setActiveRoles(List<Role> Roles)
-    {
-        for(int i=0; i<Roles.size();++i)
-        {
+    public void setActiveRoles(List<Role> Roles) {
+        for (int i = 0; i < Roles.size(); ++i) {
             activeRolesInGame.add(Roles.get(i));
         }
 
     }
 
-    public List<Role> getActiveRoles()
-    {
+    public List<Role> getActiveRoles() {
         return activeRolesInGame;
     }
 
@@ -71,5 +71,18 @@ public class Game implements Serializable {
                 ", numberOfHumansAlive=" + numberOfHumansAlive +
                 ", numberOfWerewolvesAlive=" + numberOfWerewolvesAlive +
                 '}';
+    }
+
+
+    // TODO
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    // TODO
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

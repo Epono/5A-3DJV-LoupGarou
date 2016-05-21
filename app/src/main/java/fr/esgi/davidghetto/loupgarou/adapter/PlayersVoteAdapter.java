@@ -8,12 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.HashMap;
 
 import fr.esgi.davidghetto.loupgarou.R;
-import fr.esgi.davidghetto.loupgarou.activities.VoteActivity;
+import fr.esgi.davidghetto.loupgarou.activities.result.VoteActivity;
 import fr.esgi.davidghetto.loupgarou.models.Player;
 
 public class PlayersVoteAdapter extends ArrayAdapter<Player> {

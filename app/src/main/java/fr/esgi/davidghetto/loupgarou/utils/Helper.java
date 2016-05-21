@@ -31,7 +31,7 @@ public class Helper {
         jacqueline.setAlive(true);
 
         Player josiane = new Player("Josiance");
-        josiane.setRole(Role.SEER);
+        josiane.setRole(Role.FORTUNE_TELLER);
         josiane.setAlive(false);
 
         Player pupute = new Player("Pupute");

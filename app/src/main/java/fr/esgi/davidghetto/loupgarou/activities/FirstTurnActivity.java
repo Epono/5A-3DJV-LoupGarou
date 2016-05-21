@@ -10,8 +10,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import fr.esgi.davidghetto.loupgarou.R;
+import fr.esgi.davidghetto.loupgarou.activities.result.PickActivity;
 import fr.esgi.davidghetto.loupgarou.models.Player;
 import fr.esgi.davidghetto.loupgarou.models.Role;
+import fr.esgi.davidghetto.loupgarou.utils.ExtraKeys;
+import fr.esgi.davidghetto.loupgarou.utils.RequestCodes;
 
 public class FirstTurnActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,24 +44,24 @@ public class FirstTurnActivity extends AppCompatActivity implements View.OnClick
         cpt++;
         if (v == NextTurn && cpt == 1) {
             Intent lover1Intent = new Intent(this, PickActivity.class);
-            lover1Intent.putParcelableArrayListExtra(AddPlayersActivity.PLAYER_LIST_KEY, players);
-            startActivityForResult(lover1Intent, PickActivity.REQUEST_CODE_PICK);
+            lover1Intent.putParcelableArrayListExtra(ExtraKeys.PLAYERS_LIST_KEY, players);
+            startActivityForResult(lover1Intent, RequestCodes.REQUEST_CODE_PICK);
         } else if (v == NextTurn && cpt == 2) {
             Intent lover1Intent = new Intent(this, PickActivity.class);
-            lover1Intent.putParcelableArrayListExtra(AddPlayersActivity.PLAYER_LIST_KEY, players);
+            lover1Intent.putParcelableArrayListExtra(ExtraKeys.PLAYERS_LIST_KEY, players);
             ArrayList<Player> playersTemp = new ArrayList<Player>();
             for (Player player : players) {
                 if (!player.isLover())
                     playersTemp.add(player);
             }
-            lover1Intent.putParcelableArrayListExtra(AddPlayersActivity.PLAYER_LIST_KEY, playersTemp);
-            startActivityForResult(lover1Intent, PickActivity.REQUEST_CODE_PICK);
+            lover1Intent.putParcelableArrayListExtra(ExtraKeys.PLAYERS_LIST_KEY, playersTemp);
+            startActivityForResult(lover1Intent, RequestCodes.REQUEST_CODE_PICK);
         } else if (v == NextTurn && cpt == 3) {
             first_turn_text.setText("Les amoureux se réveillent et se regardent");
         } else if (v == NextTurn && cpt == 4) {
-            Intent playIntent = new Intent(this, NormalNightTurnActivity.class);
-            playIntent.putParcelableArrayListExtra(AddPlayersActivity.PLAYER_LIST_KEY, players);
-            playIntent.putParcelableArrayListExtra(AddPlayersActivity.ROLE_LIST_KEY, activeRoles);
+            Intent playIntent = new Intent(this, NormalTurnActivity.class);
+            playIntent.putParcelableArrayListExtra(ExtraKeys.PLAYERS_LIST_KEY, players);
+            playIntent.putParcelableArrayListExtra(ExtraKeys.ROLES_LIST_KEY, activeRoles);
             startActivity(playIntent);
 
             finish();
@@ -68,7 +71,7 @@ public class FirstTurnActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case PickActivity.REQUEST_CODE_PICK:
+            case RequestCodes.REQUEST_CODE_PICK:
                 if (resultCode == RESULT_OK) {
                     // afficher le lover
                     Player p = data.getExtras().getParcelable("pick");

@@ -19,14 +19,12 @@ import fr.esgi.davidghetto.loupgarou.R;
 import fr.esgi.davidghetto.loupgarou.adapter.PlayersAdapter;
 import fr.esgi.davidghetto.loupgarou.models.Player;
 import fr.esgi.davidghetto.loupgarou.models.Role;
+import fr.esgi.davidghetto.loupgarou.utils.ExtraKeys;
+import fr.esgi.davidghetto.loupgarou.utils.RequestCodes;
 
 public class AddPlayersActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     public static final int NB_MIN_PLAYER = 7;
-    private static final int ROLE_REQUEST_CODE = 1;
-
-    public static final String ROLE_LIST_KEY = "roles";
-    public static final String PLAYER_LIST_KEY = "players";
 
     private ListViewCompat playerListView;
     private EditText playerEditText;
@@ -60,9 +58,9 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
             playerAddButton.setOnClickListener(this);
         if (editModeCheckbox != null)
             editModeCheckbox.setOnCheckedChangeListener(this);
-        if(startGameButton != null)
+        if (startGameButton != null)
             startGameButton.setOnClickListener(this);
-        if(chooseRoleButton != null)
+        if (chooseRoleButton != null)
             chooseRoleButton.setOnClickListener(this);
 
         playersAdapter = new PlayersAdapter(this);
@@ -78,29 +76,28 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        if(v == playerAddButton) {
+        if (v == playerAddButton) {
             String playerName = playerEditText.getText().toString();
             if (!playerName.isEmpty()) {
                 playersAdapter.add(new Player(playerName));
                 playerEditText.getText().clear();
             }
-            if(playersAdapter.getCount() >= NB_MIN_PLAYER)
+            if (playersAdapter.getCount() >= NB_MIN_PLAYER)
                 startGameButton.setEnabled(true);
-        } else if(v == chooseRoleButton){
+        } else if (v == chooseRoleButton) {
             Intent toRolePickActivityIntent = new Intent(this, RoleSelectionActivity.class);
-            startActivityForResult(toRolePickActivityIntent, ROLE_REQUEST_CODE);
-        } else if(v == startGameButton){
-            if(rolesChosen) {
+            startActivityForResult(toRolePickActivityIntent, RequestCodes.REQUEST_CODE_ROLE);
+        } else if (v == startGameButton) {
+            if (rolesChosen) {
                 Intent toRoleAttributionActivity = new Intent(this, RoleAttributionActivity.class);
                 for (int i = 0; i < playersAdapter.getCount(); i++) {
                     players.add(playersAdapter.getItem(i));
                 }
-                toRoleAttributionActivity.putParcelableArrayListExtra(PLAYER_LIST_KEY, players);
-                toRoleAttributionActivity.putParcelableArrayListExtra(ROLE_LIST_KEY, roles);
+                toRoleAttributionActivity.putParcelableArrayListExtra(ExtraKeys.PLAYERS_LIST_KEY, players);
+                toRoleAttributionActivity.putParcelableArrayListExtra(ExtraKeys.ROLES_LIST_KEY, roles);
                 startActivity(toRoleAttributionActivity);
                 finish();
-            }
-            else
+            } else
                 Toast.makeText(this, "Choose Roles before starting the game", Toast.LENGTH_LONG).show();
         }
     }
@@ -112,11 +109,11 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode){
-            case ROLE_REQUEST_CODE:
-                if (resultCode == RESULT_OK){
-                    roles = data.getParcelableArrayListExtra(ROLE_LIST_KEY);
-                    if(roles != null)
+        switch (requestCode) {
+            case RequestCodes.REQUEST_CODE_ROLE:
+                if (resultCode == RESULT_OK) {
+                    roles = data.getParcelableArrayListExtra(ExtraKeys.ROLES_LIST_KEY);
+                    if (roles != null)
                         rolesChosen = roles.size() > 0;
                 } else {
                     Toast.makeText(this, "Walah t'as fait quoi là ?", Toast.LENGTH_LONG).show();

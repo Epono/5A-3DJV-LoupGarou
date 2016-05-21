@@ -44,7 +44,7 @@ public class PlayersGameInfoAdapter extends ArrayAdapter<Player> {
         roleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), getContext().getResources().getString(player.getRole().getNameRes()), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), inGameMasterMode || !player.isAlive() ? getContext().getResources().getString(player.getRole().getNameRes()) : getContext().getResources().getString(R.string.role_unknown_label), Toast.LENGTH_SHORT).show();
             }
         });
 

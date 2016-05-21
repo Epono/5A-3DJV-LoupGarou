@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import fr.esgi.davidghetto.loupgarou.R;
 import fr.esgi.davidghetto.loupgarou.adapter.PlayersGameInfoAdapter;
 import fr.esgi.davidghetto.loupgarou.models.Player;
+import fr.esgi.davidghetto.loupgarou.utils.ExtraKeys;
 import fr.esgi.davidghetto.loupgarou.utils.Helper;
 
 public class GameInfoActivity extends AppCompatActivity {
@@ -26,13 +27,14 @@ public class GameInfoActivity extends AppCompatActivity {
         ArrayList<Player> players;
 
         Bundle extras = getIntent().getExtras();
-        if (extras.containsKey(AddPlayersActivity.PLAYER_LIST_KEY)) {
-            players = getIntent().getExtras().getParcelableArrayList(AddPlayersActivity.PLAYER_LIST_KEY);
+        if (extras != null && extras.containsKey(ExtraKeys.PLAYERS_LIST_KEY)) {
+            players = getIntent().getExtras().getParcelableArrayList(ExtraKeys.PLAYERS_LIST_KEY);
         } else {
             players = Helper.getPlayers();
         }
 
         playersGameInfoAdapter = new PlayersGameInfoAdapter(this);
+
         ListViewCompat playerListView = (ListViewCompat) findViewById(R.id.game_info_list_view);
         if (playerListView != null) {
             playerListView.setAdapter(playersGameInfoAdapter);

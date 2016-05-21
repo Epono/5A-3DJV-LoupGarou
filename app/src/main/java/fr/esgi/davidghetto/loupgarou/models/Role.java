@@ -6,13 +6,13 @@ import android.os.Parcelable;
 import fr.esgi.davidghetto.loupgarou.R;
 
 public enum Role implements Parcelable {
-    WEREWOLF(R.drawable.loup_garou, R.string.role_werewolf),
-    SEER(R.drawable.voyante, R.string.role_seer),
-    VILLAGER(R.drawable.paysan, R.string.role_villager),
-    CUPIDON(R.drawable.cupidon, R.string.role_cupidon),
-    HUNTER(R.drawable.hunter, R.string.role_hunter),
-    WITCH(R.drawable.witch, R.string.role_witch),
-    LITTLE_GIRL(R.drawable.little_girl, R.string.role_little_girl);
+    WEREWOLF(R.drawable.loup_garou, R.string.role_werewolf_label),
+    FORTUNE_TELLER(R.drawable.voyante, R.string.role_fortune_teller_label),
+    VILLAGER(R.drawable.paysan, R.string.role_villager_label),
+    CUPIDON(R.drawable.cupidon, R.string.role_cupid_label),
+    HUNTER(R.drawable.hunter, R.string.role_hunter_label),
+    WITCH(R.drawable.witch, R.string.role_witch_label),
+    LITTLE_GIRL(R.drawable.little_girl, R.string.role_little_girl_label);
 
     private int drawableRes;
     private int nameRes;
@@ -62,4 +62,4 @@ public enum Role implements Parcelable {
         out.writeInt(drawableRes);
         out.writeInt(nameRes);
     }
-    }
+}
