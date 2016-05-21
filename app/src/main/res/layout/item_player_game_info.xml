@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/item_player_game_info_player_name"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.80"
+        android:gravity="center_vertical"
+        android:paddingEnd="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingStart="5dp"
+        android:text="Name"
+        android:textSize="25sp" />
+
+    <ImageView
+        android:id="@+id/item_player_game_info_captain_image"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_weight="0.20"
+        android:background="@drawable/captain"
+        android:clickable="true" />
+
+    <ImageView
+        android:id="@+id/item_player_game_info_lovers_image"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_weight="0.20"
+        android:background="@drawable/lovers"
+        android:clickable="true"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_weight="0.20">
+
+        <ImageView
+            android:id="@+id/item_player_game_info_role_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/unknown"
+            android:clickable="true" />
+
+        <ImageView
+            android:id="@+id/item_player_game_info_dead_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/item_player_game_info_role_image"
+            android:layout_alignEnd="@id/item_player_game_info_role_image"
+            android:layout_alignLeft="@id/item_player_game_info_role_image"
+            android:layout_alignRight="@id/item_player_game_info_role_image"
+            android:layout_alignStart="@id/item_player_game_info_role_image"
+            android:layout_alignTop="@id/item_player_game_info_role_image"
+            android:background="@drawable/dead"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+
+</LinearLayout>

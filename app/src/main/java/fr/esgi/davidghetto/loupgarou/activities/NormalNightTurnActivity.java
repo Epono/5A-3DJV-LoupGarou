@@ -16,10 +16,9 @@ import fr.esgi.davidghetto.loupgarou.R;
 import fr.esgi.davidghetto.loupgarou.models.Player;
 import fr.esgi.davidghetto.loupgarou.models.Role;
 
-/**
- * Created by Lucas on 19/05/2016.
- */
 public class NormalNightTurnActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private Button infosButton;
 
     enum VictoryState {
         NOT_FINISHED, VILLAGERS_VICTORY, WEREWOLVES_VICTORY, LOVERS_VICTORY
@@ -53,7 +52,10 @@ public class NormalNightTurnActivity extends AppCompatActivity implements View.O
             next_dialog.setOnClickListener(this);
         }
 
-
+        infosButton = (Button) findViewById(R.id.normal_turn_infos);
+        if(infosButton != null) {
+            infosButton.setOnClickListener(this);
+        }
 
         //  Game stateOfTheGame = getIntent().getExtras().getParcelable("game");
         players = getIntent().getExtras().getParcelableArrayList("players");
@@ -69,6 +71,11 @@ public class NormalNightTurnActivity extends AppCompatActivity implements View.O
 
     @Override
     public void onClick(View v) {
+        if(v == infosButton) {
+            Intent gameInfosIntent = new Intent(this, GameInfoActivity.class);
+            gameInfosIntent.putParcelableArrayListExtra(AddPlayersActivity.PLAYER_LIST_KEY, players);
+            startActivity(gameInfosIntent);
+        }
         cpt++;
         if (v == next_dialog && cpt == 1) {
             for (Player p : players) {

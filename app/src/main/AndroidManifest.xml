@@ -26,6 +26,7 @@
         <activity android:name=".activities.VoteActivity"/>
         <activity android:name=".activities.PickActivity"/>
         <activity android:name=".activities.DisplayCardActivity"/>
+        <activity android:name=".activities.GameInfoActivity"/>
     </application>
 
 </manifest>

@@ -20,7 +20,6 @@ public class PlayersVoteAdapter extends ArrayAdapter<Player> {
 
     private static final int layoutResource = R.layout.item_player_vote;
 
-    private TextView playerScore;
     private HashMap<Player, Button> plusButtons;
     private HashMap<Player, Button> minusButtons;
     private HashMap<Player, TextView> textViews;
@@ -34,11 +33,11 @@ public class PlayersVoteAdapter extends ArrayAdapter<Player> {
 
     public PlayersVoteAdapter(Context context) {
         super(context, layoutResource);
-        plusButtons = new HashMap<Player, Button>();
-        minusButtons = new HashMap<Player, Button>();
-        textViews = new HashMap<Player, TextView>();
+        plusButtons = new HashMap<>();
+        minusButtons = new HashMap<>();
+        textViews = new HashMap<>();
 
-        buttonsToPlayer = new HashMap<Button, Player>();
+        buttonsToPlayer = new HashMap<>();
     }
 
     @Override
@@ -50,6 +49,7 @@ public class PlayersVoteAdapter extends ArrayAdapter<Player> {
         numberOfVotes = 0;
 
         final Player player = getItem(position);
+
         TextView playerName = (TextView) convertView.findViewById(R.id.item_player_name_text_view);
         playerName.setText(player.getName());
 

@@ -15,4 +15,5 @@
     <string name="role_villager">Villageois</string>
     <string name="start_the_game_text_button">Start the game</string>
     <string name="role_captain">Capitaine</string>
+    <string name="game_info_text">Infos</string>
 </resources>

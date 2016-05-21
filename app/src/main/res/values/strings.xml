@@ -31,4 +31,5 @@
     <string name="hunter_card_description">Le chasseur, s\'il se fait égorger par les Loups-Garous ou lyncher par les joueurs, a le pouvoir de répliquer en tuant immédiatement n\'importe quel autre joueur.</string>
     <string name="little_girl_card_description">Elle a le droit, la nuit, au moment où les Loups-Garous désignent leur victime, de les espionner (en entrouvant les yeux, etc). Si elle se fait surprendre par un des Loups-Garous, elle meurt immédiatement (en silence), à la place de la victime désignée.</string>
     <string name="witch_card_description">Elle sait concocter 2 potions extrêmement puissantes : une potion de guérison, pour ressusciter le joueur tué par les Loups-Garous, une potion d\'empoisonnement, utilisée la nuit pour éliminer un joueur. La Sorcière doit utiliser chaque potion 1 seule fois dans la partie. Elle peut se servir des ses 2 potions la même nuit. Le matin suivant l\'usage de ce pouvoir, il pourra donc y avoir soit 0 mort, 1 mort ou 2 morts. La sorcière peut utiliser les potions à son profit, et donc se guérir elle-même.</string>
+    <string name="game_info_text">Infos</string>
 </resources>
