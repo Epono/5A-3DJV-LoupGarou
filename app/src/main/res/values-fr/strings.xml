@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">LoupGarou</string>
-    <string name="app_title">Les Loups-Garou</string>
+    <string name="app_name">Les Loups-Garous de Thiercelieux</string>
+    <string name="app_title">Les Loups-Garous de Thiercelieux</string>
     <string name="button_add_player_text">Ajouter joueur</string>
     <string name="label_player_list">Liste des joueurs</string>
     <string name="play_text_button">Jouer</string>
@@ -38,11 +38,13 @@
     <string name="normal_turn_text_night_falls">La nuit tombe sur le village, les villageois s\'endorment ...</string>
     <string name="normal_turn_text_village_votes">Il est temps de déterminer qui va être envoyé au bûcher</string>
     <string name="normal_turn_text_fortune_teller_wakes_up">La voyante se réveille et désigne un joueur dont elle va pouvoir voir la carte</string>
-    <string name="normal_turn_text_werewolves_wake_up">Les loup garous se réveillent et désignent une cible à tuer</string>
+    <string name="normal_turn_text_werewolves_wake_up">Les Loups-Garous se réveillent et désignent une cible à tuer</string>
     <string name="normal_turn_text_witch_wakes_up">La sorcière se réveille, elle peut sauver le villageois désigné par les loups ou tuer une personne de son choix</string>
     <string name="normal_turn_text_village_wakes_up">Le village se réveille</string>
-    <string name="normal_turn_text_werewolves_victory">Les loup-Garous l\'emportent !</string>
+    <string name="normal_turn_text_werewolves_victory">Les Loups-Garous l\'emportent !</string>
     <string name="normal_turn_text_villagers_victory">les villageois l\'emportent !</string>
-    <string name="normal_turn_text_village_kill">Le village a fini de voter pour décider qui envoyer au bûcher</string>
+    <string name="normal_turn_text_village_kill">Le village a décidé d\'éxécuter</string>
     <string name="normal_turn_text_lovers_victory">Les amoureux l\'emportent !</string>
+    <string name="fortune_teller_pick_header">Choisissez un joueur pour découvrir son rôle</string>
+    <string name="werewolves_pick_header">Choisissez la cible à éliminer</string>
 </resources>

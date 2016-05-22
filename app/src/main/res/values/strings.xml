@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Werewolf</string>
-    <string name="app_title">Werewolves</string>
+    <string name="app_name">Werewolves of Thiercelieux</string>
+    <string name="app_title">Werewolves of Thiercelieux</string>
     <string name="button_add_player_text">Add player</string>
     <string name="label_player_list">List of players</string>
     <string name="play_text_button">Play</string>
@@ -34,14 +34,16 @@
     <string name="title_card_text_hint">Card Title</string>
     <string name="game_info_text">Infos</string>
     <string name="start_the_game_text_button">Start the game</string>
-    <string name="normal_turn_text_night_falls">The night falls</string>
-    <string name="normal_turn_text_fortune_teller_wakes_up">Fortune Teller wakes up</string>
+    <string name="normal_turn_text_night_falls">The night falls, villagers go to sleep ...</string>
+    <string name="normal_turn_text_fortune_teller_wakes_up">The Fortune Teller wakes up and choses a player to see his role</string>
     <string name="normal_turn_text_werewolves_wake_up">Werewolves wake up and pick a target to kill</string>
-    <string name="normal_turn_text_witch_wakes_up">The Witch wakes up</string>
+    <string name="normal_turn_text_witch_wakes_up">The Witch wakes up, she can either save the villager targeted by the wolves, or kill somebody else</string>
     <string name="normal_turn_text_village_wakes_up">The village wakes up</string>
     <string name="normal_turn_text_village_votes">The village will vote who to kill</string>
-    <string name="normal_turn_text_village_kill">The village has decided who to kill</string>
+    <string name="normal_turn_text_village_kill">The village decided to kill </string>
     <string name="normal_turn_text_villagers_victory">Villagers Win !</string>
     <string name="normal_turn_text_werewolves_victory">Werewolves Win !</string>
     <string name="normal_turn_text_lovers_victory">Lovers Win !</string>
+    <string name="fortune_teller_pick_header">Choose a player to see his role</string>
+    <string name="werewolves_pick_header">Choose a target to kill</string>
 </resources>

@@ -18,18 +18,18 @@ public class Helper {
         georges.setRole(Role.VILLAGER);
         georges.setLover(true);
 
-        Player wolfgang = new Player("Wolfgang");
+        Player wolfgang = new Player("WOLFgang");
         wolfgang.setRole(Role.WEREWOLF);
         wolfgang.setLover(true);
 
-        Player biatch = new Player("biatch");
-        wolfgang.setRole(Role.LITTLE_GIRL);
+        Player biatch = new Player("Biatch");
+        biatch.setRole(Role.LITTLE_GIRL);
         biatch.setAlive(!iSeeDeadPeople);
 
-        Player jacqueline = new Player("Jacqueline");
-        jacqueline.setRole(Role.WEREWOLF);
+        Player loupiote = new Player("LOUPiote");
+        loupiote.setRole(Role.WEREWOLF);
 
-        Player josiane = new Player("Josiance");
+        Player josiane = new Player("Josiane");
         josiane.setRole(Role.FORTUNE_TELLER);
         josiane.setAlive(!iSeeDeadPeople);
 
@@ -40,7 +40,7 @@ public class Helper {
         players.add(georges);
         players.add(wolfgang);
         players.add(biatch);
-        players.add(jacqueline);
+        players.add(loupiote);
         players.add(josiane);
         players.add(pupute);
 

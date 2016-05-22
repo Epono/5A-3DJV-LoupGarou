@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import fr.esgi.davidghetto.loupgarou.R;
 import fr.esgi.davidghetto.loupgarou.activities.generic.PickActivity;
+import fr.esgi.davidghetto.loupgarou.activities.generic.VoteActivity;
 import fr.esgi.davidghetto.loupgarou.models.Player;
 import fr.esgi.davidghetto.loupgarou.models.Role;
 import fr.esgi.davidghetto.loupgarou.utils.ExtraKeys;
@@ -32,7 +33,7 @@ public class NormalTurnActivity extends AppCompatActivity implements View.OnClic
         FORTUNE_TELLER_WAKES_UP, FORTUNE_TELLER_PICKS,
         WEREWOLVES_WAKE_UP, WEREWOLVES_PICK,
         WITCH_WAKES_UP, WITCH_ACTION,
-        VILLAGE_WAKES_UP, VILLAGE_VOTES, VILLAGE_KILL,
+        VILLAGE_WAKES_UP, VILLAGE_VOTES_TEXT, VILLAGE_VOTES, VILLAGE_KILL,
         VILLAGERS_VICTORY, WEREWOLVES_VICTORY, LOVERS_VICTORY
     }
 
@@ -88,7 +89,8 @@ public class NormalTurnActivity extends AppCompatActivity implements View.OnClic
         // TODO: faire la désignation du prochain maire quand l'actuel meurt
         switch (currentGameState) {
             case INIT:
-                System.out.println("");
+                playerExecuted = null;
+                playerInTrouble = null;
                 Player fortuneTeller = getFortuneTeller();
                 if (fortuneTeller != null && fortuneTeller.isAlive()) {
                     currentGameState = GameState.FORTUNE_TELLER_WAKES_UP;
@@ -120,12 +122,16 @@ public class NormalTurnActivity extends AppCompatActivity implements View.OnClic
                 currentGameState = GameState.VILLAGE_WAKES_UP;
                 break;
             case VILLAGE_WAKES_UP:
+                currentGameState = GameState.VILLAGE_VOTES_TEXT;
+                break;
+            case VILLAGE_VOTES_TEXT:
                 currentGameState = GameState.VILLAGE_VOTES;
                 break;
             case VILLAGE_VOTES:
                 currentGameState = GameState.VILLAGE_KILL;
                 break;
             case VILLAGE_KILL:
+                // TODO: vérifier les conditions de victoire plus souvent (pas besoin de faire le vote si reste que des loups)
                 int numberOfVillagersAlive = 0;
                 int numberOfWerewolvesAlive = 0;
 
@@ -138,9 +144,9 @@ public class NormalTurnActivity extends AppCompatActivity implements View.OnClic
 
                 if (numberOfVillagersAlive + numberOfWerewolvesAlive == 2 && lovers.get(0).isAlive() && lovers.get(1).isAlive()) {
                     currentGameState = GameState.LOVERS_VICTORY;
-                } else if (numberOfVillagersAlive == 0) {
-                    currentGameState = GameState.VILLAGERS_VICTORY;
                 } else if (numberOfWerewolvesAlive == 0) {
+                    currentGameState = GameState.VILLAGERS_VICTORY;
+                } else if (numberOfVillagersAlive == 0) {
                     currentGameState = GameState.WEREWOLVES_VICTORY;
                 } else {
                     currentGameState = GameState.INIT;
@@ -172,7 +178,8 @@ public class NormalTurnActivity extends AppCompatActivity implements View.OnClic
                 break;
             case FORTUNE_TELLER_PICKS:
                 Intent fortuneTellerIntent = new Intent(this, PickActivity.class);
-                fortuneTellerIntent.putParcelableArrayListExtra(ExtraKeys.PLAYERS_LIST_KEY, getPlayersWithoutPlayer(getFortuneTeller()));
+                fortuneTellerIntent.putParcelableArrayListExtra(ExtraKeys.PLAYERS_LIST_KEY, getPlayersAlive());
+                fortuneTellerIntent.putExtra(ExtraKeys.PICK_ACTIVITY_HEADER, getString(R.string.fortune_teller_pick_header));
                 startActivityForResult(fortuneTellerIntent, RequestCodes.REQUEST_CODE_PICK);
                 break;
             case WEREWOLVES_WAKE_UP:
@@ -181,6 +188,7 @@ public class NormalTurnActivity extends AppCompatActivity implements View.OnClic
             case WEREWOLVES_PICK:
                 Intent werewolvesIntent = new Intent(this, PickActivity.class);
                 werewolvesIntent.putParcelableArrayListExtra(ExtraKeys.PLAYERS_LIST_KEY, getPlayersAlive());
+                werewolvesIntent.putExtra(ExtraKeys.PICK_ACTIVITY_HEADER, getString(R.string.werewolves_pick_header));
                 startActivityForResult(werewolvesIntent, RequestCodes.REQUEST_CODE_PICK);
                 break;
             case WITCH_WAKES_UP:
@@ -199,14 +207,16 @@ public class NormalTurnActivity extends AppCompatActivity implements View.OnClic
                 // TODO : REVELER LA CARTE DU JOUEUR MORT
                 // TODO : EN FONCTION DE LA CARTE ON FAIS UNE DERNIERE ACTION OU NON
                 break;
-            case VILLAGE_VOTES:
+            case VILLAGE_VOTES_TEXT:
                 actualTextToDisplay.setText(R.string.normal_turn_text_village_votes);
-                // Intent voteIntent = new Intent(this, VoteActivity.class);
-                // voteIntent.putParcelableArrayListExtra(ExtraKeys.PLAYERS_LIST_KEY, getPlayersAlive());
-                // startActivityForResult(voteIntent, RequestCodes.REQUEST_CODE_VOTE);
+                break;
+            case VILLAGE_VOTES:
+                Intent voteIntent = new Intent(this, VoteActivity.class);
+                voteIntent.putParcelableArrayListExtra(ExtraKeys.PLAYERS_LIST_KEY, getPlayersAlive());
+                startActivityForResult(voteIntent, RequestCodes.REQUEST_CODE_VOTE);
                 break;
             case VILLAGE_KILL:
-                actualTextToDisplay.setText(R.string.normal_turn_text_village_kill);
+                actualTextToDisplay.setText(getResources().getString(R.string.normal_turn_text_village_kill) + " " + playerExecuted.getName());
                 break;
             case VILLAGERS_VICTORY:
                 actualTextToDisplay.setText(R.string.normal_turn_text_villagers_victory);
@@ -242,11 +252,12 @@ public class NormalTurnActivity extends AppCompatActivity implements View.OnClic
                 break;
             case RequestCodes.REQUEST_CODE_VOTE:
                 if (resultCode == RESULT_OK) {
-                    // afficher le selectionné (execute)
                     Player playerVotedFor = data.getExtras().getParcelable(ExtraKeys.VOTE_ACTIVITY_KEY);
-                    playerExecuted = getPlayer(playerVotedFor.getName());
-                    playerExecuted.setAlive(false);
-                    doNext();
+                    if (currentGameState == GameState.VILLAGE_VOTES) {
+                        playerExecuted = getPlayer(playerVotedFor.getName());
+                        playerExecuted.setAlive(false);
+                        doNext();
+                    }
                 } else {
                     System.out.println("ERREUR, pas de vote !!!");
                 }
@@ -313,15 +324,15 @@ public class NormalTurnActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    public ArrayList<Player> getPlayersWithoutPlayer(Player playerToRemove) {
-        ArrayList<Player> newPlayers = new ArrayList<>(players);
-        for (Player player : players) {
-            if (player.getName().equals(playerToRemove.getName())) {
-                newPlayers.remove(playerToRemove);
-            }
-        }
-        return newPlayers;
-    }
+//    public ArrayList<Player> getPlayersWithoutPlayer(Player playerToRemove) {
+//        ArrayList<Player> newPlayers = new ArrayList<>(players);
+//        for (Player player : players) {
+//            if (player.getName().equals(playerToRemove.getName())) {
+//                newPlayers.remove(playerToRemove);
+//            }
+//        }
+//        return newPlayers;
+//    }
 
     public ArrayList<Player> getPlayersAlive() {
         ArrayList<Player> newPlayers = new ArrayList<>();
