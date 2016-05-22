@@ -35,4 +35,14 @@
     <string name="title_card_text_hint">Nom de la carte</string>
     <string name="use_role_card_text_button">Utiliser</string>
     <string name="vote_confirm_button_text">Confirmer</string>
+    <string name="normal_turn_text_night_falls">La nuit tombe sur le village, les villageois s\'endorment ...</string>
+    <string name="normal_turn_text_village_votes">Il est temps de déterminer qui va être envoyé au bûcher</string>
+    <string name="normal_turn_text_fortune_teller_wakes_up">La voyante se réveille et désigne un joueur dont elle va pouvoir voir la carte</string>
+    <string name="normal_turn_text_werewolves_wake_up">Les loup garous se réveillent et désignent une cible à tuer</string>
+    <string name="normal_turn_text_witch_wakes_up">La sorcière se réveille, elle peut sauver le villageois désigné par les loups ou tuer une personne de son choix</string>
+    <string name="normal_turn_text_village_wakes_up">Le village se réveille</string>
+    <string name="normal_turn_text_werewolves_victory">Les loup-Garous l\'emportent !</string>
+    <string name="normal_turn_text_villagers_victory">les villageois l\'emportent !</string>
+    <string name="normal_turn_text_village_kill">Le village a fini de voter pour décider qui envoyer au bûcher</string>
+    <string name="normal_turn_text_lovers_victory">Les amoureux l\'emportent !</string>
 </resources>

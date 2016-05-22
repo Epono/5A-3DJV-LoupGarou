@@ -12,43 +12,35 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import fr.esgi.davidghetto.loupgarou.R;
-import fr.esgi.davidghetto.loupgarou.activities.result.PickActivity;
-import fr.esgi.davidghetto.loupgarou.activities.result.VoteActivity;
+import fr.esgi.davidghetto.loupgarou.activities.generic.PickActivity;
 import fr.esgi.davidghetto.loupgarou.models.Player;
 import fr.esgi.davidghetto.loupgarou.models.Role;
 import fr.esgi.davidghetto.loupgarou.utils.ExtraKeys;
+import fr.esgi.davidghetto.loupgarou.utils.Helper;
 import fr.esgi.davidghetto.loupgarou.utils.RequestCodes;
 
 public class NormalTurnActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button infosButton;
-
-    enum VictoryState {
-        NOT_FINISHED, VILLAGERS_VICTORY, WEREWOLVES_VICTORY, LOVERS_VICTORY
-    }
+    public TextView actualTextToDisplay;
+    public ImageView backgroundImageNight;
+    public ImageView backgroundImageDay;
+    public Button nextButton;
+    public Button infosButton;
 
     enum GameState {
         INIT,
-        SEER_WAKES_UP, SEER_PICKS,
+        FORTUNE_TELLER_WAKES_UP, FORTUNE_TELLER_PICKS,
         WEREWOLVES_WAKE_UP, WEREWOLVES_PICK,
         WITCH_WAKES_UP, WITCH_ACTION,
-        VILLAGE_WAKES_UP, VILLAGE_VOTE, VILLAGE_KILL,
+        VILLAGE_WAKES_UP, VILLAGE_VOTES, VILLAGE_KILL,
         VILLAGERS_VICTORY, WEREWOLVES_VICTORY, LOVERS_VICTORY
     }
 
     GameState currentGameState = GameState.INIT;
 
     public ArrayList<Player> players;
-    public Player player_in_trouble;
-    public Player player_executed;
-    public ArrayList<Role> activeRoles;
-    public String text_to_display;
-    public Button next_dialog;
-    public ImageView background_image_day;
-    public ImageView background_image_night;
-    public TextView actual_text_to_display;
-    public int cpt;
-    public ArrayList<Player> playersAlive;
+    public Player playerInTrouble;
+    public Player playerExecuted;
 
 
     @Override
@@ -56,13 +48,13 @@ public class NormalTurnActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_normal_turn);
 
-        actual_text_to_display = (TextView) findViewById(R.id.actual_text_to_display);
-        background_image_day = (ImageView) findViewById(R.id.background_image_day_turn);
-        background_image_night = (ImageView) findViewById(R.id.background_image_night_turn);
+        actualTextToDisplay = (TextView) findViewById(R.id.actual_text_to_display);
+        backgroundImageNight = (ImageView) findViewById(R.id.background_image_night_turn);
+        backgroundImageDay = (ImageView) findViewById(R.id.background_image_day_turn);
 
-        next_dialog = (Button) findViewById(R.id.button_next_action);
-        if (next_dialog != null) {
-            next_dialog.setOnClickListener(this);
+        nextButton = (Button) findViewById(R.id.button_next_action);
+        if (nextButton != null) {
+            nextButton.setOnClickListener(this);
         }
 
         infosButton = (Button) findViewById(R.id.normal_turn_infos);
@@ -70,12 +62,14 @@ public class NormalTurnActivity extends AppCompatActivity implements View.OnClic
             infosButton.setOnClickListener(this);
         }
 
-        players = getIntent().getExtras().getParcelableArrayList("players");
-        activeRoles = getIntent().getExtras().getParcelableArrayList("roles");
-        playersAlive = new ArrayList<>(players);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && extras.containsKey(ExtraKeys.PLAYERS_LIST_KEY)) {
+            players = getIntent().getExtras().getParcelableArrayList(ExtraKeys.PLAYERS_LIST_KEY);
+        } else {
+            players = Helper.getPlayers(false);
+        }
 
-        actual_text_to_display.setText("La nuit tombe sur le village les villageois s'endorment...");
-
+        actualTextToDisplay.setText(R.string.normal_turn_text_night_falls);
     }
 
     @Override
@@ -84,146 +78,36 @@ public class NormalTurnActivity extends AppCompatActivity implements View.OnClic
             Intent gameInfosIntent = new Intent(this, GameInfoActivity.class);
             gameInfosIntent.putParcelableArrayListExtra(ExtraKeys.PLAYERS_LIST_KEY, players);
             startActivity(gameInfosIntent);
-        } else if (v == next_dialog) {
-            cpt++;
-            if (cpt == 1) {
-                for (Player p : players) {
-                    if (p.getRole() == Role.FORTUNE_TELLER && p.isAlive()) {
-                        text_to_display = "La voyante se réveille et désigne un joueur dont elle va pouvoir voir la carte";
-                        actual_text_to_display.setText(text_to_display);
-                    }
-                }
-            } else if (cpt == 2) {
-                //VOYANTE
-                for (Player p : players) {
-                    if (p.getRole() == Role.FORTUNE_TELLER && p.isAlive()) {
-                        Intent voyanteIntent = new Intent(this, PickActivity.class);
-                        voyanteIntent.putParcelableArrayListExtra(ExtraKeys.PLAYERS_LIST_KEY, players);
-                        startActivityForResult(voyanteIntent, RequestCodes.REQUEST_CODE_PICK);
-                    }
-                }
-            }
-
-            if (cpt == 3) {
-                //LOUP GAROU
-                text_to_display = "Les loup garous se réveillent et désigner une cible a tuer";
-                actual_text_to_display.setText(text_to_display);
-
-                //TODO : ACTION ET STOCKAGE DU PLAYER A KILL
-
-
-                Intent wolfIntent = new Intent(this, PickActivity.class);
-                wolfIntent.putParcelableArrayListExtra("players", playersAlive);
-                startActivityForResult(wolfIntent, RequestCodes.REQUEST_CODE_PICK);
-
-
-            }
-
-            if (cpt == 4) {
-                for (Player p : players) {
-                    if (p.getRole() == Role.WITCH && p.isAlive()) {
-                        text_to_display = "La sorcière se réveille, elle peut sauver le vilageois désigner ou tuer une personne de son choix";
-                        actual_text_to_display.setText(text_to_display);
-
-                        //TODO : TUER QQUN SI VOULU
-
-                        //TODO: SAUVER LE JOUEUR SI VOULU
-                    }
-                }
-            }
-
-            if (cpt == 5) {
-                background_image_night.setVisibility(View.INVISIBLE);
-                background_image_day.setVisibility(View.VISIBLE);
-
-                text_to_display = "Le village se réveille, ";
-                text_to_display += "X est mort !";
-                actual_text_to_display.setText(text_to_display);
-
-                //TODO : REVELER LA CARTE DU JOUEUR MORT
-
-
-                //TODO : EN FONCTION DE LA CARTE ON FAIS UNE DERNIERE ACTION OU NON
-
-            }
-
-            if (cpt == 6) {
-                text_to_display = "Il est temps de déterminer qui va être envoyé au bûcher";
-                actual_text_to_display.setText(text_to_display);
-
-                Intent voteIntent = new Intent(this, VoteActivity.class);
-                voteIntent.putParcelableArrayListExtra("players", playersAlive);
-                startActivityForResult(voteIntent, RequestCodes.REQUEST_CODE_VOTE);
-
-            }
-
-
-            if (computeVictoryState() == VictoryState.VILLAGERS_VICTORY) {
-                text_to_display = "LES VILLAGEOIS WIN";
-                actual_text_to_display.setText(text_to_display);
-                //Intent DayTurnIntent = new Intent(this, NormalDayTurnActivity.class);
-                //startActivity(DayTurnIntent);
-                //finish();
-            } else if (computeVictoryState() == VictoryState.WEREWOLVES_VICTORY) {
-                text_to_display = "LES LOUP GAROU WIN";
-                actual_text_to_display.setText(text_to_display);
-            } else if (computeVictoryState() == VictoryState.LOVERS_VICTORY) {
-                text_to_display = "LES AMOUREUX WIN";
-                actual_text_to_display.setText(text_to_display);
-            }
-        }
-    }
-
-
-    public VictoryState computeVictoryState() {
-        int villagersAlive = 0;
-        int werewolvesAlive = 0;
-
-        for (Player p : players) {
-            villagersAlive += (p.getRole() != Role.WEREWOLF && p.isAlive() ? 1 : 0);
-            werewolvesAlive += (p.getRole() == Role.WEREWOLF && p.isAlive() ? 1 : 0);
-        }
-
-        if (villagersAlive == 0) {
-            return VictoryState.VILLAGERS_VICTORY;
-        } else if (werewolvesAlive == 0) {
-            return VictoryState.WEREWOLVES_VICTORY;
-        } else {
-            return VictoryState.NOT_FINISHED;
+        } else if (v == nextButton) {
+            doNext();
         }
     }
 
     public void computeNextGameState() {
+        // TODO: ajouter les rôles manquants (chasseur, sorcière)
+        // TODO: faire la désignation du prochain maire quand l'actuel meurt
         switch (currentGameState) {
             case INIT:
-                boolean seerIsAlive = false;
-                for (Player player : players) {
-                    if (player.getRole() == Role.FORTUNE_TELLER && player.isAlive()) {
-                        seerIsAlive = true;
-                    }
-                }
-                if (seerIsAlive) {
-                    currentGameState = GameState.SEER_WAKES_UP;
+                System.out.println("");
+                Player fortuneTeller = getFortuneTeller();
+                if (fortuneTeller != null && fortuneTeller.isAlive()) {
+                    currentGameState = GameState.FORTUNE_TELLER_WAKES_UP;
                 } else {
                     currentGameState = GameState.WEREWOLVES_WAKE_UP;
                 }
-            case SEER_WAKES_UP:
-                currentGameState = GameState.SEER_PICKS;
                 break;
-            case SEER_PICKS:
+            case FORTUNE_TELLER_WAKES_UP:
+                currentGameState = GameState.FORTUNE_TELLER_PICKS;
+                break;
+            case FORTUNE_TELLER_PICKS:
                 currentGameState = GameState.WEREWOLVES_WAKE_UP;
                 break;
             case WEREWOLVES_WAKE_UP:
                 currentGameState = GameState.WEREWOLVES_PICK;
                 break;
             case WEREWOLVES_PICK:
-                boolean witchIsAlive = false;
-                for (Player player : players) {
-                    if (player.getRole() == Role.WITCH && player.isAlive()) {
-                        witchIsAlive = true;
-                    }
-                }
-                if (witchIsAlive) {
+                Player witch = getWitch();
+                if (witch != null && witch.isAlive()) {
                     currentGameState = GameState.WITCH_WAKES_UP;
                 } else {
                     currentGameState = GameState.VILLAGE_WAKES_UP;
@@ -236,27 +120,27 @@ public class NormalTurnActivity extends AppCompatActivity implements View.OnClic
                 currentGameState = GameState.VILLAGE_WAKES_UP;
                 break;
             case VILLAGE_WAKES_UP:
-                currentGameState = GameState.VILLAGE_VOTE;
+                currentGameState = GameState.VILLAGE_VOTES;
                 break;
-            case VILLAGE_VOTE:
+            case VILLAGE_VOTES:
                 currentGameState = GameState.VILLAGE_KILL;
                 break;
             case VILLAGE_KILL:
-                int villagersAlive = 0;
-                int werewolvesAlive = 0;
-                ArrayList<Player> playersAlive = new ArrayList<>();
+                int numberOfVillagersAlive = 0;
+                int numberOfWerewolvesAlive = 0;
 
                 for (Player player : players) {
-                    villagersAlive += (player.getRole() != Role.WEREWOLF && player.isAlive() ? 1 : 0);
-                    werewolvesAlive += (player.getRole() == Role.WEREWOLF && player.isAlive() ? 1 : 0);
-                    playersAlive.add(player);
+                    numberOfVillagersAlive += (player.getRole() != Role.WEREWOLF && player.isAlive() ? 1 : 0);
+                    numberOfWerewolvesAlive += (player.getRole() == Role.WEREWOLF && player.isAlive() ? 1 : 0);
                 }
 
-                if (playersAlive.size() == 2 && playersAlive.get(0).isLover() && playersAlive.get(1).isLover()) {
+                ArrayList<Player> lovers = getLovers();
+
+                if (numberOfVillagersAlive + numberOfWerewolvesAlive == 2 && lovers.get(0).isAlive() && lovers.get(1).isAlive()) {
                     currentGameState = GameState.LOVERS_VICTORY;
-                } else if (villagersAlive == 0) {
+                } else if (numberOfVillagersAlive == 0) {
                     currentGameState = GameState.VILLAGERS_VICTORY;
-                } else if (werewolvesAlive == 0) {
+                } else if (numberOfWerewolvesAlive == 0) {
                     currentGameState = GameState.WEREWOLVES_VICTORY;
                 } else {
                     currentGameState = GameState.INIT;
@@ -274,54 +158,189 @@ public class NormalTurnActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    public void doNext() {
+        computeNextGameState();
+
+        switch (currentGameState) {
+            case INIT:
+                actualTextToDisplay.setText(R.string.normal_turn_text_night_falls);
+                backgroundImageDay.setVisibility(View.INVISIBLE);
+                backgroundImageNight.setVisibility(View.VISIBLE);
+                break;
+            case FORTUNE_TELLER_WAKES_UP:
+                actualTextToDisplay.setText(R.string.normal_turn_text_fortune_teller_wakes_up);
+                break;
+            case FORTUNE_TELLER_PICKS:
+                Intent fortuneTellerIntent = new Intent(this, PickActivity.class);
+                fortuneTellerIntent.putParcelableArrayListExtra(ExtraKeys.PLAYERS_LIST_KEY, getPlayersWithoutPlayer(getFortuneTeller()));
+                startActivityForResult(fortuneTellerIntent, RequestCodes.REQUEST_CODE_PICK);
+                break;
+            case WEREWOLVES_WAKE_UP:
+                actualTextToDisplay.setText(R.string.normal_turn_text_werewolves_wake_up);
+                break;
+            case WEREWOLVES_PICK:
+                Intent werewolvesIntent = new Intent(this, PickActivity.class);
+                werewolvesIntent.putParcelableArrayListExtra(ExtraKeys.PLAYERS_LIST_KEY, getPlayersAlive());
+                startActivityForResult(werewolvesIntent, RequestCodes.REQUEST_CODE_PICK);
+                break;
+            case WITCH_WAKES_UP:
+                actualTextToDisplay.setText(R.string.normal_turn_text_witch_wakes_up);
+                break;
+            case WITCH_ACTION:
+                // TODO : TUER QQUN SI VOULU
+                // TODO: SAUVER LE JOUEUR SI VOULU
+                break;
+            case VILLAGE_WAKES_UP:
+                actualTextToDisplay.setText(R.string.normal_turn_text_village_wakes_up);
+                backgroundImageDay.setVisibility(View.VISIBLE);
+                backgroundImageNight.setVisibility(View.INVISIBLE);
+
+                // textToDisplay += "X est mort !";
+                // TODO : REVELER LA CARTE DU JOUEUR MORT
+                // TODO : EN FONCTION DE LA CARTE ON FAIS UNE DERNIERE ACTION OU NON
+                break;
+            case VILLAGE_VOTES:
+                actualTextToDisplay.setText(R.string.normal_turn_text_village_votes);
+                // Intent voteIntent = new Intent(this, VoteActivity.class);
+                // voteIntent.putParcelableArrayListExtra(ExtraKeys.PLAYERS_LIST_KEY, getPlayersAlive());
+                // startActivityForResult(voteIntent, RequestCodes.REQUEST_CODE_VOTE);
+                break;
+            case VILLAGE_KILL:
+                actualTextToDisplay.setText(R.string.normal_turn_text_village_kill);
+                break;
+            case VILLAGERS_VICTORY:
+                actualTextToDisplay.setText(R.string.normal_turn_text_villagers_victory);
+                break;
+            case WEREWOLVES_VICTORY:
+                actualTextToDisplay.setText(R.string.normal_turn_text_werewolves_victory);
+                break;
+            case LOVERS_VICTORY:
+                actualTextToDisplay.setText(R.string.normal_turn_text_lovers_victory);
+                break;
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case RequestCodes.REQUEST_CODE_PICK:
                 if (resultCode == RESULT_OK) {
-                    if (cpt == 2) {
+                    Player playerPicked = data.getExtras().getParcelable(ExtraKeys.PICK_ACTIVITY_KEY);
+                    if (currentGameState == GameState.FORTUNE_TELLER_PICKS) {
                         Intent toDisplayActivityIntent = new Intent(this, DisplayCardActivity.class);
-                        toDisplayActivityIntent.putExtra(DisplayCardActivity.DISPLAY_PLAYER_KEY, data.getParcelableExtra(ExtraKeys.PICK_ACTIVITY_KEY));
+                        toDisplayActivityIntent.putExtra(ExtraKeys.DISPLAY_PLAYER_KEY, playerPicked);
                         startActivity(toDisplayActivityIntent);
-                        text_to_display = "Les loup garous se réveillent et désigner une cible a tuer";
-                        actual_text_to_display.setText(text_to_display);
-                    } else if (cpt == 3) {
-                        // afficher le lover
-                        Player p = data.getExtras().getParcelable("pick");
-                        for (Player temp : players) {
-                            if (p.getName().equals(temp.getName())) {
-                                player_in_trouble = temp;
-                                temp.setAlive(false);
-                                playersAlive.remove(temp);
-                                text_to_display = "La cible a été désigné !";
-                                actual_text_to_display.setText(text_to_display);
-                            }
-                        }
-                    } else {
-                        System.out.println("ERREUR, pas de lover ! AAAAAAAAAAAAAAAA");
+                        doNext();
+                    } else if (currentGameState == GameState.WEREWOLVES_PICK) {
+                        playerInTrouble = getPlayer(playerPicked.getName());
+                        playerInTrouble.setAlive(false);
+                        doNext();
                     }
+                } else {
+                    System.out.println("ERREUR, pas de pick !!!");
                 }
                 break;
             case RequestCodes.REQUEST_CODE_VOTE:
                 if (resultCode == RESULT_OK) {
-                    // afficher le lover
-                    Player p = data.getExtras().getParcelable("pick");
-                    for (Player temp : players) {
-                        if (p.getName().equals(temp.getName())) {
-                            player_executed = temp;
-                            temp.setAlive(false);
-                            playersAlive.remove(temp);
-                        }
-                    }
+                    // afficher le selectionné (execute)
+                    Player playerVotedFor = data.getExtras().getParcelable(ExtraKeys.VOTE_ACTIVITY_KEY);
+                    playerExecuted = getPlayer(playerVotedFor.getName());
+                    playerExecuted.setAlive(false);
+                    doNext();
                 } else {
-                    System.out.println("ERREUR, pas de lover ! AAAAAAAAAAAAAAAA");
+                    System.out.println("ERREUR, pas de vote !!!");
                 }
                 break;
-            default:
-                super.onActivityResult(requestCode, resultCode, data);
-                break;
         }
+    }
+
+    public Player getFortuneTeller() {
+        for (Player player : players) {
+            if (player.getRole() == Role.FORTUNE_TELLER) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    public Player getCaptain() {
+        for (Player player : players) {
+            if (player.isCaptain()) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    public Player getHunter() {
+        for (Player player : players) {
+            if (player.getRole() == Role.HUNTER) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    public Player getWitch() {
+        for (Player player : players) {
+            if (player.getRole() == Role.WITCH) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    public Player getCupid() {
+        for (Player player : players) {
+            if (player.getRole() == Role.CUPID) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Player> getLovers() {
+        ArrayList<Player> lovers = new ArrayList<>();
+        for (Player player : players) {
+            if (player.isLover()) {
+                lovers.add(player);
+            }
+        }
+        if (!lovers.isEmpty()) {
+            return lovers;
+        } else {
+            return null;
+        }
+    }
+
+    public ArrayList<Player> getPlayersWithoutPlayer(Player playerToRemove) {
+        ArrayList<Player> newPlayers = new ArrayList<>(players);
+        for (Player player : players) {
+            if (player.getName().equals(playerToRemove.getName())) {
+                newPlayers.remove(playerToRemove);
+            }
+        }
+        return newPlayers;
+    }
+
+    public ArrayList<Player> getPlayersAlive() {
+        ArrayList<Player> newPlayers = new ArrayList<>();
+        for (Player player : players) {
+            if (player.isAlive()) {
+                newPlayers.add(player);
+            }
+        }
+        return newPlayers;
+    }
+
+    public Player getPlayer(String playerName) {
+        for (Player player : players) {
+            if (player.getName().equals(playerName)) {
+                return player;
+            }
+        }
+        // Devrait pas arriver
+        return null;
     }
 }
 

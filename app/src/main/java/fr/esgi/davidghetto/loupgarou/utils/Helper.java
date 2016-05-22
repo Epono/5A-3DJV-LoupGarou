@@ -7,7 +7,7 @@ import fr.esgi.davidghetto.loupgarou.models.Role;
 
 public class Helper {
 
-    public static ArrayList<Player> getPlayers() {
+    public static ArrayList<Player> getPlayers(boolean iSeeDeadPeople) {
         ArrayList<Player> players = new ArrayList<>();
 
         Player bill = new Player("Bill");
@@ -24,19 +24,17 @@ public class Helper {
 
         Player biatch = new Player("biatch");
         wolfgang.setRole(Role.LITTLE_GIRL);
-        biatch.setAlive(false);
+        biatch.setAlive(!iSeeDeadPeople);
 
         Player jacqueline = new Player("Jacqueline");
         jacqueline.setRole(Role.WEREWOLF);
-        jacqueline.setAlive(true);
 
         Player josiane = new Player("Josiance");
         josiane.setRole(Role.FORTUNE_TELLER);
-        josiane.setAlive(false);
+        josiane.setAlive(!iSeeDeadPeople);
 
         Player pupute = new Player("Pupute");
         pupute.setRole(Role.VILLAGER);
-        pupute.setAlive(true);
 
         players.add(bill);
         players.add(georges);

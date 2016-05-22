@@ -34,4 +34,14 @@
     <string name="title_card_text_hint">Card Title</string>
     <string name="game_info_text">Infos</string>
     <string name="start_the_game_text_button">Start the game</string>
+    <string name="normal_turn_text_night_falls">The night falls</string>
+    <string name="normal_turn_text_fortune_teller_wakes_up">Fortune Teller wakes up</string>
+    <string name="normal_turn_text_werewolves_wake_up">Werewolves wake up and pick a target to kill</string>
+    <string name="normal_turn_text_witch_wakes_up">The Witch wakes up</string>
+    <string name="normal_turn_text_village_wakes_up">The village wakes up</string>
+    <string name="normal_turn_text_village_votes">The village will vote who to kill</string>
+    <string name="normal_turn_text_village_kill">The village has decided who to kill</string>
+    <string name="normal_turn_text_villagers_victory">Villagers Win !</string>
+    <string name="normal_turn_text_werewolves_victory">Werewolves Win !</string>
+    <string name="normal_turn_text_lovers_victory">Lovers Win !</string>
 </resources>

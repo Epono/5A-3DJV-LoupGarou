@@ -23,8 +23,8 @@
         <activity android:name=".activities.RoleAttributionActivity" />
         <activity android:name=".activities.FirstTurnActivity" />
         <activity android:name=".activities.NormalTurnActivity"/>
-        <activity android:name=".activities.result.VoteActivity"/>
-        <activity android:name=".activities.result.PickActivity"/>
+        <activity android:name=".activities.generic.VoteActivity"/>
+        <activity android:name=".activities.generic.PickActivity"/>
         <activity android:name=".activities.DisplayCardActivity"/>
         <activity android:name=".activities.GameInfoActivity"/>
     </application>

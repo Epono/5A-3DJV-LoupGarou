@@ -1,4 +1,4 @@
-package fr.esgi.davidghetto.loupgarou.activities.result;
+package fr.esgi.davidghetto.loupgarou.activities.generic;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ListViewCompat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ import fr.esgi.davidghetto.loupgarou.R;
 import fr.esgi.davidghetto.loupgarou.adapter.PlayersVoteAdapter;
 import fr.esgi.davidghetto.loupgarou.models.Player;
 import fr.esgi.davidghetto.loupgarou.utils.ExtraKeys;
+import fr.esgi.davidghetto.loupgarou.utils.Helper;
 
 public class VoteActivity extends AppCompatActivity {
 
@@ -27,7 +29,23 @@ public class VoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vote);
 
-        players = getIntent().getExtras().getParcelableArrayList(ExtraKeys.PLAYERS_LIST_KEY);
+        String header;
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && extras.containsKey(ExtraKeys.PLAYERS_LIST_KEY)) {
+            players = getIntent().getExtras().getParcelableArrayList(ExtraKeys.PLAYERS_LIST_KEY);
+        } else {
+            players = Helper.getPlayers(false);
+        }
+        if (extras != null && extras.containsKey(ExtraKeys.VOTE_ACTIVITY_HEADER)) {
+            header = getIntent().getExtras().getString(ExtraKeys.VOTE_ACTIVITY_HEADER);
+        } else {
+            header = "Vote time !";
+        }
+        TextView headerTextView = (TextView) findViewById(R.id.vote_header);
+        if (headerTextView != null) {
+            headerTextView.setText(header);
+        }
 
         boolean captain = false;
         for (Player p : players) {

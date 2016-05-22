@@ -30,7 +30,7 @@ public class GameInfoActivity extends AppCompatActivity {
         if (extras != null && extras.containsKey(ExtraKeys.PLAYERS_LIST_KEY)) {
             players = getIntent().getExtras().getParcelableArrayList(ExtraKeys.PLAYERS_LIST_KEY);
         } else {
-            players = Helper.getPlayers();
+            players = Helper.getPlayers(true);
         }
 
         playersGameInfoAdapter = new PlayersGameInfoAdapter(this);

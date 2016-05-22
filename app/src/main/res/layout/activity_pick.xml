@@ -5,18 +5,19 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/vote_vote_time"
+        android:id="@+id/pick_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="PICK TIME !"
-        android:textSize="30dp" />
+        android:layout_marginTop="10dp"
+        android:textSize="30sp" />
 
     <android.support.v7.widget.ListViewCompat
         android:id="@+id/pick_players_list_view"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_below="@id/vote_vote_time"
+        android:layout_height="match_parent"
+        android:layout_below="@id/pick_header"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp" />
 
 </RelativeLayout>

@@ -116,7 +116,7 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
                 findViewById(R.id.cupidon_image_view).setVisibility(View.VISIBLE);
                 findViewById(R.id.cupidon_chosen_image_view).setVisibility(View.GONE);
                 for (int i = 0; i < roles.size(); i++) {
-                    if (roles.get(i) == Role.CUPIDON) {
+                    if (roles.get(i) == Role.CUPID) {
                         roles.remove(i);
                         break;
                     }
@@ -208,7 +208,7 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
     private void addCardToList(int id) {
         switch (id) {
             case R.id.cupidon_image_view:
-                roles.add(Role.CUPIDON);
+                roles.add(Role.CUPID);
                 break;
             case R.id.voyante_image_view:
                 roles.add(Role.FORTUNE_TELLER);

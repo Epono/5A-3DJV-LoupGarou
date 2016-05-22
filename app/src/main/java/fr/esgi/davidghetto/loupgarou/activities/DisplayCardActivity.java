@@ -10,15 +10,10 @@ import android.widget.TextView;
 
 import fr.esgi.davidghetto.loupgarou.R;
 import fr.esgi.davidghetto.loupgarou.models.Player;
+import fr.esgi.davidghetto.loupgarou.utils.ExtraKeys;
 
-/**
- * Created by asusasus on 20/05/2016.
- */
-public class DisplayCardActivity extends AppCompatActivity implements View.OnClickListener{
+public class DisplayCardActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static final String DISPLAY_PLAYER_KEY = "display";
-    private TextView displayCardTextView;
-    private ImageView displayCardImageView;
     private Button displayCardButton;
 
     @Override
@@ -26,23 +21,24 @@ public class DisplayCardActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_card);
 
-        displayCardTextView = (TextView) findViewById(R.id.display_card_text_view);
-        displayCardImageView = (ImageView) findViewById(R.id.display_card_image_view);
+        TextView displayCardTextView = (TextView) findViewById(R.id.display_card_text_view);
+        ImageView displayCardImageView = (ImageView) findViewById(R.id.display_card_image_view);
         displayCardButton = (Button) findViewById(R.id.display_card_button);
 
-        Player pickedPlayer = getIntent().getExtras().getParcelable(DISPLAY_PLAYER_KEY);
-        if(pickedPlayer != null){
+        Player pickedPlayer = getIntent().getExtras().getParcelable(ExtraKeys.DISPLAY_PLAYER_KEY);
+        if (pickedPlayer != null) {
             displayCardTextView.setText(getResources().getString(pickedPlayer.getRole().getNameRes()));
             displayCardImageView.setImageDrawable(getResources().getDrawable(pickedPlayer.getRole().getDrawableRes()));
         }
 
-        if(displayCardButton != null)
+        if (displayCardButton != null) {
             displayCardButton.setOnClickListener(this);
+        }
     }
 
     @Override
     public void onClick(View v) {
-        if(v == displayCardButton){
+        if (v == displayCardButton) {
             finish();
         }
     }

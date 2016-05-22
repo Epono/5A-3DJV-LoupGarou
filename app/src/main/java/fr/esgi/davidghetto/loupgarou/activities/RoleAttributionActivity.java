@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import fr.esgi.davidghetto.loupgarou.R;
-import fr.esgi.davidghetto.loupgarou.activities.result.VoteActivity;
+import fr.esgi.davidghetto.loupgarou.activities.generic.VoteActivity;
 import fr.esgi.davidghetto.loupgarou.models.Player;
 import fr.esgi.davidghetto.loupgarou.models.Role;
 import fr.esgi.davidghetto.loupgarou.utils.RequestCodes;
@@ -59,7 +59,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
 
 //        boolean lovers = true;
 //        roles = new ArrayList<Role>();
-//        roles.add(Role.CUPIDON);
+//        roles.add(Role.CUPID);
 //        roles.add(Role.FORTUNE_TELLER);
 //        roles.add(Role.WITCH);
 
@@ -94,7 +94,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
 
         // Pour chaque role spécial restant, affecter à un villageois aléatoirement
         for (Role role : roles) {
-            if (role == Role.CUPIDON || role == Role.HUNTER || role == Role.LITTLE_GIRL || role == Role.FORTUNE_TELLER || role == Role.WITCH) {
+            if (role == Role.CUPID || role == Role.HUNTER || role == Role.LITTLE_GIRL || role == Role.FORTUNE_TELLER || role == Role.WITCH) {
                 Player p = players.get(r.nextInt(players.size()));
                 while (p.getRole() != Role.VILLAGER) {
                     p = players.get(r.nextInt(players.size()));
@@ -116,7 +116,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
                         Intent captainIntent = new Intent(RoleAttributionActivity.this, VoteActivity.class);
                         captainIntent.putParcelableArrayListExtra("players", players);
                         startActivityForResult(captainIntent, RequestCodes.REQUEST_CODE_VOTE);
-//                    } else if (!RoleAttributionActivity.this.iterator.hasNext() && (currentState == State.CAPTAIN_DISPLAYED || currentState == State.CUPIDON)) {
+//                    } else if (!RoleAttributionActivity.this.iterator.hasNext() && (currentState == State.CAPTAIN_DISPLAYED || currentState == State.CUPID)) {
 //                        Intent lover1Intent = new Intent(RoleAttributionActivity.this, PickActivity.class);
 //                        lover1Intent.putParcelableArrayListExtra("players", players);
 //                        startActivityForResult(lover1Intent, PickActivity.REQUEST_CODE_PICK);

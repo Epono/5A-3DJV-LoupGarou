@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import fr.esgi.davidghetto.loupgarou.R;
-import fr.esgi.davidghetto.loupgarou.activities.result.PickActivity;
+import fr.esgi.davidghetto.loupgarou.activities.generic.PickActivity;
 import fr.esgi.davidghetto.loupgarou.models.Player;
 import fr.esgi.davidghetto.loupgarou.models.Role;
 import fr.esgi.davidghetto.loupgarou.utils.ExtraKeys;
