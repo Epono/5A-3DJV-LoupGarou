@@ -230,6 +230,28 @@ public class NormalTurnActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    public void playerDied(Player playerWhoDied) {
+        if (playerWhoDied.isLover()) {
+            // TODO: Eviter récursivité
+            ArrayList<Player> lovers = getLovers();
+            Player otherLover;
+            if (playerWhoDied.getName().equals(lovers.get(0))) {
+                otherLover = lovers.get(1);
+            } else {
+                otherLover = lovers.get(0);
+            }
+            otherLover.setAlive(false);
+            // TODO: afficher un message
+            playerDied(otherLover);
+        }
+        if (playerWhoDied.getRole() == Role.HUNTER) {
+            // TODO: Pick de qui tuer
+        }
+        if (playerWhoDied.isCaptain()) {
+            // TODO: pick du prochain
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
