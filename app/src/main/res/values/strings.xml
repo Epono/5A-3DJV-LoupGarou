@@ -46,4 +46,5 @@
     <string name="normal_turn_text_lovers_victory">Lovers Win !</string>
     <string name="fortune_teller_pick_header">Choose a player to see his role</string>
     <string name="werewolves_pick_header">Choose a target to kill</string>
+    <string name="time_unit">%1$.2f s</string>
 </resources>

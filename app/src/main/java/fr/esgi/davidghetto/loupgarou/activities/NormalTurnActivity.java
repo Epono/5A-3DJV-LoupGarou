@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -170,6 +171,8 @@ public class NormalTurnActivity extends AppCompatActivity implements View.OnClic
         switch (currentGameState) {
             case INIT:
                 actualTextToDisplay.setText(R.string.normal_turn_text_night_falls);
+                // Comme je le disais dans le xml. Ici mieux vaudrait récupérer le relativeLayout
+                // et faire un relativeLayout..setBackgroundResource(R.drawable.VotreImage);
                 backgroundImageDay.setVisibility(View.INVISIBLE);
                 backgroundImageNight.setVisibility(View.VISIBLE);
                 break;
@@ -216,7 +219,7 @@ public class NormalTurnActivity extends AppCompatActivity implements View.OnClic
                 startActivityForResult(voteIntent, RequestCodes.REQUEST_CODE_VOTE);
                 break;
             case VILLAGE_KILL:
-                actualTextToDisplay.setText(getResources().getString(R.string.normal_turn_text_village_kill) + " " + playerExecuted.getName());
+                actualTextToDisplay.setText(getResources().getString(R.string.normal_turn_text_village_kill) + " " + playerExecuted.getName()); // Voir RoleAttributionActivity pour une string avec paramètres
                 break;
             case VILLAGERS_VICTORY:
                 actualTextToDisplay.setText(R.string.normal_turn_text_villagers_victory);
@@ -287,6 +290,8 @@ public class NormalTurnActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    // Wow, oui ok. Une map est meilleure en performances ^^
+    // Map<Role, Player> playerByRole;
     public Player getFortuneTeller() {
         for (Player player : players) {
             if (player.getRole() == Role.FORTUNE_TELLER) {

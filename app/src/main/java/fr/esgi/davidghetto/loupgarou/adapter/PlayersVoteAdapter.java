@@ -18,6 +18,18 @@ public class PlayersVoteAdapter extends ArrayAdapter<Player> {
 
     private static final int layoutResource = R.layout.item_player_vote;
 
+    /* Joli hack mais vous perdez tout l'intérêt du recyclage vu que vous garder une référence vers
+    les éléments vous auriez pu juste mettre un compteur et des booleens.
+    De plus si vous avez suffisemment d'éléments pour que la liste scroll. Button sera attribué à plusieurs
+     Players, ce qui risque de faire n'imp.
+
+    Par exemple :
+    private boolean canAddPlayer = true;
+
+    puis dans le getView(){ ... plusButton.setEnable(canAddPlayer); }
+    Et au moment on un changement se produit, appeler notifySetDataChanged(); Ce qui force l'actualisation
+    de vos éléments. */
+
     private HashMap<Player, Button> plusButtons;
     private HashMap<Player, Button> minusButtons;
     private HashMap<Player, TextView> textViews;

@@ -42,7 +42,7 @@
         android:layout_margin="10dp"
         android:gravity="center"
         android:textSize="50dp"
-        android:visibility="invisible" />
+        android:visibility="visible" />
 
     <Button
         android:id="@+id/role_attribution_next"

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -79,7 +80,7 @@ public class RoleAttributionActivity extends AppCompatActivity {
         // Choisir un nombre de loups en fonction du nombre de joueurs (environ 1/3)
 //        int numberOfWerewolves = players.size() / 3;
         int numberOfWerewolves = 2;
-        if (players.size() >= 6) {
+        if (players.size() >= 6) { // 3 loup garous à 6 joueurs c'est beaucoup
             numberOfWerewolves = 3;
         }
         if (players.size() >= 9) {
@@ -93,6 +94,9 @@ public class RoleAttributionActivity extends AppCompatActivity {
         }
 
         // Pour chaque role spécial restant, affecter à un villageois aléatoirement
+        // Oui mais tricky. Et si vous jouez à 7 avec tous les roles ça passe en boucle infi
+        // 3 loups + 5 roles = 8.
+        // Au moment de mettre le dernier role il ne trouve jamais de disponibilité
         for (Role role : roles) {
             if (role == Role.CUPID || role == Role.HUNTER || role == Role.LITTLE_GIRL || role == Role.FORTUNE_TELLER || role == Role.WITCH) {
                 Player p = players.get(r.nextInt(players.size()));
@@ -101,6 +105,23 @@ public class RoleAttributionActivity extends AppCompatActivity {
                 }
                 p.setRole(role);
             }
+        }
+        // J'aurais fait qqch du genre.
+        int nbPlayersRestants = players.size() - roles.size() - numberOfWerewolves;
+        ArrayList<Role> roleList = new ArrayList<>();
+        for (int i = 0; i < numberOfWerewolves; i++){
+            roleList.add(Role.WEREWOLF);
+        }
+        for (Role role : roles){
+            roleList.add(role);
+        }
+        for (int i = 0; i < nbPlayersRestants; i++){
+            roleList.add(Role.VILLAGER);
+        }
+        Collections.shuffle(roleList); // mélange.
+        for (int i = 0, playersSize = players.size(); i < playersSize; i++) {
+            Player p = players.get(i);
+            p.setRole(roleList.get(i)); // Et set des roles.
         }
 
         df.setMaximumFractionDigits(1);
@@ -113,7 +134,8 @@ public class RoleAttributionActivity extends AppCompatActivity {
                     if (RoleAttributionActivity.this.iterator.hasNext() || currentState == State.NAME_DISPLAYED) {
                         displayNext();
                     } else if (!RoleAttributionActivity.this.iterator.hasNext() && currentState == State.CARD_DISPLAYED) {
-                        Intent captainIntent = new Intent(RoleAttributionActivity.this, VoteActivity.class);
+                        Intent captainIntent = new Intent(RoleAttributionActivity.this, VoteActivity.class); // Très bonne réutilisation de l'activité. Cela dit il manque un petit titre.
+                        // Pour rapeller au MJ que le vote est pour le capitaine.
                         captainIntent.putParcelableArrayListExtra("players", players);
                         startActivityForResult(captainIntent, RequestCodes.REQUEST_CODE_VOTE);
 //                    } else if (!RoleAttributionActivity.this.iterator.hasNext() && (currentState == State.CAPTAIN_DISPLAYED || currentState == State.CUPID)) {
@@ -142,10 +164,12 @@ public class RoleAttributionActivity extends AppCompatActivity {
                 playersRoleImage.setVisibility(View.INVISIBLE);
                 nextButton.setEnabled(false);
 
-                new CountDownTimer(0 * 2 * 1000, 100) {
+                new CountDownTimer(0 * 2 * 1000, 100) { // Plutôt stylé votre timer. dommage qu'il soit à 0 donc immédiat ^^
                     @Override
                     public void onTick(long millisUntilFinished) {
                         timerText.setText(df.format((float) millisUntilFinished / 1000) + " s");
+                        // Vous pouvez avoir la concaténation via les strings :
+                        timerText.setText(getString(R.string.time_unit, millisUntilFinished / 1000)); // arrondi à 2 chiffres comme spécifié dans les strings.xml
                     }
 
                     @Override
@@ -186,11 +210,11 @@ public class RoleAttributionActivity extends AppCompatActivity {
                         }
                     }
                     playersNameText.setText(p.getName());
-                    playersRoleNameText.setText("Captain !");
+                    playersRoleNameText.setText("Captain !"); // strings.xml
                     playersRoleImage.setImageDrawable(getResources().getDrawable(R.drawable.captain));
                     currentState = State.CAPTAIN_DISPLAYED;
                 } else {
-                    System.out.println("ERREUR, pas de capitaine ! AAAAAAAAAAAAAAAA");
+                    System.out.println("ERREUR, pas de capitaine ! AAAAAAAAAAAAAAAA"); // Tous aux abris !!! :)
                 }
                 break;
             default:

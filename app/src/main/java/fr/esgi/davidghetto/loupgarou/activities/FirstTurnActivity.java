@@ -32,7 +32,7 @@ public class FirstTurnActivity extends AppCompatActivity implements View.OnClick
         players = getIntent().getExtras().getParcelableArrayList("players");
         activeRoles = getIntent().getExtras().getParcelableArrayList("roles");
         first_turn_text = (TextView) findViewById(R.id.first_turn_text);
-        first_turn_text.setText("Cupidon se réveille et désigne deux amoureux");
+        first_turn_text.setText("Cupidon se réveille et désigne deux amoureux"); // Choose your captain, Cupidon se réveille ..., franglais powaa
 
         NextTurn = (Button) findViewById(R.id.next_to_first_turn);
         if (NextTurn != null)
@@ -46,7 +46,8 @@ public class FirstTurnActivity extends AppCompatActivity implements View.OnClick
             Intent lover1Intent = new Intent(this, PickActivity.class);
             lover1Intent.putParcelableArrayListExtra(ExtraKeys.PLAYERS_LIST_KEY, players);
             startActivityForResult(lover1Intent, RequestCodes.REQUEST_CODE_PICK);
-        } else if (v == NextTurn && cpt == 2) {
+        } else if (v == NextTurn && cpt == 2) { // Fonctionnel mais vous auriez pu faire une liste avec deux sélections.
+            // En rajoutant : android:choiceMode="multipleChoice" à votre listView dans le xml. + Le comportement adéquat
             Intent lover1Intent = new Intent(this, PickActivity.class);
             lover1Intent.putParcelableArrayListExtra(ExtraKeys.PLAYERS_LIST_KEY, players);
             ArrayList<Player> playersTemp = new ArrayList<Player>();

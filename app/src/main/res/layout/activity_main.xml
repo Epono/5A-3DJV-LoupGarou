@@ -6,6 +6,9 @@
     android:orientation="vertical"
     android:background="@android:color/holo_red_dark">
 
+    <!-- Ce qui vous intéresse c'est une image qui prend tout le fond.
+    Du coup c'est plutôt match_parent, match_parent. Regardez ce que ça donne sur tablette. (Nexus 10 par exemple)
+    Vous avez presque tout en rouge vif -->
     <ImageView
         android:background="@drawable/day"
         android:layout_centerHorizontal="true"
@@ -22,6 +25,10 @@
         android:layout_height="wrap_content"
         android:text="@string/app_title" />
 
+    <!-- Attention quand vous mettez wrap_content sur une image, vous utiliser donc la taille de l'image.
+    Cependant vu que vous ne lui avez pas fourni les différentes tailles pour les différentes résolution,
+    il va faire au mieux pour adapter. (Mauvaise idée) vous pouvez donc avoir une image pixélisée sur
+    les téléphones à haute résolution. Et qui déborde de l'écran sur les téléphones pourris. -->
     <ImageView
         android:background="@drawable/loup_garou"
         android:layout_centerHorizontal="true"
