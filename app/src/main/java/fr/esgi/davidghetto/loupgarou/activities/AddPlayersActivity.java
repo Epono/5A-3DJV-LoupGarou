@@ -1,6 +1,7 @@
 package fr.esgi.davidghetto.loupgarou.activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -65,6 +66,7 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
 
         playersAdapter = new PlayersAdapter(this);
         playerListView.setAdapter(playersAdapter);
+        // Hihi, pas très utile
         playerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -86,7 +88,10 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
                 startGameButton.setEnabled(true);
         } else if (v == chooseRoleButton) {
             Intent toRolePickActivityIntent = new Intent(this, RoleSelectionActivity.class);
+            // Très bonne utilisation de startActivityForResult
             startActivityForResult(toRolePickActivityIntent, RequestCodes.REQUEST_CODE_ROLE);
+            // Cependant vous auriez pu passer les roles déjà choisis en paramètres. Si je reclique je n'ai plus l'historique
+            // des rôles que j'avais choisis.
         } else if (v == startGameButton) {
             if (rolesChosen) {
                 Intent toRoleAttributionActivity = new Intent(this, RoleAttributionActivity.class);
@@ -98,7 +103,8 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
                 startActivity(toRoleAttributionActivity);
                 finish();
             } else
-                Toast.makeText(this, "Choose Roles before starting the game", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Choose Roles before starting the game", Toast.LENGTH_LONG).show(); // Attention aux ressources dans le fichier xml. Surtout
+            // que vous avez fait une super localisation.
         }
     }
 
@@ -116,7 +122,7 @@ public class AddPlayersActivity extends AppCompatActivity implements View.OnClic
                     if (roles != null)
                         rolesChosen = roles.size() > 0;
                 } else {
-                    Toast.makeText(this, "Walah t'as fait quoi là ?", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Walah t'as fait quoi là ?", Toast.LENGTH_LONG).show(); // Haha bonne gestion des erreurs
                 }
                 break;
         }

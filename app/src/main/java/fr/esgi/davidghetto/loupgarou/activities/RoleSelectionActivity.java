@@ -27,6 +27,10 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
 
     private ArrayList<Role> roles;
 
+    // Fonctionnel mais pas très opti en perf.
+    // J'aurais ajouté les vues dynamiquement.
+    // Ce qui permet même de faire passer la vue de en haut à en bas quand vous la sélectionnée
+    // (Sans la recréer)
     private ImageView cupidonImageView;
     private ImageView cupidonChosenImageView;
     private ImageView voyanteImageView;
@@ -38,6 +42,7 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
     private ImageView witchImageView;
     private ImageView witchChosenImageView;
 
+    // Attention, lorsque vous venez de selectionner un role ou lorsque vous les avez tous séléctionnés, sont affichés les textes par défaut.
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +118,8 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
                 descriptionCardTextView.setText(R.string.role_cupid_card_description);
                 break;
             case R.id.cupidon_chosen_image_view:
+                // Oui ça marche mais vous faites le travail en double.
+                // cupidonImageView.setVisibility(View.VISIBLE); vu que vous l'avez déjà récupéré.
                 findViewById(R.id.cupidon_image_view).setVisibility(View.VISIBLE);
                 findViewById(R.id.cupidon_chosen_image_view).setVisibility(View.GONE);
                 for (int i = 0; i < roles.size(); i++) {
@@ -214,7 +221,7 @@ public class RoleSelectionActivity extends AppCompatActivity implements View.OnC
                 roles.add(Role.FORTUNE_TELLER);
                 break;
             case R.id.hunter_image_view:
-                roles.add(Role.FORTUNE_TELLER);
+                roles.add(Role.FORTUNE_TELLER);// Ah je me retrouve qu'avec des voyante. Je comprends pourquoi. Erreur ou pas implémenté ?
                 break;
             case R.id.little_girl_image_view:
                 roles.add(Role.FORTUNE_TELLER);

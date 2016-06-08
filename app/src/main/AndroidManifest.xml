@@ -6,7 +6,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
+
         android:theme="@style/AppTheme">
         <activity android:name=".activities.MainActivity">
             <intent-filter>
@@ -16,9 +16,13 @@
             </intent-filter>
         </activity>
 
+        <!-- J'ai compris pourquoi votre activité ne se réduisait pas comme elle devrait même avec cette option.
+            C'est a cause de votre paramètre android:windowFullscreen=true dans le style. windowFullscreen prend le
+            dessus sur cette option. Par conséquent l'activité doit prendre toute la place malgré le adjustResize.
+            Deux choix s'offrent à vous. Ne pas avoir l'application en fullscreen. Ou faire le calcul/redraw à la main. -->
         <activity
             android:name=".activities.AddPlayersActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".activities.RoleSelectionActivity" />
         <activity android:name=".activities.RoleAttributionActivity" />
         <activity android:name=".activities.FirstTurnActivity" />

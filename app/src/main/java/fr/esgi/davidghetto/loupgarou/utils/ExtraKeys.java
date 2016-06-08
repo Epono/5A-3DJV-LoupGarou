@@ -1,5 +1,6 @@
 package fr.esgi.davidghetto.loupgarou.utils;
 
+// Ca c'est propre ! Vous êtes les premiers à me le faire! :D
 public class ExtraKeys {
     public static final String ROLES_LIST_KEY = "roles";
     public static final String PLAYERS_LIST_KEY = "players";

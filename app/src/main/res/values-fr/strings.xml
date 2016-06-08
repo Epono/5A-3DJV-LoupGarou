@@ -47,4 +47,5 @@
     <string name="normal_turn_text_lovers_victory">Les amoureux l\'emportent !</string>
     <string name="fortune_teller_pick_header">Choisissez un joueur pour découvrir son rôle</string>
     <string name="werewolves_pick_header">Choisissez la cible à éliminer</string>
+    <string name="time_unit">%1$.2f s</string>
 </resources>

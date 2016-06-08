@@ -4,6 +4,8 @@
     android:layout_height="match_parent">
 
     <!-- BUTTON START GAME -->
+    <!-- Attention en français la première ligne ne tient pas sur tous les téléphones.
+    Soit vous réduisez la taille du texte, soit vous passez sur 2 lignes -->
     <Button
         android:id="@+id/button_choose_role"
         android:layout_width="wrap_content"
@@ -11,6 +13,8 @@
         android:text="@string/choose_role_button_text" />
 
     <!-- BUTTON START GAME -->
+    <!-- Depuis Android 5.0 right et left sont deprecated. Il faut donc ajouter les balises start et end.
+    Ici il vous manque layout_toEndOf=" ..." -->
     <Button
         android:id="@+id/button_start_game"
         android:layout_width="wrap_content"
@@ -19,6 +23,7 @@
         android:text="@string/start_game_button_text"
         android:enabled="false"/>
 
+    <!-- + layout_marginStart="10dp" -->
     <CheckBox
         android:id="@+id/edit_player_list_button"
         android:text="@string/edit_text_button"
@@ -39,6 +44,8 @@
         android:hint="@string/player_name_hint" />
 
     <!--LIST PLAYER-->
+    <!-- Vu que vous lui dites en dessous de et au dessus de, préférez une hauteur à 0dp. Ca lui évite
+    de faire deux fois les calculs -->
     <android.support.v7.widget.ListViewCompat
         android:id="@+id/player_list_view"
         android:layout_width="match_parent"

@@ -12,6 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
+            <!-- Une imageView clickable, c'est une ImageButton -->
             <ImageView
                 android:id="@+id/cupidon_image_view"
                 android:background="@drawable/cupidon"
@@ -19,6 +20,8 @@
                 android:layout_height="100dp"
                 android:clickable="true"/>
 
+            <!-- Vous êtes dans un LinearLayout, ils seront de base les uns après les autres.
+            Et si vous spécifiez l'orientation verticale, ils seront les uns en dessous des autres -->
             <ImageView
                 android:id="@+id/voyante_image_view"
                 android:background="@drawable/voyante"
@@ -53,6 +56,9 @@
 
         </LinearLayout>
     </HorizontalScrollView>
+
+    <!-- Pour les textSize il vaut mieux utiliser les sp à la place des dp.
+    C'est la même chose ce que ça prend en compte les préférences utilisateurs -->
     <TextView
         android:id="@+id/title_card_text"
         android:textSize="20dp"

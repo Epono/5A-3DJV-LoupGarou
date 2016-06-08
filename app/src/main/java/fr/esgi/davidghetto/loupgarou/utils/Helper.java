@@ -7,6 +7,12 @@ import fr.esgi.davidghetto.loupgarou.models.Role;
 
 public class Helper {
 
+    /* AHHHHH trop pratique, j'aurais voulu m'en rendre compte plus tôt.
+     Bon reflexe cela dit. Je n'ai pas eu l'occasion de vous parler des flavors.
+     Mais c'est un système qui vous permet de faire plusieurs version de l'appli. Genre en prod
+     en dev, etc ... ne pouvoir spécifié que les différences. Dans votre cas, cette méthode aurait
+     pu être comme ça en dev et vide en prod. Ce qui évite de laisser des outils de test en prod.
+     Mais vu que je n'ai pas eu le temps. Très bien ! */
     public static ArrayList<Player> getPlayers(boolean iSeeDeadPeople) {
         ArrayList<Player> players = new ArrayList<>();
 

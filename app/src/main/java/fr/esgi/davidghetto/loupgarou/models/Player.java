@@ -3,6 +3,8 @@ package fr.esgi.davidghetto.loupgarou.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+// Excellent ! Je vous avoue me contenter d'objet Serializable.
+// Mais Parcelable est meilleur en perf. Donc respect !
 public class Player implements Parcelable {
     private String name;
     private Role role;
@@ -93,6 +95,7 @@ public class Player implements Parcelable {
     }
 
     @Override
+    // Du coup, oui parfait
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeValue(role);

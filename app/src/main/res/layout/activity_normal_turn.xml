@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/night"
     android:orientation="vertical">
 
+    <!-- Comme pour la mainActivity, ici l'image devrait être en match_parent.
+      Mieux encore, la mettre en background de votre layout principal. Comme j'ai fait au dessus.
+      Et changer le background via le code pour le jour. Pourquoi ? Parce que vous ne recalculez pas
+      la taille de l'image à chaque fois. Et parce que du coup elle prendrait toute la place.
+      Une raison valable pour garder la configuration ci-dessous serait si vous spécifiez un autre scaleType que celui par défaut-->
     <ImageView
         android:id="@+id/background_image_night_turn"
         android:layout_width="wrap_content"
@@ -19,6 +24,10 @@
         android:background="@drawable/day"
         android:visibility="invisible" />
 
+    <!-- Pour center un text dans un TextView ou composant qui en hérite, il faut utiliser gravity="center".
+    textAlignment marche aussi maintenant mais il n'est disponible qu'à partir de l'api 17. Or vous supporter
+    depuis la version 15. Sur le devices en 4.0.1, ce texte sera à gauche -->
+    <!-- Les tailles de textes en sp, c'est mieux. Cf un autre commentaire -->
     <TextView
         android:id="@+id/actual_text_to_display"
         android:layout_width="wrap_content"
@@ -35,8 +44,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="400dp"
-        android:text="Next" />
+        android:text="Next" /> <!-- extract to strings.xml -->
 
+    <!-- Très bien pour la spécification de right et end -->
     <Button
         android:id="@+id/normal_turn_infos"
         android:layout_width="wrap_content"

@@ -13,6 +13,8 @@
         android:gravity="center"
         android:textSize="30sp" />
 
+    <!-- Comme dit dans le fichier PickActivity, vous pourriez rajouter la balise choiceMode="multiple"
+    Ou la set à la main dans le code lorsque vous avez plusieurs choix -->
     <android.support.v7.widget.ListViewCompat
         android:id="@+id/pick_players_list_view"
         android:layout_width="match_parent"
